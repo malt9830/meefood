@@ -1,3 +1,3 @@
 <template>
-  <img class="h-10" src="@/src/assets/meefood-logo.svg">
+  <img class="h-8" src="@/src/assets/logos/meefood-logo.svg">
 </template>
