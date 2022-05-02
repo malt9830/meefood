@@ -1,6 +1,6 @@
 <template>
-  <Header/>
-  <RouterView />
+  <main class="">
+  </main>
 </template>
 
 <script setup>

@@ -1,6 +1,5 @@
 <template>
-  <Header/>
-  <RouterView />
+  
 </template>
 
 <script setup>
