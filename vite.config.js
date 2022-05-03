@@ -12,7 +12,13 @@ export default defineConfig({
     vue(),
     Components({}),
     AutoImport({
-      imports: ["vue", "vue-router"],
+      imports: [
+        "vue",
+        "vue-router",
+        {
+          axios: [["default", "axios"]],
+        },
+      ],
     }),
   ],
   resolve: {
