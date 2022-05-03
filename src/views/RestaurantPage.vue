@@ -10,7 +10,7 @@ const route = useRoute()
 const restaurant = ref()
 
 onMounted(() => {
-  axios.get(`https://meefood-1d4e.restdb.io/rest/restaurants/${route.params.id}`, {
+  axios.get(`https://meefood-1d4e.restdb.io/rest/restaurants?q={"slug":"${route.params.id}"}`, {
     headers: {
       "Content-Type": "application/json",
       "x-apikey": "62714176fcf9897eb111a104",
@@ -18,7 +18,7 @@ onMounted(() => {
     }
   })
   .then(res => {
-    restaurant.value = res.data
+    restaurant.value = res.data[0]
   })
 })
 </script>
