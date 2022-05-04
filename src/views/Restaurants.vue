@@ -1,5 +1,5 @@
 <template>
-  <main class="max-w-5xl mx-auto mt-8 px-4">
+  <main class="max-w-5xl mx-auto p-16 px-4">
     <h2>Restaurants</h2>
     <div class="grid grid-cols-3">
       <article v-for="rest in restaurants" :key="rest._id">

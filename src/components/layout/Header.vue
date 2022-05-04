@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-emerald-500 text-white w-full py-4 px-8">
+  <header :class="{'bg-emerald-500' : routeName === 'restaurants'}" class="fixed z-20 text-white w-full py-4 px-8">
       <nav class="max-w-7xl mx-auto flex flex-row justify-between">
         <RouterLink to="/"><Logo/></RouterLink>
         <div class="flex flex-row gap-2 items-center">
@@ -10,4 +10,9 @@
 </template>
 
 <script setup>
+const route = useRoute()
+
+const routeName = computed(() => {
+  return route.name
+})
 </script>
