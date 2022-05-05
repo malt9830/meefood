@@ -9,19 +9,19 @@
           <div class="px-4 py-2">
             <h1>{{ rest.name }} - {{ rest.slogan }}</h1>
             <hr class="my-1">
-            <p class="flex gap-4 text-md">
+            <p class="flex gap-4 text-sm">
               <span>{{ rest.tags }}</span>
-              <span class="flex gap-1">
-                <img src="@/src/assets/icons/smile1.svg">
+              <span class="flex gap-1 items-center">
+                <img class="h-4" src="@/src/assets/icons/smile1.svg">
                 <span>{{ rest.rating }}</span>
               </span>
-              <span class="flex gap-1">
-                <img src="@/src/assets/icons/bike.svg">
-                <span>{{ rest.deliveryCost }} DKK</span>
+              <span class="flex gap-1 items-center">
+                <img class="h-4" src="@/src/assets/icons/bike.svg">
+                <span>{{ rest.deliveryCost }} kr.</span>
               </span>
-              <span class="flex gap-1">
-                <img src="@/src/assets/icons/bag.svg">
-                <span>Min. {{ rest.minimumPrice }}</span>
+              <span class="flex gap-1 items-center">
+                <img class="h-4" src="@/src/assets/icons/bag.svg">
+                <span>Min. {{ rest.minimumPrice }} kr.</span>
               </span>
             </p>
           </div>
@@ -43,6 +43,7 @@ onMounted(() => {
   })
   .then(res => {
     restaurants.value = res.data
+    console.log(restaurants.value)
   })
 })
 </script>
