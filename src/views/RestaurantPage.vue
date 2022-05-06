@@ -35,6 +35,8 @@ base('restaurants').select({
 }).eachPage(res => {
   restaurant.value = res[0].fields
 
+  console.log(res)
+
   loaded.value = true
 })
 </script>
