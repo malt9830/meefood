@@ -25,34 +25,34 @@
           <div class="flex justify-between gap-x-10 items-center">
             <p>{{ restaurant.tags }}</p>
             <div class="flex gap-x-2">
-              <img src="../assets/icons/smile1.svg" />
+              <img src="../assets/icons/smile1.svg" class="h-6"/>
               <p>{{ restaurant.rating }}</p>
             </div>
             <div class="flex gap-x-2">
-              <img src="../assets/icons/bike.svg" />
+              <img src="../assets/icons/bike.svg" class="h-6"/>
               <p>{{ restaurant.deliveryCost }}kr</p>
             </div>
             <div class="flex gap-x-2">
-              <img src="../assets/icons/time.svg" />
+              <img src="../assets/icons/time.svg" class="h-6"/>
               <p>{{ restaurant.deliveryTime }}min</p>
             </div>
             <div class="flex gap-x-2">
-              <img src="../assets/icons/bag.svg" />
+              <img src="../assets/icons/bag.svg" class="h-6"/>
               <p>Min. {{ restaurant.minimumPrice }}kr</p>
             </div>
             <div class="flex">
-              <img src="../assets/icons/dollar-green.svg" />
+              <img src="../assets/icons/dollar-green.svg" class="h-6"/>
               <img
                 v-if="restaurant.priceRange > 1"
-                src="../assets/icons/dollar-green.svg"
+                src="../assets/icons/dollar-green.svg" class="h-6"
               />
               <img
                 v-if="restaurant.priceRange > 2"
-                src="../assets/icons/dollar-green.svg"
+                src="../assets/icons/dollar-green.svg" class="h-6"
               />
               <img
                 v-if="restaurant.priceRange > 3"
-                src="../assets/icons/dollar-green.svg"
+                src="../assets/icons/dollar-green.svg" class="h-6"
               />
             </div>
             <p>www.restaurant.dk</p>
