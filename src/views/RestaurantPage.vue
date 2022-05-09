@@ -73,24 +73,26 @@
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-6 h-screen mt-10">
+      <div class="grid grid-cols-6 mt-10">
         <div
-          class="flex flex-col pt-5 gap-y-5 sticky top-0 h-full"
+          class="flex flex-col pt-5 gap-y-5"
           :style="`border-top: solid 1px ${restaurant.colorSecondary}; border-right: solid 1px ${restaurant.colorSecondary}`"
         >
-          <div class="flex justify-center items-center">
-            <input
-              class="rounded w-3/4 h-8 focus:outline-none p-1"
-              :style="`border: solid 1px ${restaurant.colorSecondary}`"
-            />
-            <Search :fill="`${restaurant.colorSecondary}`" height="40" />
-          </div>
-          <div class="flex flex-col gap-y-4 p-5">
-            <a href="#pizza">Pizza</a>
-            <a href="#pasta">Pasta</a>
-            <p>Sandwiches</p>
-            <p>Extras</p>
-            <p>Drinks</p>
+          <div class="sticky top-0">
+            <div class="flex justify-center items-center">
+              <input
+                class="rounded w-3/4 h-8 focus:outline-none p-1"
+                :style="`border: solid 1px ${restaurant.colorSecondary}`"
+              />
+              <Search :fill="`${restaurant.colorSecondary}`" height="40" />
+            </div>
+            <div class="flex flex-col gap-y-4 p-5">
+              <a href="#pizza">Pizza</a>
+              <a href="#pasta">Pasta</a>
+              <p>Sandwiches</p>
+              <p>Extras</p>
+              <p>Drinks</p>
+            </div>
           </div>
         </div>
         <div
@@ -117,55 +119,27 @@
                 >
                   <div class="flex flex-col gap-y-2">
                     <div class="flex items-center gap-x-1">
-                    <h3 class="text-xl font-medium">{{ dish.name }}</h3>
-                    <Vegetarian class="h-8" :style="`fill: ${restaurant.colorSecondary}`" v-if="dish.vegetarian === true"/>
-                    <Vegan class="h-8" :style="`fill: ${restaurant.colorSecondary}`" v-if="dish.vegan === true"/>
+                      <h3 class="text-xl font-medium">{{ dish.name }}</h3>
+                      <Vegetarian
+                        class="h-8"
+                        :style="`fill: ${restaurant.colorSecondary}`"
+                        v-if="dish.vegetarian === true"
+                      />
+                      <Vegan
+                        class="h-8"
+                        :style="`fill: ${restaurant.colorSecondary}`"
+                        v-if="dish.vegan === true"
+                      />
                     </div>
                     <p class="text-sm font-light">{{ dish.description }}</p>
                     <p class="text-md">{{ dish.price }}kr</p>
                   </div>
                   <img :src="dish.image[0].url" class="w-40 h-28 rounded" />
-                </div>
-                <div v-if="popUp === true" class="hidden">
-                  <div
-                    class="w-1/2 h-3/4 bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded grid grid-rows-3"
-                  >
-                    <div
-                      class="row-span-2 flex justify-end rounded"
-                      :style="`background-image: url(${dish.image[0].url}); background-size: cover; background-position-y: center`"
-                    >
-                      <Close
-                        @click="closePopUp()"
-                        class="h-10"
-                        :style="`fill: ${restaurant.colorSecondary}`"
-                      />
-                    </div>
-                    <div class="flex flex-col gap-y-2 mx-10">
-                      <div class="bg-white flex justify-between mt-5">
-                        <h1 class="text-2xl font-semibold">{{ dish.name }}</h1>
-                        <Vegetarian class="h-8" :style="`fill: ${restaurant.colorSecondary}`" v-if="dish.vegetarian === true"/>
-                    <Vegan class="h-8" :style="`fill: ${restaurant.colorSecondary}`" v-if="dish.vegan === true"/>
-                        <p class="text-xl">{{ dish.price }}kr</p>
-                      </div>
-                      <p class="text-sm">{{ dish.description }}</p>
-                      <div class="flex justify-center gap-x-7 mt-3">
-                        <button
-                          class="p-1.5 rounded w-40 flex justify-between px-10"
-                          :style="`border: 1px solid ${restaurant.colorSecondary}; color: ${restaurant.colorSecondary}`"
-                        >
-                          <p>-</p>
-                          <p>1</p>
-                          <p>+</p>
-                        </button>
-                        <button
-                          class="p-1.5 rounded w-40 text-white"
-                          :style="`background: ${restaurant.colorSecondary}`"
-                        >
-                          Tilføj
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                  <ItemPopUp
+                  v-if="popUp === true"
+                  :dish="dish"
+                  :restaurant="restaurant"
+                />
                 </div>
               </div>
             </div>
@@ -184,9 +158,17 @@
                 >
                   <div class="flex flex-col gap-y-2">
                     <div class="flex gap-x-1">
-                    <h3 class="text-xl font-medium">{{ dish.name }}</h3>
-                    <Vegetarian class="h-8" :style="`fill: ${restaurant.colorSecondary}`" v-if="dish.vegetarian === true"/>
-                    <Vegan class="h-8" :style="`fill: ${restaurant.colorSecondary}`" v-if="dish.vegan === true"/>
+                      <h3 class="text-xl font-medium">{{ dish.name }}</h3>
+                      <Vegetarian
+                        class="h-8"
+                        :style="`fill: ${restaurant.colorSecondary}`"
+                        v-if="dish.vegetarian === true"
+                      />
+                      <Vegan
+                        class="h-8"
+                        :style="`fill: ${restaurant.colorSecondary}`"
+                        v-if="dish.vegan === true"
+                      />
                     </div>
                     <p class="text-sm font-light">{{ dish.description }}</p>
                     <p class="text-md">{{ dish.price }}kr</p>

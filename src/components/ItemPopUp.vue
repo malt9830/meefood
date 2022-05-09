@@ -1,7 +1,6 @@
 <template>
     <div
                   id="itemPopUp"
-                  v-for="dish in menu" :key="dish.name"
                   class="w-1/2 h-3/4 bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded grid grid-rows-3"
                 >
                   <div
@@ -41,37 +40,12 @@
 </template>
 
 <script setup>
-import Airtable from "airtable";
 
-const route = useRoute();
+const props = defineProps({
+  dish: Object,
+  restaurant: Object
+})
 
-const loaded = ref(false);
-
-Airtable.configure({
-  endpointUrl: "https://api.airtable.com",
-  apiKey: "keyiA3gmotxYIJjLc",
-});
-
-var base = Airtable.base("appRiP6vD6l7EmCYB");
-
-base("restaurants")
-  .select({
-    filterByFormula: `{slug} = '${route.params.id}'`,
-  })
-  .eachPage((res) => {
-    restaurant.value = res[0].fields;
-
-    loaded.value = true;
-  });
-
-base("menu")
-  .select()
-  .eachPage((res) => {
-    res.forEach((dish) => {
-      menu.value.push(dish.fields);
-      console.log(menu.value);
-    });
-  })
-
+console.log(props.dish)
 
 </script>
