@@ -3,11 +3,13 @@
     <Transition name="slide" :duration="300">
       <div v-if="showFilter" class="fixed left-0 top-0 z-20 h-full w-full flex justify-end">
         <div @click="$emit('closeFilter')" class="absolute left-0 top-0 h-full w-full bg-black opacity-40" />
-        <aside class="h-full w-[25rem] max-w-full z-10 bg-white px-8 shadow-2xl rounded-l-2xl">
-          <div @click="$emit('closeFilter')" class="mt-8 text-right cursor-pointer">x</div>
-          <form class="mt-20">
+        <aside class="h-full w-[25rem] max-w-[90%] z-10 bg-white flex flex-col p-8 shadow-2xl rounded-l-2xl">
+          <div class="flex flex-row justify-end">
+            <img @click="$emit('closeFilter')" class="h-8 w-auto cursor-pointer transform duration-200 hover:scale-110" src="/src/assets/icons/close-circle.svg">
+          </div>
+          <form class="flex flex-col grow">
             <fieldset class="flex flex-wrap gap-2">
-              <legend class="text-2xl text-gray-500 font-semibold mb-2">Filtrering</legend>
+              <legend class="text-2xl text-gray-500 font-semibold mb-2">Kategorier</legend>
               <div v-for="filter in store.filters" :key="filter" class="capitalize transform duration-200 active:scale-90">
                 <input
                   type="checkbox" :id="filter" :value="filter" v-model="activeFilters"
@@ -20,7 +22,7 @@
               </div>
             </fieldset>
             <fieldset class="flex flex-wrap gap-2 mt-8">
-              <legend class="text-2xl text-gray-500 font-semibold mb-2">Filtrering</legend>
+              <legend class="text-2xl text-gray-500 font-semibold mb-2">Sortér efter</legend>
               <div v-for="sort in store.sorting" :key="sort" class="transform duration-200 active:scale-90">
                 <input
                   type="radio" :id="sort" :value="sort" v-model="activeSorting"
@@ -32,8 +34,8 @@
                 </label>
               </div>
             </fieldset>
-            <button @click="resetFilters" class="w-full bg-emerald-200 text-emerald-900 rounded-full mt-8 py-4 transform duration-200 hover:bg-emerald-100 active:scale-95">Fjern filtre</button>
-            <button @click="applyFilters" class="w-full bg-emerald-500 text-white rounded-full mt-4 py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Anvend filtre</button>
+            <button @click="resetFilters" class="w-full bg-emerald-200 text-emerald-900 font-semibold rounded-full mt-8 py-4 transform duration-200 hover:bg-emerald-100 active:scale-95">Fjern filtre</button>
+            <button @click="applyFilters" class="w-full bg-emerald-500 text-white font-semibold rounded-full mt-4 py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Anvend filtre</button>
           </form>
         </aside>
       </div>

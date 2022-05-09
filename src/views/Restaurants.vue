@@ -17,6 +17,14 @@ import Airtable from 'airtable'
 
 const store = useFilterStore()
 
+const activeSorting = computed(() => {
+  if (store.activeSorting === "Mest populære") return 'rating'
+  if (store.activeSorting === "Pris") return 'priceRange'
+  if (store.activeSorting === "Leveringspris") return 'deliveryCost'
+  if (store.activeSorting === "Leveringstid") return 'deliveryTime'
+  if (store.activeSorting === "Minimumspris") return 'minimumPrice'
+})
+
 const showFilter = ref(false)
 
 const loaded = ref(false)
@@ -24,19 +32,15 @@ const restaurants = ref([])
 
 const filteredRestaurants = computed(() => {
   const filteredRestaurants = restaurants.value.filter(rest => {
-    if(rest.tags.includes(store.activeFilters)) {
-      console.log(rest)
-    }
+    // Check if restaurant tags matches any filter tags or if no filters apply
+    if(rest.tags.some(el => store.activeFilters.includes(el)) || store.activeFilters.length === 0) return rest
+  })
 
-    return rest
+  filteredRestaurants.sort((a, b) => {
+    return (a[store.sortingValue] - b[store.sortingValue]) * store.sortingDirection
   })
 
   return filteredRestaurants
-})
-
-// Rerender restaurants on filter change
-store.$subscribe((mutation, state) => {
-  console.log(state)
 })
 
 Airtable.configure({
