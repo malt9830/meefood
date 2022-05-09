@@ -1,11 +1,12 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124.68 106.03">
+<template>
+    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 124.68 106.03">
   <g>
-    <rect x="16" y="101.03" width="61" height="5" rx="2" fill="#10b981"/>
-    <rect x="10" y="81.03" width="35" height="5" rx="2" fill="#10b981"/>
-    <rect x="21" y="91.03" width="30" height="5" rx="2" fill="#10b981"/>
-    <rect y="91.03" width="17" height="5" rx="2" fill="#10b981"/>
-    <path d="M81.29,12A53,53,0,0,0,33.56,88h3.63a2,2,0,0,1,2,2v1a2,2,0,0,1-2,2h-.86a51.39,51.39,0,0,0,3.55,5H42.8a2,2,0,0,1,2,2v1a2,2,0,0,1-.8,1.59A52.56,52.56,0,0,0,50.41,108H68.8a2,2,0,0,1,2,2v1a2,2,0,0,1-2,2H59A53,53,0,1,0,81.29,12Z" transform="translate(-9.8 -12)" fill="#10b981"/>
-    <path d="M11.8,84h13a2,2,0,0,1,2,2h0a2,2,0,0,1-2,2h-13a2,2,0,0,1-2-2h0A2,2,0,0,1,11.8,84Z" transform="translate(-9.8 -12)" fill="#10b981"/>
+    <rect x="16" y="101.03" width="61" height="5" rx="2" fill="inherit"/>
+    <rect x="10" y="81.03" width="35" height="5" rx="2" fill="inherit"/>
+    <rect x="21" y="91.03" width="30" height="5" rx="2" fill="inherit"/>
+    <rect y="91.03" width="17" height="5" rx="2" fill="inherit"/>
+    <path d="M81.29,12A53,53,0,0,0,33.56,88h3.63a2,2,0,0,1,2,2v1a2,2,0,0,1-2,2h-.86a51.39,51.39,0,0,0,3.55,5H42.8a2,2,0,0,1,2,2v1a2,2,0,0,1-.8,1.59A52.56,52.56,0,0,0,50.41,108H68.8a2,2,0,0,1,2,2v1a2,2,0,0,1-2,2H59A53,53,0,1,0,81.29,12Z" transform="translate(-9.8 -12)" fill="inherit"/>
+    <path d="M11.8,84h13a2,2,0,0,1,2,2h0a2,2,0,0,1-2,2h-13a2,2,0,0,1-2-2h0A2,2,0,0,1,11.8,84Z" transform="translate(-9.8 -12)" fill="inherit"/>
   </g>
   <circle cx="83.89" cy="24.46" r="6.5" fill="#fff"/>
   <path d="M102.44,97.46a16.75,16.75,0,1,1,16.75-16.75h0A16.79,16.79,0,0,1,102.44,97.46Zm0-30.5a13.75,13.75,0,1,0,13.75,13.75A13.76,13.76,0,0,0,102.44,67Z" transform="translate(-9.8 -12)" fill="#fff"/>
@@ -13,3 +14,5 @@
   <path d="M56.45,97.09A16.75,16.75,0,1,1,73.2,80.34h0A16.76,16.76,0,0,1,56.45,97.09Zm0-30.5A13.75,13.75,0,1,0,70.2,80.34,13.76,13.76,0,0,0,56.45,66.59Z" transform="translate(-9.8 -12)" fill="#fff"/>
   <rect x="57.65" y="27.37" width="18" height="16.43" transform="matrix(0.81, -0.59, 0.59, 0.81, -17.99, 34)" fill="#fff"/>
 </svg>
+
+</template>

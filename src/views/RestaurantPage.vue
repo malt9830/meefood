@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="">
     <div
       v-if="!loaded"
       class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover bg-fixed"
@@ -23,42 +23,50 @@
             {{ restaurant.name }}
           </h1>
           <div class="flex justify-between gap-x-10 items-center">
-            <p>{{ restaurant.tags }}</p>
-            <div class="flex gap-x-2">
-              <img src="../assets/icons/smile1.svg" class="h-6"/>
+            <p>
+              {{
+                restaurant.tags[0].charAt(0).toUpperCase() +
+                restaurant.tags[0].slice(1)
+              }}
+            </p>
+            <div class="flex gap-x-2 items-center">
+              <Smile1 :fill="`${restaurant.colorSecondary}`" height="30" />
               <p>{{ restaurant.rating }}</p>
             </div>
-            <div class="flex gap-x-2">
-              <img src="../assets/icons/bike.svg" class="h-6"/>
+            <div class="flex gap-x-2 items-center">
+              <Bike :fill="`${restaurant.colorSecondary}`" height="20" />
               <p>{{ restaurant.deliveryCost }}kr</p>
             </div>
-            <div class="flex gap-x-2">
-              <img src="../assets/icons/time.svg" class="h-6"/>
+            <div class="flex gap-x-2 items-center">
+              <Time :fill="`${restaurant.colorSecondary}`" height="20" />
               <p>{{ restaurant.deliveryTime }}min</p>
             </div>
-            <div class="flex gap-x-2">
-              <img src="../assets/icons/bag.svg" class="h-6"/>
+            <div class="flex gap-x-2 items-center">
+              <Bag :fill="`${restaurant.colorSecondary}`" height="30" />
               <p>Min. {{ restaurant.minimumPrice }}kr</p>
             </div>
             <div class="flex">
-              <img src="../assets/icons/dollar-green.svg" class="h-6"/>
-              <img
+              <Dollar :fill="`${restaurant.colorSecondary}`" height="20" />
+              <Dollar
                 v-if="restaurant.priceRange > 1"
-                src="../assets/icons/dollar-green.svg" class="h-6"
+                :fill="`${restaurant.colorSecondary}`"
+                height="20"
               />
-              <img
+              <Dollar
                 v-if="restaurant.priceRange > 2"
-                src="../assets/icons/dollar-green.svg" class="h-6"
+                :fill="`${restaurant.colorSecondary}`"
+                height="20"
               />
-              <img
+              <Dollar
                 v-if="restaurant.priceRange > 3"
-                src="../assets/icons/dollar-green.svg" class="h-6"
+                :fill="`${restaurant.colorSecondary}`"
+                height="20"
               />
             </div>
             <p>www.restaurant.dk</p>
             <button
               :style="`background-color: ${restaurant.colorSecondary}`"
-              class="p-1.5 text-white rounded"
+              class="p-1.5 text-white rounded hover:opacity-75"
             >
               More info
             </button>
@@ -67,19 +75,19 @@
       </div>
       <div class="grid grid-cols-6 h-screen mt-10">
         <div
-          class="flex flex-col pt-5 gap-y-5"
+          class="flex flex-col pt-5 gap-y-5 sticky top-0 h-full"
           :style="`border-top: solid 1px ${restaurant.colorSecondary}; border-right: solid 1px ${restaurant.colorSecondary}`"
         >
           <div class="flex justify-center items-center">
             <input
-              class="rounded w-3/4 h-8 focus:outline-none  "
+              class="rounded w-3/4 h-8 focus:outline-none p-1"
               :style="`border: solid 1px ${restaurant.colorSecondary}`"
             />
-            <img src="../assets/icons/search-green.svg" class="w-10" />
+            <Search :fill="`${restaurant.colorSecondary}`" height="40" />
           </div>
           <div class="flex flex-col gap-y-4 p-5">
-            <p>Pizza</p>
-            <p>Salads</p>
+            <a href="#pizza">Pizza</a>
+            <a href="#pasta">Pasta</a>
             <p>Sandwiches</p>
             <p>Extras</p>
             <p>Drinks</p>
@@ -91,79 +99,139 @@
         >
           <div class="flex gap-x-5 m-5">
             <div class="flex items-center">
-              <img src="../assets/icons/vegetarian.svg" class="w-10" />
+              <Vegetarian :fill="`${restaurant.colorSecondary}`" height="40" />
               <p>vegetarian</p>
             </div>
             <div class="flex items-center">
-              <img src="../assets/icons/vegan.svg" class="w-10" />
+              <Vegan :fill="`${restaurant.colorSecondary}`" height="40" />
               <p>vegan</p>
             </div>
           </div>
           <div class="m-10">
-            <h2 class="text-3xl font-semibold mb-5 ml-5">Pizza</h2>
+            <h2 id="pizza" class="text-3xl font-semibold mb-5 ml-5">Pizza</h2>
             <div class="flex flex-col gap-y-5">
-            <div class="flex justify-between mx-5">
-              <div class="flex flex-col gap-y-2">
-                <h3 class="text-xl">Margarita</h3>
-                <p class="text-sm  ">Tomatsauce, mozzarella, basilikum</p>
-                <p class="text-md">80kr</p>
+              <div v-for="dish in menu" :key="dish.name" @click="popUp = true">
+                <div
+                  v-if="dish.category === `pizza`"
+                  class="flex justify-between mx-5"
+                >
+                  <div class="flex flex-col gap-y-2">
+                    <div class="flex items-center gap-x-1">
+                    <h3 class="text-xl font-medium">{{ dish.name }}</h3>
+                    <Vegetarian class="h-8" :style="`fill: ${restaurant.colorSecondary}`" v-if="dish.vegetarian === true"/>
+                    <Vegan class="h-8" :style="`fill: ${restaurant.colorSecondary}`" v-if="dish.vegan === true"/>
+                    </div>
+                    <p class="text-sm font-light">{{ dish.description }}</p>
+                    <p class="text-md">{{ dish.price }}kr</p>
+                  </div>
+                  <img :src="dish.image[0].url" class="w-40 h-28 rounded" />
+                </div>
+                <div v-if="popUp === true" class="hidden">
+                  <div
+                    class="w-1/2 h-3/4 bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded grid grid-rows-3"
+                  >
+                    <div
+                      class="row-span-2 flex justify-end rounded"
+                      :style="`background-image: url(${dish.image[0].url}); background-size: cover; background-position-y: center`"
+                    >
+                      <Close
+                        @click="closePopUp()"
+                        class="h-10"
+                        :style="`fill: ${restaurant.colorSecondary}`"
+                      />
+                    </div>
+                    <div class="flex flex-col gap-y-2 mx-10">
+                      <div class="bg-white flex justify-between mt-5">
+                        <h1 class="text-2xl font-semibold">{{ dish.name }}</h1>
+                        <Vegetarian class="h-8" :style="`fill: ${restaurant.colorSecondary}`" v-if="dish.vegetarian === true"/>
+                    <Vegan class="h-8" :style="`fill: ${restaurant.colorSecondary}`" v-if="dish.vegan === true"/>
+                        <p class="text-xl">{{ dish.price }}kr</p>
+                      </div>
+                      <p class="text-sm">{{ dish.description }}</p>
+                      <div class="flex justify-center gap-x-7 mt-3">
+                        <button
+                          class="p-1.5 rounded w-40 flex justify-between px-10"
+                          :style="`border: 1px solid ${restaurant.colorSecondary}; color: ${restaurant.colorSecondary}`"
+                        >
+                          <p>-</p>
+                          <p>1</p>
+                          <p>+</p>
+                        </button>
+                        <button
+                          class="p-1.5 rounded w-40 text-white"
+                          :style="`background: ${restaurant.colorSecondary}`"
+                        >
+                          Tilføj
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <img src="../assets/test-images/pizza.jpg" class="w-40 rounded"/>
             </div>
-            <div class="flex justify-between mx-5">
-              <div class="flex flex-col gap-y-2">
-                <h3 class="text-xl">Margarita</h3>
-                <p class="text-sm  ">Tomatsauce, mozzarella, basilikum</p>
-                <p class="text-md">80kr</p>
+          </div>
+          <div class="m-10">
+            <h2 id="pasta" class="text-3xl font-semibold mb-5 ml-5">Pasta</h2>
+            <div class="flex flex-col gap-y-5">
+              <div
+                v-for="dish in menu"
+                :key="dish.name"
+                @click="openPopUp(dish)"
+              >
+                <div
+                  v-if="dish.category === `pasta`"
+                  class="flex justify-between mx-5"
+                >
+                  <div class="flex flex-col gap-y-2">
+                    <div class="flex gap-x-1">
+                    <h3 class="text-xl font-medium">{{ dish.name }}</h3>
+                    <Vegetarian class="h-8" :style="`fill: ${restaurant.colorSecondary}`" v-if="dish.vegetarian === true"/>
+                    <Vegan class="h-8" :style="`fill: ${restaurant.colorSecondary}`" v-if="dish.vegan === true"/>
+                    </div>
+                    <p class="text-sm font-light">{{ dish.description }}</p>
+                    <p class="text-md">{{ dish.price }}kr</p>
+                  </div>
+                  <img :src="dish.image[0].url" class="w-40 h-28 rounded" />
+                </div>
               </div>
-              <img src="../assets/test-images/pizza.jpg" class="w-40 rounded"/>
-            </div>
-            <div class="flex justify-between mx-5">
-              <div class="flex flex-col gap-y-2">
-                <h3 class="text-xl">Margarita</h3>
-                <p class="text-sm  ">Tomatsauce, mozzarella, basilikum</p>
-                <p class="text-md">80kr</p>
-              </div>
-              <img src="../assets/test-images/pizza.jpg" class="w-40 rounded"/>
-            </div>
-            <div class="flex justify-between mx-5">
-              <div class="flex flex-col gap-y-2">
-                <h3 class="text-xl">Margarita</h3>
-                <p class="text-sm  ">Tomatsauce, mozzarella, basilikum</p>
-                <p class="text-md">80kr</p>
-              </div>
-              <img src="../assets/test-images/pizza.jpg" class="w-40 rounded"/>
-            </div>
             </div>
           </div>
         </div>
         <div
-        class="flex flex-col"
+          class="flex flex-col"
           :style="`border-top: solid 1px ${restaurant.colorSecondary}`"
         >
-        <h2 class="text-xl text-center mt-5 font-semibold">Kurv</h2>
-        <div class="flex justify-between items-center mt-5 mx-4">
-          <h3 class="text-md">1x Margarita</h3>
-          <p class="text-sm">80kr</p>
-        </div>
-        <hr :style="`border-top: 1px solid ${restaurant.colorSecondary}`" class="m-4 mt-8"/>
-        <div class="flex flex-col gap-y-2">
-        <div class="flex justify-between mx-4">
-          <p class="font-medium">Subtotal</p>
-          <p>80kr</p>
-        </div>
-        <div class="flex justify-between mx-4">
-          <p class="font-medium">Levering</p>
-          <p>{{restaurant.deliveryCost}}kr</p>
-        </div>
-        <div class="flex justify-between mx-4">
-          <p class="font-medium">Samlet</p>
-          <p>{{80 + restaurant.deliveryCost}}kr</p>
-        </div>
-        </div>
-        <div class="flex justify-center mt-5">
-        <button :style="`background-color: ${restaurant.colorSecondary}`" class="p-1.5 rounded text-white">Gå til kassen</button>
-        </div>
+          <h2 class="text-xl text-center mt-5 font-semibold">Kurv</h2>
+          <div class="flex justify-between items-center mt-5 mx-4">
+            <h3 class="text-md">1x Margarita</h3>
+            <p class="text-sm">80kr</p>
+          </div>
+          <hr
+            :style="`border-top: 1px solid ${restaurant.colorSecondary}`"
+            class="m-4 mt-8"
+          />
+          <div class="flex flex-col gap-y-2">
+            <div class="flex justify-between mx-4">
+              <p class="font-medium">Subtotal</p>
+              <p>80kr</p>
+            </div>
+            <div class="flex justify-between mx-4">
+              <p class="font-medium">Levering</p>
+              <p>{{ restaurant.deliveryCost }}kr</p>
+            </div>
+            <div class="flex justify-between mx-4">
+              <p class="font-medium">Samlet</p>
+              <p>{{ 80 + restaurant.deliveryCost }}kr</p>
+            </div>
+          </div>
+          <div class="flex justify-center mt-5">
+            <button
+              :style="`background-color: ${restaurant.colorSecondary}`"
+              class="p-1.5 rounded text-white hover:opacity-75"
+            >
+              Gå til kassen
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -179,6 +247,10 @@ const loaded = ref(false);
 
 const restaurant = ref();
 
+const menu = ref([]);
+
+const popUp = ref(false);
+
 Airtable.configure({
   endpointUrl: "https://api.airtable.com",
   apiKey: "keyiA3gmotxYIJjLc",
@@ -186,14 +258,6 @@ Airtable.configure({
 
 var base = Airtable.base("appRiP6vD6l7EmCYB");
 
-// --- Use find method to immediately get correct record but requires id instead of slug
-// base('restaurants').find('recCXad6ewDgxkuAf', (err, record) => {
-//   if (err) {console.log(err); return}
-//   restaurant.value = record.fields
-//   loaded.value = true
-// })
-
-// --- Use select method with a filter to get specific restaurant from slug
 base("restaurants")
   .select({
     filterByFormula: `{slug} = '${route.params.id}'`,
@@ -202,5 +266,14 @@ base("restaurants")
     restaurant.value = res[0].fields;
 
     loaded.value = true;
+  });
+
+base("menu-marios-bistro")
+  .select()
+  .eachPage((res) => {
+    res.forEach((dish) => {
+      menu.value.push(dish.fields);
+      console.log(menu.value);
+    });
   });
 </script>
