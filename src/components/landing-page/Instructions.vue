@@ -1,5 +1,5 @@
 <template>
-    <section class="max-w-5xl mx-auto py-20">
+    <section class="max-w-5xl mx-auto py-10">
       <h2 class="text-3xl font-semibold text-center">Instruktioner</h2>
       <div class="flex md:grid-cols-3">
         <div v-for="inst in instructions" :key="inst.number">

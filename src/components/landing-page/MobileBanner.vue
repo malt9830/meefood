@@ -1,5 +1,5 @@
 <template>
-  <section class="py-20">
+  <section class="py-10 md:py-28">
     <div class="relative grid grid-cols-10 grid-rows-4 md:hidden">
       <div class="bg-emerald-600 col-start-1 col-end-11 row-start-2 row-end-5" />
       <img class="col-start-2 col-end-10 row-start-1 row-end-5" src="@/src/assets/download-app/app-mockup.svg">

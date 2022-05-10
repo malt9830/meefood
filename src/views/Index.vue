@@ -12,6 +12,7 @@
     </div>
     <Instructions/>
     <MobileBanner/>
+    <RestaurantShowcase/>
   </main>
 </template>
 
