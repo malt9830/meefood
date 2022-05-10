@@ -3,7 +3,7 @@
     <Transition name="slide" :duration="300">
       <div v-if="showFilter" class="fixed left-0 top-0 z-20 h-full w-full flex justify-end">
         <div @click="$emit('closeFilter')" class="absolute left-0 top-0 h-full w-full bg-black opacity-40" />
-        <aside class="h-full w-[25rem] max-w-[90%] z-10 bg-white flex flex-col p-8 shadow-2xl rounded-l-2xl">
+        <aside class="h-full w-[25rem] max-w-[90%] z-10 bg-white flex flex-col p-8 rounded-l-2xl">
           <div class="flex flex-row justify-end">
             <img @click="$emit('closeFilter')" class="h-8 w-auto cursor-pointer transform duration-200 hover:scale-110" src="/src/assets/icons/close-circle.svg">
           </div>

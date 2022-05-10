@@ -1,5 +1,5 @@
 <template>
-  <RouterLink class="block cursor-pointer rounded-2xl group transform hover:scale-[103%] duration-200" :to="`/restaurant/${restaurant.slug}`">
+  <RouterLink class="block cursor-pointer rounded-2xl shadow-card group transform hover:scale-[103%] duration-200" :to="`/restaurant/${restaurant.slug}`">
     <div class="relative flex flex-col w-full h-40 rounded-t-2xl">
       <div class="absolute flex h-full w-full rounded-t-2xl overflow-hidden">
         <img class="absolute w-full h-auto place-self-center object-cover -z-10 transform scale-110 group-hover:scale-100 duration-200" :src="restaurant.splash[0].url">
@@ -15,7 +15,7 @@
             <p class="text-sm leading-none font-bold">{{ restaurant.deliveryTime }}</p>
             <p class="text-xs leading-none font-semibold">min</p>
           </div>
-          <img class="h-full w-auto" src="src/assets/icons/time-alternative.svg">
+          <img class="h-full w-auto" src="/src/assets/icons/time-alternative.svg">
         </div>
       </div>
     </div>
@@ -27,18 +27,20 @@
           <span class="capitalize">{{ restaurant.tags[0] }}</span>
         </span>
         <span class="flex gap-1 items-center">
-          <img class="h-6" src="@/src/assets/icons/smile1.svg">
+          <img class="h-6" src="/src/assets/icons/smile1.svg">
           <span>{{ restaurant.rating }}</span>
         </span>
         <span class="flex gap-1 items-center">
-          <img class="h-6" src="@/src/assets/icons/bike.svg">
+          <img class="h-6" src="/src/assets/icons/bike.svg">
           <span>{{ restaurant.deliveryCost }} kr.</span>
         </span>
         <span class="flex gap-1 items-center">
-          <img class="h-6" src="@/src/assets/icons/bag.svg">
+          <img class="h-6" src="/src/assets/icons/bag.svg">
           <span>Min. {{ restaurant.minimumPrice }} kr.</span>
         </span>
-        <PriceRange :priceRange="restaurant.priceRange"/>
+        <span class="flex gap-1 items-center">
+          <img v-for="n in parseInt(restaurant.priceRange)" :key="n" src="/src/assets/icons/dollar-gray.svg" class="h-6 w-auto fill-emerald-500">
+        </span>   
       </p>
     </div>
   </RouterLink>
@@ -49,9 +51,3 @@ const props = defineProps({
   restaurant: Object
 })
 </script>
-
-<style scoped>
-a {
-  box-shadow: 0px 1px 5px #707070;
-}
-</style>
