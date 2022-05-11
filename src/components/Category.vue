@@ -18,6 +18,10 @@ const props = defineProps({
 })
 
 const filteredMenu = computed(() => {
-    return props.menu.filter(dish => dish.category === props.category)
+    return props.menu
+    .filter(dish => dish.category === props.category)
+    .sort((a, b) => new Date(a.price) - new Date(b.price))
 })
+
+
 </script>
