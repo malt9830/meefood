@@ -1,6 +1,5 @@
 <template>
-    <div
-                  id="itemPopUp"
+    <div v-for="dish in menu" :key="dish.name"
                   class="w-1/2 h-3/4 bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded grid grid-rows-3"
                 >
                   <div
@@ -8,7 +7,7 @@
                     :style="`background-image: url(${dish.image[0].url}); background-size: cover; background-position-y: center`"
                   >
                     <Close
-                      @click="closePopUp()"
+                      @click="popUp = false"
                       class="h-10"
                       :style="`fill: ${restaurant.colorSecondary}`"
                     />
@@ -42,10 +41,9 @@
 <script setup>
 
 const props = defineProps({
-  dish: Object,
-  restaurant: Object
+  menu: Array,
+  restaurant: Object,
+  popUp: Boolean
 })
-
-console.log(props.dish)
 
 </script>
