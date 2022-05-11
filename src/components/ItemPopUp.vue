@@ -42,7 +42,7 @@
                         <button @click="counter++" class="text-2xl">+</button>
                       </button>
                       <button
-                        @click="store.addToBasket(dish)"
+                        @click="store.addToBasket(dish, counter); $emit('closePopUp')"
                         class="p-1.5 rounded w-40 text-white"
                         :style="`background: ${restaurant.colorSecondary}`"
                       >
@@ -57,9 +57,9 @@
 
 <script setup>
 
-import { useStore } from "@/stores";
+import { useBasketStore } from "/src/stores/basket";
 
-const store = useStore();
+const store = useBasketStore();
 
 const counter = ref(1)
 
