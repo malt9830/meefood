@@ -4,7 +4,7 @@
     <img class="absolute pointer-events-none w-full sm:hidden" src="/src/assets/splash-image/banner-mobile.png">
     <div class="z-10 w-1/2 min-w-min max-w-3xl place-self-center">
 
-      <h2 class="relative text-white text-4xl font-bold mb-8 overflow-hidden">
+      <!-- <h2 class="relative text-white text-4xl font-bold mb-8 overflow-hidden">
         <span>Spis </span>
         <TransitionGroup :duration="1000" name="shift" tag="span" class="inline-block w-24">
           <span v-if="sloganRefs[0].shown" class="absolute top-0 w-24 text-center">hvad</span>
@@ -12,6 +12,12 @@
           <span v-if="sloganRefs[2].shown" class="absolute top-0 w-24 text-center">når</span>
         </TransitionGroup>
         <span> som helst</span>
+      </h2> -->
+
+      <h2 class="flex flex-row gap-2 text-white text-4xl font-bold mb-8">
+        <span>Spis</span>
+        <span :class="{'max-w-0' : wordHidden }" class="inline-block max-w-[6rem] underline underline-offset-4 overflow-x-clip overflow-y-visible duration-[800ms]">{{ currentWord }}</span>
+        <span>som helst</span>
       </h2>
 
       <form class="flex gap-2">
@@ -23,17 +29,36 @@
 </template>
 
 <script setup>
-const sloganRefs = ref([{shown: true}, {shown: false}, {shown: false}])
-const currentWord = ref(0)
-const nextWord = ref(1)
+const currentWord = ref('hvad')
+const wordHidden = ref(false)
 
 setInterval(() => {
-  sloganRefs.value[currentWord.value].shown = false
-  sloganRefs.value[nextWord.value].shown = true
+  wordHidden.value = true
 
-  currentWord.value = (currentWord.value < 2 ? currentWord.value + 1 : 0)
-  nextWord.value = (nextWord.value < 2 ? nextWord.value + 1 : 0)
-}, 1750)
+  setTimeout(() => {
+    wordHidden.value = false
+
+    if (currentWord.value === 'hvad') {
+      currentWord.value = 'hvor'
+    } else if (currentWord.value === 'hvor') {
+      currentWord.value = 'når'
+    } else if (currentWord.value === 'når') {
+      currentWord.value = 'hvad'
+    }
+  }, 1000)
+}, 2500)
+
+// const sloganRefs = ref([{shown: true}, {shown: false}, {shown: false}])
+// const currentWord = ref(0)
+// const nextWord = ref(1)
+
+// setInterval(() => {
+//   sloganRefs.value[currentWord.value].shown = false
+//   sloganRefs.value[nextWord.value].shown = true
+
+//   currentWord.value = (currentWord.value < 2 ? currentWord.value + 1 : 0)
+//   nextWord.value = (nextWord.value < 2 ? nextWord.value + 1 : 0)
+// }, 1750)
 </script>
 
 <style scoped>
