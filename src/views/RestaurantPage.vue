@@ -112,7 +112,7 @@
           <div class="m-10">
             <h2 id="pizza" class="text-3xl font-semibold mb-5 ml-5">Pizza</h2>
             <div class="flex flex-col gap-y-5">
-              <SingleItem :menu="menu" :restaurant="restaurant" :popUp="popUp"/>
+              <SingleItem v-for="dish in menu" :key="dish.name" :dish="dish" :restaurant="restaurant" />
             </div>
           </div>
           <div class="m-10">

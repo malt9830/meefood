@@ -1,5 +1,5 @@
 <template>
-    <div class="dish" v-for="dish in menu" :key="dish.name" @click="popUp = true">
+    <div class="dish" @click="popUp = true">
                 <div
                   class="flex justify-between mx-5"
                 >
@@ -23,7 +23,7 @@
                   <img :src="dish.image[0].url" class="w-40 h-28 rounded" />
                   <ItemPopUp
                   v-if="popUp === true"
-                  :menu="menu"
+                  :dish="dish"
                   :restaurant="restaurant"
                   :popUp="popUp"
                 />
@@ -34,7 +34,7 @@
 <script setup>
 
 const props = defineProps({
-  menu: Array,
+  dish: Object,
   restaurant: Object,
 })
 

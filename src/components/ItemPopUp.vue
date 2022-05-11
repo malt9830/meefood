@@ -1,5 +1,5 @@
 <template>
-    <div v-for="dish in menu" :key="dish.name"
+    <div
                   class="w-1/2 h-3/4 bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded grid grid-rows-3"
                 >
                   <div
@@ -41,7 +41,7 @@
 <script setup>
 
 const props = defineProps({
-  menu: Array,
+  dish: Object,
   restaurant: Object,
   popUp: Boolean
 })
