@@ -1,6 +1,6 @@
 <template>
     <section class="max-w-5xl mx-auto py-10">
-      <h2 class="text-3xl font-semibold text-center">Instruktioner</h2>
+      <h2 class="text-3xl font-semibold text-center">Så nemt er det!</h2>
       <Carousel :items-to-show="1" :breakpoints="breakpoints">
         <Slide v-for="inst in instructions" :key="inst.number">
           <div class="px-12 md:px-8">
