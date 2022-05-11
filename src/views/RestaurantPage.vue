@@ -67,6 +67,7 @@
             <button
               :style="`background-color: ${restaurant.colorSecondary}`"
               class="p-1.5 text-white rounded hover:opacity-75"
+              @click="info = true"
             >
               More info
             </button>
@@ -86,12 +87,8 @@
               />
               <Search :fill="`${restaurant.colorSecondary}`" height="40" />
             </div>
-            <div class="flex flex-col gap-y-4 p-5">
-              <a href="#pizza">Pizza</a>
-              <a href="#pasta">Pasta</a>
-              <p>Sandwiches</p>
-              <p>Extras</p>
-              <p>Drinks</p>
+            <div v-for="category in categories" :key="category" class="flex flex-col px-5 py-3">
+              <a :href="`#${category}`" class="capitalize">{{category}}</a>
             </div>
           </div>
         </div>
@@ -109,88 +106,22 @@
               <p>vegan</p>
             </div>
           </div>
-          <div class="m-10">
-            <h2 id="pizza" class="text-3xl font-semibold mb-5 ml-5">Pizza</h2>
-            <div class="flex flex-col gap-y-5">
-              <SingleItem v-for="dish in menu" :key="dish.name" :dish="dish" :restaurant="restaurant" />
-            </div>
-          </div>
-          <div class="m-10">
-            <h2 id="pasta" class="text-3xl font-semibold mb-5 ml-5">Pasta</h2>
-            <div class="flex flex-col gap-y-5">
-              <div
-                v-for="dish in menu"
-                :key="dish.name"
-              >
-                <div
-                  v-if="dish.category === `pasta`"
-                  class="flex justify-between mx-5"
-                >
-                  <div class="flex flex-col gap-y-2">
-                    <div class="flex gap-x-1">
-                      <h3 class="text-xl font-medium">{{ dish.name }}</h3>
-                      <Vegetarian
-                        class="h-8"
-                        :style="`fill: ${restaurant.colorSecondary}`"
-                        v-if="dish.vegetarian === true"
-                      />
-                      <Vegan
-                        class="h-8"
-                        :style="`fill: ${restaurant.colorSecondary}`"
-                        v-if="dish.vegan === true"
-                      />
-                    </div>
-                    <p class="text-sm font-light">{{ dish.description }}</p>
-                    <p class="text-md">{{ dish.price }}kr</p>
-                  </div>
-                  <img :src="dish.image[0].url" class="w-40 h-28 rounded" />
-                </div>
-              </div>
-            </div>
-          </div>
+         <Category v-for="category in categories" :key="category" :category="category" :restaurant="restaurant" :menu="menu"/>
         </div>
         <div
           class="flex flex-col"
           :style="`border-top: solid 1px ${restaurant.colorSecondary}`"
         >
-          <h2 class="text-xl text-center mt-5 font-semibold">Kurv</h2>
-          <div class="flex justify-between items-center mt-5 mx-4">
-            <h3 class="text-md">1x Margarita</h3>
-            <p class="text-sm">80kr</p>
-          </div>
-          <hr
-            :style="`border-top: 1px solid ${restaurant.colorSecondary}`"
-            class="m-4 mt-8"
-          />
-          <div class="flex flex-col gap-y-2">
-            <div class="flex justify-between mx-4">
-              <p class="font-medium">Subtotal</p>
-              <p>80kr</p>
-            </div>
-            <div class="flex justify-between mx-4">
-              <p class="font-medium">Levering</p>
-              <p>{{ restaurant.deliveryCost }}kr</p>
-            </div>
-            <div class="flex justify-between mx-4">
-              <p class="font-medium">Samlet</p>
-              <p>{{ 80 + restaurant.deliveryCost }}kr</p>
-            </div>
-          </div>
-          <div class="flex justify-center mt-5">
-            <button
-              :style="`background-color: ${restaurant.colorSecondary}`"
-              class="p-1.5 rounded text-white hover:opacity-75"
-            >
-              Gå til kassen
-            </button>
-          </div>
+          <Basket :restaurant="restaurant"/>
         </div>
+         <Info v-if="info === true" :info="info" :restaurant="restaurant" @close-info="info = false"/>
       </div>
     </div>
   </main>
 </template>
 
 <script setup>
+import { computed } from "@vue/runtime-core";
 import Airtable from "airtable";
 
 const route = useRoute();
@@ -200,6 +131,20 @@ const loaded = ref(false);
 const restaurant = ref();
 
 const menu = ref([]);
+
+const info = ref(false);
+
+
+const categories = computed(() => {
+  const restaurantCategories = []
+
+  menu.value.forEach(dish => {
+    if (!restaurantCategories.includes(dish.category)) {
+    restaurantCategories.push(dish.category)
+    }
+  })
+  return restaurantCategories
+})
 
 Airtable.configure({
   endpointUrl: "https://api.airtable.com",
@@ -223,7 +168,6 @@ base("menu-marios-bistro")
   .eachPage((res) => {
     res.forEach((dish) => {
       menu.value.push(dish.fields);
-      console.log(menu.value);
     });
   });
 </script>

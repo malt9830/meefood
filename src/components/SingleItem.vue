@@ -22,10 +22,11 @@
                   </div>
                   <img :src="dish.image[0].url" class="w-40 h-28 rounded" />
                   <ItemPopUp
-                  v-if="popUp === true"
+                  v-if="popUp"
                   :dish="dish"
                   :restaurant="restaurant"
                   :popUp="popUp"
+                  @close-pop-up="closePopUp"
                 />
                 </div>
               </div>
@@ -36,9 +37,14 @@
 const props = defineProps({
   dish: Object,
   restaurant: Object,
+  category: String,
 })
 
 const popUp = ref(false);
 
+function closePopUp() {
+  popUp.value = false;
+  console.log(popUp.value)
+}
 
 </script>
