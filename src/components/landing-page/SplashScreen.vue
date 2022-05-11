@@ -2,7 +2,7 @@
   <div class="relative h-[75vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover bg-fixed grid">
     <img class="absolute pointer-events-none w-3/5 hidden sm:block" src="/src/assets/splash-image/banner-desktop.png">
     <img class="absolute pointer-events-none w-full sm:hidden" src="/src/assets/splash-image/banner-mobile.png">
-    <div class="z-10 w-1/2 min-w-min max-w-3xl place-self-center">
+    <div class="z-10 w-full md:w-1/2 min-w-min max-w-3xl p-4 place-self-center">
 
       <!-- <h2 class="relative text-white text-4xl font-bold mb-8 overflow-hidden">
         <span>Spis </span>
