@@ -3,7 +3,17 @@
     <img class="absolute pointer-events-none w-3/5 hidden sm:block" src="/src/assets/splash-image/banner-desktop.png">
     <img class="absolute pointer-events-none w-full sm:hidden" src="/src/assets/splash-image/banner-mobile.png">
     <div class="z-10 w-1/2 min-w-min max-w-3xl place-self-center">
-      <h2 class="text-white text-4xl font-bold mb-8">Spis <span class="underline underline-offset-4"><span>{{ sloganSubstitutes[0] }}</span></span> som helst</h2>
+
+      <h2 class="relative text-white text-4xl font-bold mb-8 overflow-hidden">
+        <span>Spis </span>
+        <TransitionGroup :duration="1000" name="shift" tag="span" class="inline-block w-24">
+          <span v-if="sloganRefs[0].shown" class="absolute top-0 w-24 text-center">hvad</span>
+          <span v-if="sloganRefs[1].shown" class="absolute top-0 w-24 text-center">hvor</span>
+          <span v-if="sloganRefs[2].shown" class="absolute top-0 w-24 text-center">når</span>
+        </TransitionGroup>
+        <span> som helst</span>
+      </h2>
+
       <form class="flex gap-2">
         <input class="grow px-4 py-2 rounded-xl focus:outline-none" placeholder="Adresse, postnummer eller by">
         <Button text="Søg" class="hidden sm:block"/>
@@ -13,5 +23,31 @@
 </template>
 
 <script setup>
-const sloganSubstitutes = ref(['hvad', 'hvor', 'når'])
+const sloganRefs = ref([{shown: true}, {shown: false}, {shown: false}])
+const currentWord = ref(0)
+const nextWord = ref(1)
+
+setInterval(() => {
+  sloganRefs.value[currentWord.value].shown = false
+  sloganRefs.value[nextWord.value].shown = true
+
+  currentWord.value = (currentWord.value < 2 ? currentWord.value + 1 : 0)
+  nextWord.value = (nextWord.value < 2 ? nextWord.value + 1 : 0)
+}, 1750)
 </script>
+
+<style scoped>
+.shift-enter-active,
+.shift-leave-active {
+  transition: all 700ms ease-in-out;
+}
+
+.shift-enter-from {
+  color: transparent;
+  transform: translateY(-100%);
+}
+.shift-leave-to {
+  color: transparent;
+  transform: translateY(100%)
+}
+</style>
