@@ -1,5 +1,5 @@
 <template>
-  <main class="">
+  <main :class="textColor">
     <div
       v-if="!loaded"
       class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover bg-fixed"
@@ -11,18 +11,18 @@
       >
         >
       </div>
-      <div class="flex items-center ml-10 -mt-24">
+      <div class="flex items-center ml-10">
         <div
           :style="`border: 2px solid ${restaurant.colorSecondary}`"
-          class="w-40 h-40 rounded-full bg-white flex justify-center items-center"
+          class="w-40 -mt-8 h-40 rounded-full bg-white flex justify-center items-center"
         >
           <img :src="restaurant.logo[0].url" class="p-8" />
         </div>
         <div class="flex flex-col">
-          <h1 v-if="loaded" class="text-3xl font-semibold p-12">
+          <h1 v-if="loaded" class="text-3xl font-semibold p-5">
             {{ restaurant.name }}
           </h1>
-          <div class="flex justify-between gap-x-10 items-center">
+          <div class="flex justify-between px-5 gap-x-10 items-center">
             <p>
               {{
                 restaurant.tags[0].charAt(0).toUpperCase() +
@@ -30,7 +30,10 @@
               }}
             </p>
             <div class="flex gap-x-2 items-center">
-              <Smile1 :fill="`${restaurant.colorSecondary}`" height="30" />
+              <Smile1 v-if="restaurant.rating > 8" :fill="`${restaurant.colorSecondary}`" height="30" />
+              <Smile2 v-if="restaurant.rating > 6 && restaurant.rating <= 8" :fill="`${restaurant.colorSecondary}`" height="30" />
+              <Smile3 v-if="restaurant.rating > 4 && restaurant.rating <= 6" :fill="`${restaurant.colorSecondary}`" height="30" />
+              <Smile4 v-if="restaurant.rating <= 4" :fill="`${restaurant.colorSecondary}`" height="30" />
               <p>{{ restaurant.rating }}</p>
             </div>
             <div class="flex gap-x-2 items-center">
@@ -74,15 +77,15 @@
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-6 mt-10">
+      <div class="grid grid-cols-6 mt-5">
         <div
           class="flex flex-col pt-5 gap-y-5"
           :style="`border-top: solid 1px ${restaurant.colorSecondary}; border-right: solid 1px ${restaurant.colorSecondary}`"
         >
           <div class="sticky top-0">
-            <div class="flex items-center ml-5 mt-2">
+            <div class="flex items-center ml-5 my-5">
               <input v-model="search"
-                class="rounded w-3/4 h-8 focus:outline-none p-1 bg-[url('./assets/icons/search-gray.svg')] bg-no-repeat pl-10 text-gray-500" placeholder="Søg en ret"
+                class="rounded w-5/6 h-8 focus:outline-none p-1 bg-[url('./assets/icons/search-gray.svg')] bg-no-repeat pl-10 text-gray-500" placeholder="Søg en ret"
                 :style="`border: solid 1px ${restaurant.colorSecondary}`"
               />
               
@@ -109,7 +112,7 @@
           <div v-if='search === ""'>
          <Category v-for="category in categories" :key="category" :category="category" :restaurant="restaurant" :menu="menu" :search="search" :searchResult="searchResult"/>
           </div>
-          <div v-if="search !== null">
+          <div v-if='search !== ""'>
          <SearchResult :restaurant="restaurant" :menu="menu" :search="search" :searchResult="searchResult"/>
           </div>
         </div>
@@ -164,13 +167,19 @@ const searchResult = computed(() => {
   });
 });
 
-function showResult() {
+const textColor = computed(() => {
+  //Parse integers from hexadecimal to decimal
+  const r = parseInt(restaurant.value?.colorPrimary.substring(1, 3), 16);
+  const g = parseInt(restaurant.value?.colorPrimary.substring(3, 5), 16);
+  const b = parseInt(restaurant.value?.colorPrimary.substring(5, 7), 16);
 
-}
+  // Calculate luminance, i.e. measurement of brightness
+  const luminance = Math.round(r * 0.2126 + g * 0.7152 + b * 0.0722)
 
-function resetSearch() {
+  // Return Tailwind text class of black or white based on brightness
+  return luminance > 150 ? 'text-black' : 'text-white'
+})
 
-}
 
 Airtable.configure({
   endpointUrl: "https://api.airtable.com",
