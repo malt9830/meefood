@@ -80,12 +80,12 @@
           :style="`border-top: solid 1px ${restaurant.colorSecondary}; border-right: solid 1px ${restaurant.colorSecondary}`"
         >
           <div class="sticky top-0">
-            <div class="flex justify-center items-center ml-2 mt-2">
-              <input
-                class="rounded w-3/4 h-8 focus:outline-none p-1"
+            <div class="flex items-center ml-5 mt-2">
+              <input v-model="search"
+                class="rounded w-3/4 h-8 focus:outline-none p-1 bg-[url('./assets/icons/search-gray.svg')] bg-no-repeat pl-10 text-gray-500" placeholder="Søg en ret"
                 :style="`border: solid 1px ${restaurant.colorSecondary}`"
               />
-              <Search :fill="`${restaurant.colorSecondary}`" height="40" />
+              
             </div>
             <div v-for="category in categories" :key="category" class="flex flex-col px-5 py-3">
               <a :href="`#${category}`" class="capitalize">{{category}}</a>
@@ -106,7 +106,12 @@
               <p>vegan</p>
             </div>
           </div>
-         <Category v-for="category in categories" :key="category" :category="category" :restaurant="restaurant" :menu="menu"/>
+          <div v-if='search === ""'>
+         <Category v-for="category in categories" :key="category" :category="category" :restaurant="restaurant" :menu="menu" :search="search" :searchResult="searchResult"/>
+          </div>
+          <div v-if="search !== null">
+         <SearchResult :restaurant="restaurant" :menu="menu" :search="search" :searchResult="searchResult"/>
+          </div>
         </div>
         <div
           class="flex flex-col"
@@ -134,6 +139,9 @@ const menu = ref([]);
 
 const info = ref(false);
 
+const search = ref("");
+
+
 
 const categories = computed(() => {
   const restaurantCategories = []
@@ -145,6 +153,24 @@ const categories = computed(() => {
   })
   return restaurantCategories
 })
+
+const searchResult = computed(() => {
+  return menu.value.filter((dish) => {
+    return (
+      dish.name
+        .toLowerCase()
+        .indexOf(search.value.toLowerCase()) != -1
+    );
+  });
+});
+
+function showResult() {
+
+}
+
+function resetSearch() {
+
+}
 
 Airtable.configure({
   endpointUrl: "https://api.airtable.com",
