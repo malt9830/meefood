@@ -8,42 +8,46 @@ export const useBasketStore = defineStore({
   getters: {
     totalPrice(state) {
       let total = 0;
-      state.basket.map(el => total += (el.price * el.amount));
-      return total
-    }
+      state.basket.map((el) => (total += el.price * el.amount));
+      return total;
+    },
   },
   actions: {
-    addToBasket(item, counter) {
+    addToBasket(item, counter, comment) {
       this.$patch((state) => {
-        if (state.basket.includes(item)) {
+        if (state.basket.includes(item) && comment === item.comment) {
           item.amount = item.amount + counter;
           console.log(item.amount);
-          console.log(state.basket)
-          
-        } else {
+          console.log(state.basket);
+        } else if (!state.basket.includes(item)) {
           item.amount = counter;
+          item.comment = comment;
+          console.log(item.comment);
           state.basket.push(item);
-          console.log(state.basket)
+          console.log(state.basket);
+        } else if (state.basket.includes(item) && comment !== item.comment) {
+          console.log(comment);
+          //push new item to basket with new comment
         }
       });
     },
     subtractAmount(item) {
       this.$patch(() => {
         if (item.amount >= 2) {
-        item.amount = item.amount - 1;
-        console.log(state.basket)
+          item.amount = item.amount - 1;
+          console.log(state.basket);
         } else {
           this.$patch((state) => {
             state.basket = state.basket.filter((el) => el !== item);
-            console.log(state.basket)
+            console.log(state.basket);
           });
         }
-      })
+      });
     },
     addAmount(item) {
       this.$patch(() => {
         item.amount = item.amount + 1;
-      })
+      });
     },
   },
 });

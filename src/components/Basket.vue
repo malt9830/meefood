@@ -4,23 +4,26 @@
   <div
     v-for="dish in store.basket"
     :key="dish.name"
-    class="flex flex-col mt-5 mx-4"
+    class="flex flex-col gap-y-2 mt-5 mx-4"
   >
     <div class="flex justify-between items-center">
       <h3 class="text-md">{{ dish.amount }}x {{ dish.name }}</h3>
       <p class="text-sm">{{ dish.amount * dish.price }}kr</p>
     </div>
-    <div class="flex justify-start items-center">
-      <Minus
-        @click="store.subtractAmount(dish)"
-        :fill="`${restaurant.colorSecondary}`"
-        class="h-5"
-      />
-      <Plus
-        @click="store.addAmount(dish)"
-        :fill="`${restaurant.colorSecondary}`"
-        class="h-5"
-      />
+    <div class="flex justify-between items-center">
+      <p class="text-xs" v-if="dish.comment">"{{ dish.comment }}"</p>
+      <div class="flex items-center">
+        <Minus
+          @click="store.subtractAmount(dish)"
+          :fill="`${restaurant.colorSecondary}`"
+          class="h-5"
+        />
+        <Plus
+          @click="store.addAmount(dish)"
+          :fill="`${restaurant.colorSecondary}`"
+          class="h-5"
+        />
+      </div>
     </div>
   </div>
   <hr
