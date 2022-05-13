@@ -7,7 +7,17 @@ module.exports = {
     boxShadow: {
       card: "0px 1px 3px #707070",
     },
-    extend: {},
+    extend: {
+      animation: {
+        dash: "dash 1s ease-in-out infinite",
+      },
+      keyframes: {
+        dash: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
+        },
+      },
+    },
   },
   plugins: [],
 };

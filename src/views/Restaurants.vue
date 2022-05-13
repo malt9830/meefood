@@ -7,6 +7,9 @@
     <div v-if="loaded" class="grid gap-6 pt-4 md:grid-cols-2 lg:grid-cols-3">
       <RestaurantCard v-for="rest in filteredRestaurants" :key="rest.slug" :restaurant="rest"/>
     </div>
+    <div v-if="!loaded" class="grid gap-6 pt-4 md:grid-cols-2 lg:grid-cols-3">
+      <RestaurantCardPlaceholder v-for="n in 9" :key="n"/>
+    </div>
     <FilterModal :showFilter="showFilter" @closeFilter="showFilter = false"/>
   </main>
 </template>
@@ -53,6 +56,8 @@ var base = Airtable.base('appRiP6vD6l7EmCYB')
 base('restaurants').select({}).eachPage(res => {
   res.forEach(rest => restaurants.value.push(rest.fields))
 
-  loaded.value = true
+  // setTimeout(() => {
+  //   loaded.value = true
+  // }, 2000)
 })
 </script>
