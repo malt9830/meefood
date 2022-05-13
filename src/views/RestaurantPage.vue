@@ -129,8 +129,8 @@
 </template>
 
 <script setup>
-import { computed } from "@vue/runtime-core";
 import Airtable from "airtable";
+import { computed } from "@vue/runtime-core";
 
 const route = useRoute();
 
