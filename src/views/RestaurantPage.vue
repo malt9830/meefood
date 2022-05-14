@@ -1,5 +1,5 @@
 <template>
-  <main class="">
+  <main :class="textColor">
     <div
       v-if="!loaded"
       class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover bg-fixed"
@@ -9,7 +9,6 @@
         :style="`background-image: url(${restaurant.splash[0].url})`"
         class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover bg-fixed"
       >
-        >
       </div>
       <div class="flex items-center ml-10 -mt-24">
         <div
@@ -134,6 +133,18 @@ const menu = ref([]);
 
 const info = ref(false);
 
+const textColor = computed(() => {
+  //Parse integers from hexadecimal to decimal
+  const r = parseInt(restaurant.value?.colorPrimary.substring(1, 3), 16);
+  const g = parseInt(restaurant.value?.colorPrimary.substring(3, 5), 16);
+  const b = parseInt(restaurant.value?.colorPrimary.substring(5, 7), 16);
+
+  // Calculate luminance, i.e. measurement of brightness
+  const luminance = Math.round(r * 0.2126 + g * 0.7152 + b * 0.0722)
+
+  // Return Tailwind text class of black or white based on brightness
+  return luminance > 150 ? 'text-black' : 'text-white'
+})
 
 const categories = computed(() => {
   const restaurantCategories = []

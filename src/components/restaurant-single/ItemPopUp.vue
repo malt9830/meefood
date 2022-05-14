@@ -57,7 +57,7 @@
 
 <script setup>
 
-import { useBasketStore } from "/src/stores/basket";
+import { useBasketStore } from "/src/stores/basketStore";
 
 const store = useBasketStore();
 
