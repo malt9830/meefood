@@ -37,7 +37,7 @@
 const props = defineProps({
   dish: Object,
   restaurant: Object,
-  category: String,
+  category: String
 })
 
 const popUp = ref(false);

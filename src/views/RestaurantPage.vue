@@ -120,7 +120,7 @@
           class="flex flex-col"
           :style="`border-top: solid 1px ${restaurant.colorSecondary}`"
         >
-          <Basket :restaurant="restaurant" />
+          <Basket :restaurant="restaurant"/>
         </div>
          <Info v-if="info === true" :info="info" :restaurant="restaurant" @close-info="info = false"/>
       </div>

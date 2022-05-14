@@ -2,7 +2,7 @@
 <Teleport to ="body">
   <div class="fixed w-screen h-screen top-0 left-0 before:content-[''] before:block before:w-screen before:h-screen before:bg-black before:opacity-50">
     <div 
-                  class="w-1/2 h-3/4 bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded grid grid-rows-2 drop-shadow"
+                  class="w-1/2 h-3/4 overflow-scroll bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded grid grid-rows-2 drop-shadow"
                 >
                   <div
                     class="flex justify-end rounded"
@@ -33,9 +33,17 @@
                       <p class="text-xl">{{ dish.price }}kr</p>
                     </div>
                     <p class="text-sm">{{ dish.description }}</p>
-                    <textarea  v-model="comment" @input="showComment" class="border rounded w-3/4 h-10 p-1 focus:outline-none" placeholder="Skriv en kommentar"></textarea>
+                    <div v-if="dish.options">
+                      <fieldset>
+                        <div v-for="option in dish.options" :key="option" class="flex gap-x-2 my-1">
+                          <input v-model="picked" name="option" type="radio" :value="`${option}`"/>
+                          <label>{{option}}</label>
+                        </div>
+                      </fieldset>
+                    </div>
+                    <textarea  v-model="comment" @input="showComment" class="border border-gray-500 rounded w-3/4 h-10 p-1 focus:outline-none" placeholder="Skriv en kommentar"></textarea>
                   </div>
-                    <div class="flex justify-center gap-x-7 mt-3">
+                    <div class="flex sticky bottom-0 bg-white justify-center gap-x-7 pb-3">
                       <button id="amount" @click="checkAmount"
                         class="p-1.5 rounded w-40 flex items-center justify-between px-10"
                         :style="`border: 1px solid ${restaurant.colorSecondary}; color: ${restaurant.colorSecondary}`"
@@ -45,7 +53,7 @@
                         <button @click="counter++" class="text-2xl">+</button>
                       </button>
                       <button
-                        @click="store.addToBasket(dish, counter, comment); $emit('closePopUp')"
+                        @click="store.addToBasket(dish, counter, comment, picked); $emit('closePopUp')"
                         class="p-1.5 rounded w-40 text-white"
                         :style="`background: ${restaurant.colorSecondary}`"
                       >

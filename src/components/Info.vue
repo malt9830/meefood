@@ -8,7 +8,7 @@
       >
           <GoogleMap api-key="AIzaSyDBbFP79qNW3Yf1YYc0qeC8DccgOG_7HpQ" :center="center" :zoom="15" class="relative h-80">
     <Marker :options="{ position: center }" />
-    <Close
+    <CloseCircle
             @click="$emit('closeInfo')"
             class="absolute top-0 right-0 h-10"
             :style="`fill: ${restaurant.colorSecondary}`"
@@ -16,8 +16,8 @@
   </GoogleMap>
 
           
-        <div class="flex flex-col m-5 gap-y-8 top-40 relative">
-          <div class="flex flex-col gap-y-2">
+        <div class="flex flex-col m-5 gap-y-8 top-44 relative">
+          <div class="flex flex-col gap-y-2 mx-3">
           <h1 class="text-xl font-semibold">Åbningstider</h1>
           <div>
             <div class="flex justify-between">
@@ -50,7 +50,7 @@
             </div>
           </div>
           </div>
-          <div class="flex flex-col gap-y-2 pb-5">
+          <div class="flex flex-col gap-y-2 pb-8 mx-3">
           <h1 class="text-xl font-semibold">Kontakt</h1>
           <div class="flex flex-col gap-y-2">
             <p>+45{{ restaurant.phone }}</p>

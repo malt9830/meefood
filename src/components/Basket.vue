@@ -13,7 +13,9 @@
     </div>
     <div class="flex justify-between items-center">
       <p class="text-xs" v-if="dish.comment">"{{ dish.comment }}"</p>
-      <div class="flex items-center">
+      <p v-if="!dish.comment && !dish.options"></p>
+      <p class="text-xs" v-if="dish.options">{{dish.picked}}</p>
+      <div class="flex items-center justify-end">
         <Minus
           @click="store.subtractAmount(dish)"
           :fill="`${restaurant.colorSecondary}`"
@@ -65,5 +67,6 @@ const store = useBasketStore();
 const props = defineProps({
   restaurant: Object,
   counter: Number,
+  picked: String
 });
 </script>
