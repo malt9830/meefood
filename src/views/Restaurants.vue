@@ -56,8 +56,8 @@ var base = Airtable.base('appRiP6vD6l7EmCYB')
 base('restaurants').select({}).eachPage(res => {
   res.forEach(rest => restaurants.value.push(rest.fields))
 
-  // setTimeout(() => {
-  //   loaded.value = true
-  // }, 2000)
+  setTimeout(() => {
+    loaded.value = true
+  }, 2000)
 })
 </script>
