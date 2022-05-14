@@ -74,6 +74,13 @@
             >
               More info
             </button>
+            <p class="mr-10" v-if='day === "mandag"'>Åben til {{restaurant.mandag.slice(8)}}</p>
+          <p class="mr-10" v-if='day === "tirsdag"'>Åben til {{restaurant.tirsdag.slice(8)}}</p>
+          <p class="mr-10" v-if='day === "onsdag"'>Åben til {{restaurant.onsdag.slice(8)}}</p>
+          <p class="mr-10" v-if='day === "torsdag"'>Åben til {{restaurant.torsdag.slice(8)}}</p>
+          <p class="mr-10" v-if='day === "fredag"'>Åben til {{restaurant.fredag.slice(8)}}</p>
+          <p class="mr-10" v-if='day === "lordag"'>Åben til {{restaurant.lordag.slice(8)}}</p>
+          <p class="mr-10" v-if='day === "sondag"'>Åben til {{restaurant.sondag.slice(8)}}</p>
           </div>
         </div>
       </div>
@@ -130,7 +137,7 @@
 
 <script setup>
 import Airtable from "airtable";
-import { computed } from "@vue/runtime-core";
+import { computed, onMounted } from "@vue/runtime-core";
 
 const route = useRoute();
 
@@ -143,6 +150,8 @@ const menu = ref([]);
 const info = ref(false);
 
 const search = ref("");
+
+const day = ref("");
 
 
 
@@ -178,6 +187,28 @@ const textColor = computed(() => {
 
   // Return Tailwind text class of black or white based on brightness
   return luminance > 150 ? 'text-black' : 'text-white'
+})
+
+onMounted(() => {
+  const d = new Date();
+  let number = d.getDay();
+  console.log(number)
+  if (number === 0) {
+    day.value = "sondag"
+  } else if (number === 1) {
+    day.value = "mandag"
+  } else if (number === 2) {
+    day.value = "tirsdag"
+  } else if (number === 3) {
+    day.value = "onsdag"
+  } else if (number === 4) {
+    day.value = "torsdag"
+  } else if (number === 5) {
+    day.value = "fredag"
+  } else if (number === 6) {
+    day.value = "lordag"
+  } 
+  console.log(day.value)
 })
 
 
