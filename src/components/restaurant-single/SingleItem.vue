@@ -17,7 +17,7 @@
                         v-if="dish.vegan === true"
                       />
                     </div>
-                    <p class="text-sm font-light">{{ dish.description }}</p>
+                    <p class="text-xs sm:text-sm font-light">{{ dish.description }}</p>
                     <p class="text-md">{{ dish.price }}kr</p>
                   </div>
                   <img :src="dish.image[0].url" class="w-40 h-28 rounded" />
@@ -37,7 +37,7 @@
 const props = defineProps({
   dish: Object,
   restaurant: Object,
-  category: String,
+  category: String
 })
 
 const popUp = ref(false);

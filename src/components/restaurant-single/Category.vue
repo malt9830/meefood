@@ -1,11 +1,12 @@
 <template>
-     <div class="m-10">
+     <div class="my-10 sm:m-10">
             <h2 :id="`${category}`" class="text-3xl font-semibold mb-5 ml-5 capitalize">{{category}}</h2>
             <div class="flex flex-col gap-y-5">
               <SingleItem v-for="dish in filteredMenu" :key="dish.name" :dish="dish" :restaurant="restaurant" :category="category" />
             </div>
-          </div>
+      </div>
 </template>
+      
 
 <script setup>
 import { computed } from "@vue/runtime-core"
@@ -14,7 +15,9 @@ import { computed } from "@vue/runtime-core"
 const props = defineProps({
     restaurant: Object,
     menu: Array,
-    category: String
+    category: String,
+    search: String,
+    searchResult: Array
 })
 
 const filteredMenu = computed(() => {
