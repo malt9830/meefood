@@ -54,7 +54,7 @@
                       </button>
                       <button
                         @click="store.addToBasket(dish, counter, comment, picked); $emit('closePopUp')"
-                        class="p-1.5 rounded w-40 text-white"
+                        class="p-1.5 rounded w-40 text-white hover:opacity-75"
                         :style="`background: ${restaurant.colorSecondary}`"
                       >
                         Tilføj

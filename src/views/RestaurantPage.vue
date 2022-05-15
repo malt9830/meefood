@@ -11,43 +11,25 @@
       >
         >
       </div>
-      <div class="flex items-center ml-10">
+      <div class="flex flex-col sm:flex-row items-center sm:ml-10">
         <div
           :style="`border: 2px solid ${restaurant.colorSecondary}`"
           class="w-40 -mt-8 h-40 rounded-full bg-white flex justify-center items-center"
         >
           <img :src="restaurant.logo[0].url" class="p-8" />
         </div>
-        <div class="flex flex-col">
-          <h1 v-if="loaded" class="text-3xl font-semibold p-5">
+        <div class="flex flex-col items-center sm:items-start">
+          <h1 v-if="loaded" class="text-3xl font-semibold sm:p-5">
             {{ restaurant.name }}
           </h1>
-          <div class="flex justify-between px-5 gap-x-10 items-center">
+          <div class="flex flex-col sm:flex-row justify-between px-5 gap-y-2 sm:gap-x-10 sm:items-start w-screen sm:w-full sm:items-center">
+            <div class="flex justify-between sm:justify-start w-full sm:w-fit sm:gap-x-5">
             <p>
               {{
                 restaurant.tags[0].charAt(0).toUpperCase() +
                 restaurant.tags[0].slice(1)
               }}
             </p>
-            <div class="flex gap-x-2 items-center">
-              <Smile1 v-if="restaurant.rating > 8" :fill="`${restaurant.colorSecondary}`" height="30" />
-              <Smile2 v-if="restaurant.rating > 6 && restaurant.rating <= 8" :fill="`${restaurant.colorSecondary}`" height="30" />
-              <Smile3 v-if="restaurant.rating > 4 && restaurant.rating <= 6" :fill="`${restaurant.colorSecondary}`" height="30" />
-              <Smile4 v-if="restaurant.rating <= 4" :fill="`${restaurant.colorSecondary}`" height="30" />
-              <p>{{ restaurant.rating }}</p>
-            </div>
-            <div class="flex gap-x-2 items-center">
-              <Bike :fill="`${restaurant.colorSecondary}`" height="20" />
-              <p>{{ restaurant.deliveryCost }}kr</p>
-            </div>
-            <div class="flex gap-x-2 items-center">
-              <Time :fill="`${restaurant.colorSecondary}`" height="20" />
-              <p>{{ restaurant.deliveryTime }}min</p>
-            </div>
-            <div class="flex gap-x-2 items-center">
-              <Bag :fill="`${restaurant.colorSecondary}`" height="30" />
-              <p>Min. {{ restaurant.minimumPrice }}kr</p>
-            </div>
             <div class="flex">
               <Dollar :fill="`${restaurant.colorSecondary}`" height="20" />
               <Dollar
@@ -66,39 +48,108 @@
                 height="20"
               />
             </div>
+            </div>
+            <div class="flex gap-x-2 items-center justify-between sm:justify-start sm:w-fit w-full">
+              <div class="flex gap-x-2 items-center">
+              <Smile1
+                v-if="restaurant.rating > 8"
+                :fill="`${restaurant.colorSecondary}`"
+                height="30"
+              />
+              <Smile2
+                v-if="restaurant.rating > 6 && restaurant.rating <= 8"
+                :fill="`${restaurant.colorSecondary}`"
+                height="30"
+              />
+              <Smile3
+                v-if="restaurant.rating > 4 && restaurant.rating <= 6"
+                :fill="`${restaurant.colorSecondary}`"
+                height="30"
+              />
+              <Smile4
+                v-if="restaurant.rating <= 4"
+                :fill="`${restaurant.colorSecondary}`"
+                height="30"
+              />
+              <p v-if="mobile">Bedømmelse</p>
+              </div>
+              <p>{{ restaurant.rating }}</p>
+            </div>
+            <div class="flex gap-x-2 items-center justify-between sm:justify-start sm:w-fit w-full">
+              <div class="flex gap-x-2 items-center">
+              <Bike :fill="`${restaurant.colorSecondary}`" height="20" />
+              <p v-if="mobile">Leveringsgebyr</p>
+              </div>
+              <p>{{ restaurant.deliveryCost }}kr</p>
+            </div>
+            <div class="flex gap-x-2 items-center justify-between sm:justify-start sm:w-fit w-full">
+              <div class="flex gap-x-2 items-center">
+              <Time :fill="`${restaurant.colorSecondary}`" height="20" />
+              <p v-if="mobile">Leveringstid</p>
+              </div>
+              <p>{{ restaurant.deliveryTime }}min</p>
+            </div>
+            <div class="flex gap-x-2 items-center justify-between sm:justify-start sm:w-fit w-full">
+              <div class="flex gap-x-2 items-center">
+              <Bag :fill="`${restaurant.colorSecondary}`" height="30" />
+              <p v-if="mobile">Minimum pris</p>
+              </div>
+              <p class="flex"><span v-if="!mobile">Min.</span> {{ restaurant.minimumPrice }}kr</p>
+            </div>
+            <div class="flex w-full sm:w-fit sm:gap-x-5 items-center sm:justify-start justify-between">
             <p>www.restaurant.dk</p>
             <button
               :style="`background-color: ${restaurant.colorSecondary}`"
-              class="p-1.5 text-white rounded hover:opacity-75"
+              class="p-1.5 sm:w-24 text-white rounded hover:opacity-75"
               @click="info = true"
             >
               More info
             </button>
-            <p class="mr-10" v-if='day === "mandag"'>Åben til {{restaurant.mandag.slice(8)}}</p>
-          <p class="mr-10" v-if='day === "tirsdag"'>Åben til {{restaurant.tirsdag.slice(8)}}</p>
-          <p class="mr-10" v-if='day === "onsdag"'>Åben til {{restaurant.onsdag.slice(8)}}</p>
-          <p class="mr-10" v-if='day === "torsdag"'>Åben til {{restaurant.torsdag.slice(8)}}</p>
-          <p class="mr-10" v-if='day === "fredag"'>Åben til {{restaurant.fredag.slice(8)}}</p>
-          <p class="mr-10" v-if='day === "lordag"'>Åben til {{restaurant.lordag.slice(8)}}</p>
-          <p class="mr-10" v-if='day === "sondag"'>Åben til {{restaurant.sondag.slice(8)}}</p>
+            </div>
+            <p class="text-center w-full" v-if="day === 'mandag'">
+              Åben til {{ restaurant.mandag.slice(8) }}
+            </p>
+            <p class="sm:mr-10" v-if="day === 'tirsdag'">
+              Åben til {{ restaurant.tirsdag.slice(8) }}
+            </p>
+            <p class="sm:mr-10" v-if="day === 'onsdag'">
+              Åben til {{ restaurant.onsdag.slice(8) }}
+            </p>
+            <p class="sm:mr-10" v-if="day === 'torsdag'">
+              Åben til {{ restaurant.torsdag.slice(8) }}
+            </p>
+            <p class="sm:mr-10" v-if="day === 'fredag'">
+              Åben til {{ restaurant.fredag.slice(8) }}
+            </p>
+            <p class="text-center w-full sm:mr-10" v-if="day === 'lordag'">
+              Åben til {{ restaurant.lordag.slice(8) }}
+            </p>
+            <p class="sm:mr-10" v-if="day === 'sondag'">
+              Åben til {{ restaurant.sondag.slice(8) }}
+            </p>
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-6 mt-5">
-        <div
+      <div class="sm:grid sm:grid-cols-6 mt-5">
+        <div v-if="!mobile"
           class="flex flex-col pt-5 gap-y-5"
           :style="`border-top: solid 1px ${restaurant.colorSecondary}; border-right: solid 1px ${restaurant.colorSecondary}`"
         >
           <div class="sticky top-0">
             <div class="flex items-center ml-5 my-5">
-              <input v-model="search"
-                class="rounded w-5/6 h-8 focus:outline-none p-1 bg-[url('./assets/icons/search-gray.svg')] bg-no-repeat pl-10 text-gray-500" placeholder="Søg en ret"
+              <input
+                v-model="search"
+                class="rounded w-5/6 h-8 focus:outline-none p-1 bg-[url('./assets/icons/search-gray.svg')] bg-no-repeat pl-10 text-gray-500"
+                placeholder="Søg en ret"
                 :style="`border: solid 1px ${restaurant.colorSecondary}`"
               />
-              
             </div>
-            <div v-for="category in categories" :key="category" class="flex flex-col px-5 py-3">
-              <a :href="`#${category}`" class="capitalize">{{category}}</a>
+            <div
+              v-for="category in categories"
+              :key="category"
+              class="flex flex-col px-5 py-3"
+            >
+              <a :href="`#${category}`" class="capitalize">{{ category }}</a>
             </div>
           </div>
         </div>
@@ -116,20 +167,38 @@
               <p>vegan</p>
             </div>
           </div>
-          <div v-if='search === ""'>
-         <Category v-for="category in categories" :key="category" :category="category" :restaurant="restaurant" :menu="menu" :search="search" :searchResult="searchResult"/>
+          <div v-if="search === ''">
+            <Category
+              v-for="category in categories"
+              :key="category"
+              :category="category"
+              :restaurant="restaurant"
+              :menu="menu"
+              :search="search"
+              :searchResult="searchResult"
+            />
           </div>
-          <div v-if='search !== ""'>
-         <SearchResult :restaurant="restaurant" :menu="menu" :search="search" :searchResult="searchResult"/>
+          <div v-if="search !== ''">
+            <SearchResult
+              :restaurant="restaurant"
+              :menu="menu"
+              :search="search"
+              :searchResult="searchResult"
+            />
           </div>
         </div>
         <div
           class="flex flex-col"
           :style="`border-top: solid 1px ${restaurant.colorSecondary}`"
         >
-          <Basket :restaurant="restaurant"/>
+          <Basket :restaurant="restaurant" />
         </div>
-         <Info v-if="info === true" :info="info" :restaurant="restaurant" @close-info="info = false"/>
+        <Info
+          v-if="info === true"
+          :info="info"
+          :restaurant="restaurant"
+          @close-info="info = false"
+        />
       </div>
     </div>
   </main>
@@ -153,26 +222,22 @@ const search = ref("");
 
 const day = ref("");
 
-
+const mobile = ref(false);
 
 const categories = computed(() => {
-  const restaurantCategories = []
+  const restaurantCategories = [];
 
-  menu.value.forEach(dish => {
+  menu.value.forEach((dish) => {
     if (!restaurantCategories.includes(dish.category)) {
-    restaurantCategories.push(dish.category)
+      restaurantCategories.push(dish.category);
     }
-  })
-  return restaurantCategories
-})
+  });
+  return restaurantCategories;
+});
 
 const searchResult = computed(() => {
   return menu.value.filter((dish) => {
-    return (
-      dish.name
-        .toLowerCase()
-        .indexOf(search.value.toLowerCase()) != -1
-    );
+    return dish.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1;
   });
 });
 
@@ -183,34 +248,44 @@ const textColor = computed(() => {
   const b = parseInt(restaurant.value?.colorPrimary.substring(5, 7), 16);
 
   // Calculate luminance, i.e. measurement of brightness
-  const luminance = Math.round(r * 0.2126 + g * 0.7152 + b * 0.0722)
+  const luminance = Math.round(r * 0.2126 + g * 0.7152 + b * 0.0722);
 
   // Return Tailwind text class of black or white based on brightness
-  return luminance > 150 ? 'text-black' : 'text-white'
-})
+  return luminance > 150 ? "text-black" : "text-white";
+});
 
 onMounted(() => {
   const d = new Date();
   let number = d.getDay();
-  console.log(number)
+  console.log(number);
   if (number === 0) {
-    day.value = "sondag"
+    day.value = "sondag";
   } else if (number === 1) {
-    day.value = "mandag"
+    day.value = "mandag";
   } else if (number === 2) {
-    day.value = "tirsdag"
+    day.value = "tirsdag";
   } else if (number === 3) {
-    day.value = "onsdag"
+    day.value = "onsdag";
   } else if (number === 4) {
-    day.value = "torsdag"
+    day.value = "torsdag";
   } else if (number === 5) {
-    day.value = "fredag"
+    day.value = "fredag";
   } else if (number === 6) {
-    day.value = "lordag"
-  } 
-  console.log(day.value)
-})
+    day.value = "lordag";
+  }
+  console.log(day.value);
+  isMobile();
+});
 
+function isMobile() {
+  if (screen.width <= 760) {
+   mobile.value = true;
+   console.log(mobile.value)
+  } else {
+    mobile.value = false;
+    console.log(mobile.value)
+  }
+}
 
 Airtable.configure({
   endpointUrl: "https://api.airtable.com",
