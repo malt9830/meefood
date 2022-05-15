@@ -9,7 +9,6 @@
         :style="`background-image: url(${restaurant.splash[0].url})`"
         class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover bg-fixed"
       >
-        >
       </div>
       <div class="flex flex-col sm:flex-row items-center sm:ml-10">
         <div
@@ -302,13 +301,13 @@ base("restaurants")
     restaurant.value = res[0].fields;
 
     loaded.value = true;
-  });
 
-base("menu-marios-bistro")
-  .select()
-  .eachPage((res) => {
-    res.forEach((dish) => {
-      menu.value.push(dish.fields);
-    });
+    base(`menu-${restaurant.value.slug}`)
+      .select()
+      .eachPage((res) => {
+        res.forEach((dish) => {
+          menu.value.push(dish.fields);
+        });
+      });
   });
 </script>
