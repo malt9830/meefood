@@ -27,19 +27,22 @@
           <span class="capitalize">{{ restaurant.tags[0] }}</span>
         </span>
         <span class="flex gap-1 items-center">
-          <img class="h-6" src="/src/assets/icons/smile1.svg">
+          <Smile1 v-if="restaurant.rating > 8" class="fill-emerald-500 h-6 w-auto"/>
+          <Smile2 v-if="restaurant.rating > 6 && restaurant.rating <= 8" class="fill-emerald-500 h-6 w-auto"/>
+          <Smile3 v-if="restaurant.rating > 4 && restaurant.rating <= 6" class="fill-emerald-500 h-6 w-auto"/>
+          <Smile4 v-if="restaurant.rating <= 4" class="fill-emerald-500 h-6 w-auto"/>
           <span>{{ restaurant.rating }}</span>
         </span>
         <span class="flex gap-1 items-center">
-          <img class="h-6" src="/src/assets/icons/bike.svg">
+          <Bike class="fill-emerald-500 h-6 w-auto"/>
           <span>{{ restaurant.deliveryCost }} kr.</span>
         </span>
         <span class="flex gap-1 items-center">
-          <img class="h-6" src="/src/assets/icons/bag.svg">
+          <Bag class="fill-emerald-500 h-6 w-auto"/>
           <span>Min. {{ restaurant.minimumPrice }} kr.</span>
         </span>
         <span class="flex gap-1 items-center">
-          <img v-for="n in parseInt(restaurant.priceRange)" :key="n" src="/src/assets/icons/dollar-gray.svg" class="h-6 w-auto fill-emerald-500">
+          <Dollar v-for="n in parseInt(restaurant.priceRange)" :key="n" class="fill-emerald-500 h-6 w-auto"/>
         </span>   
       </p>
     </div>
