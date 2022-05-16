@@ -1,8 +1,12 @@
 <template>
   <div class="relative h-[65vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover bg-fixed grid">
-    <img class="absolute pointer-events-none w-3/5 hidden sm:block" src="/src/assets/splash-image/banner-desktop.png">
-    <img class="absolute pointer-events-none w-full sm:hidden" src="/src/assets/splash-image/banner-mobile.png">
-    <div class="z-10 self-center">
+    <!-- <img class="absolute pointer-events-none w-3/5 hidden sm:block" src="/src/assets/splash-image/banner-desktop.png"> -->
+    <div class="absolute pointer-events-none w-full">
+      <div class="w-full h-60 bg-emerald-500"/>
+      <img class="w-full object-cover" src="/src/assets/splash-image/banner-bottom.svg">
+    </div>
+    <!-- <img class="absolute pointer-events-none w-full sm:hidden" src="/src/assets/splash-image/banner-mobile.png"> -->
+    <div class="z-10 my-auto">
       <div class="max-w-4xl mx-auto p-4">
         <h2 class="flex flex-row gap-2 text-white text-4xl font-bold mb-8">
           <span>Spis</span>
