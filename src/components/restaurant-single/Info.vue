@@ -6,11 +6,11 @@
       <div
         class="w-1/2 h-3/4 overflow-scroll bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded grid grid-rows-3 drop-shadow"
       >
-          <GoogleMap api-key="AIzaSyDBbFP79qNW3Yf1YYc0qeC8DccgOG_7HpQ" :center="center" :zoom="15" class="relative h-80">
+          <GoogleMap api-key="AIzaSyDBbFP79qNW3Yf1YYc0qeC8DccgOG_7HpQ" :center="center" :zoom="15" class="h-80">
     <Marker :options="{ position: center }" />
     <CloseCircle
             @click="$emit('closeInfo')"
-            class="absolute top-0 right-0 h-10"
+            class="fixed top-0 right-0 h-10"
             :style="`fill: ${restaurant.colorSecondary}`"
           />
   </GoogleMap>

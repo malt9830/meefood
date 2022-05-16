@@ -13,7 +13,7 @@
       <div class="flex flex-col sm:flex-row items-center sm:ml-10">
         <div
           :style="`border: 2px solid ${restaurant.colorSecondary}`"
-          class="w-40 -mt-8 h-40 rounded-full bg-white flex justify-center items-center"
+          class="w-40 -mt-8 rounded-full bg-white flex justify-center items-center"
         >
           <img :src="restaurant.logo[0].url" class="p-8" />
         </div>
@@ -175,6 +175,7 @@
               :menu="menu"
               :search="search"
               :searchResult="searchResult"
+              :loaded2="loaded2"
             />
           </div>
           <div v-if="search !== ''">
@@ -210,6 +211,8 @@ import { computed, onMounted } from "@vue/runtime-core";
 const route = useRoute();
 
 const loaded = ref(false);
+
+const loaded2 = ref(false)
 
 const restaurant = ref();
 
@@ -309,5 +312,8 @@ base("restaurants")
           menu.value.push(dish.fields);
         });
       });
+      setTimeout(() => {
+    loaded2.value = true
+  }, 2000)
   });
 </script>
