@@ -10,18 +10,17 @@
         class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover bg-fixed"
       >
       </div>
-      <div class="flex flex-col sm:flex-row items-center sm:ml-10">
+      <div class="relative flex flex-col sm:flex-row items-center sm:ml-10">
         <div
-          :style="`border: 2px solid ${restaurant.colorSecondary}`"
-          class="w-40 -mt-8 rounded-full bg-white flex justify-center items-center"
+          :style="`border: 2px solid ${restaurant.colorSecondary}; background-image: url(${restaurant.logo[0].url}); background-size: contain; background-repeat: no-repeat`"
+          class="w-40 h-40 sm:absolute top-0 md:-top-16 left-0 rounded-full bg-white flex justify-center items-center"
         >
-          <img :src="restaurant.logo[0].url" class="p-8" />
         </div>
-        <div class="flex flex-col items-center sm:items-start">
+        <div class="sm:ml-40 flex flex-col items-center sm:items-start">
           <h1 v-if="loaded" class="text-3xl font-semibold sm:p-5">
             {{ restaurant.name }}
           </h1>
-          <div class="flex flex-col sm:flex-row justify-between px-5 gap-y-2 sm:gap-x-10 sm:items-start w-screen sm:w-full sm:items-center">
+          <div class="flex flex-col sm:flex-row sm:flex-wrap flex-start px-5 gap-y-2 sm:gap-x-10 sm:items-start w-screen sm:w-full sm:items-center">
             <div class="flex justify-between sm:justify-start w-full sm:w-fit sm:gap-x-5">
             <p>
               {{
@@ -105,7 +104,7 @@
               More info
             </button>
             </div>
-            <p class="text-center w-full" v-if="day === 'mandag'">
+            <p class="text-center" v-if="day === 'mandag'">
               Åben til {{ restaurant.mandag.slice(8) }}
             </p>
             <p class="sm:mr-10" v-if="day === 'tirsdag'">
@@ -138,7 +137,7 @@
             <div class="flex items-center ml-5 my-5">
               <input
                 v-model="search"
-                class="rounded w-5/6 h-8 focus:outline-none p-1 bg-[url('./assets/icons/search-gray.svg')] bg-no-repeat pl-10 text-gray-500"
+                class="rounded w-5/6 h-8 focus:outline-none p-1 bg-[url('./assets/icons/search-gray.svg')] bg-no-repeat pl-8 md:pl-10 text-gray-500 text-xs md:text-sm"
                 placeholder="Søg en ret"
                 :style="`border: solid 1px ${restaurant.colorSecondary}`"
               />
@@ -154,7 +153,7 @@
         </div>
         <div
           :style="`border-top: solid 1px ${restaurant.colorSecondary}; border-right: solid 1px ${restaurant.colorSecondary}`"
-          class="col-span-4"
+          class="col-span-6 md:col-span-4"
         >
           <div class="flex gap-x-5 m-5">
             <div class="flex items-center">
@@ -187,11 +186,11 @@
             />
           </div>
         </div>
-        <div
+        <div v-if="!mobile"
           class="flex flex-col"
           :style="`border-top: solid 1px ${restaurant.colorSecondary}`"
         >
-          <Basket :restaurant="restaurant" />
+          <Basket :restaurant="restaurant" :loaded="loaded" />
         </div>
         <Info
           v-if="info === true"

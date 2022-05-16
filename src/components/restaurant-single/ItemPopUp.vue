@@ -60,7 +60,7 @@
             ></textarea>
           </div>
           <div
-            class="flex sticky shadow-2xl bottom-0 bg-white justify-center gap-x-7 py-3"
+            class="flex sticky shadow-md bottom-0 bg-white justify-center gap-x-7 py-2 "
           >
             <button
               id="amount"

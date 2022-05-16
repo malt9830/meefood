@@ -47,12 +47,12 @@
       <p>{{ store.totalPrice + restaurant.deliveryCost }}kr</p>
     </div>
     <div class="flex justify-center mt-5">
-    <button
+    <RouterLink :to="`/checkout/${restaurant.slug}`"><button
       :style="`background-color: ${restaurant.colorSecondary}`"
       class="p-1.5 rounded text-white hover:opacity-75"
     >
       Gå til kassen
-    </button>
+    </button></RouterLink>
   </div>
   </div>
   
@@ -67,6 +67,7 @@ const store = useBasketStore();
 const props = defineProps({
   restaurant: Object,
   counter: Number,
-  picked: String
+  picked: String,
+  loaded: Boolean,
 });
 </script>
