@@ -6,6 +6,7 @@ module.exports = {
     },
     boxShadow: {
       card: "0px 1px 3px #707070",
+      top: "0px -3px 10px #707070",
     },
     extend: {
       animation: {
