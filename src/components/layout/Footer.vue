@@ -2,12 +2,11 @@
 	<footer class="bg-emerald-900 py-6 lg:py-10 mt-40">
 		<div class="py-8 mx-auto max-w-7xl px-6 md:mx-8 lg:mx-auto">
 			<div class="grid lg:grid-cols-3">
-				<div class="text-white self-center pb-6 lg:pb-6 place-self-center">
-					<a href="http://">
-						<img class="h-10 w-auto" src="src/assets/logos/meefood-logo-white.svg" alt="" />
-					</a>
+				<div>
+				<div class="text-white self-center pb-6 lg:pb-6 place-self-center content-center">
+        	<RouterLink to="/"><Logo class="mx-auto"/></RouterLink>
 				</div>
-				<div class="flex space-x-4 justify-center md:justify-start pb-12">
+				<div class="flex space-x-4 justify-center pb-12">
 					<a href="http://">
 						<svg class="h-10 w-auto" xmlns="http://www.w3.org/2000/svg" width="56.382" height="56.382" viewBox="0 0 56.382 56.382">
 							<path id="Icon_awesome-facebook-square" data-name="Icon awesome-facebook-square" d="M50.341,2.25H6.041A6.041,6.041,0,0,0,0,8.291v44.3a6.041,6.041,0,0,0,6.041,6.041H23.314V39.463H15.385V30.441h7.929V23.564c0-7.822,4.657-12.142,11.789-12.142a48.033,48.033,0,0,1,6.987.609v7.677H38.154c-3.877,0-5.087,2.406-5.087,4.874v5.858h8.656l-1.384,9.022H33.068V58.632H50.341a6.041,6.041,0,0,0,6.041-6.041V8.291A6.041,6.041,0,0,0,50.341,2.25Z" transform="translate(0 -2.25)" fill="#fff" />
@@ -30,6 +29,7 @@
 						</svg>
 					</a>
 				</div>
+			</div>
 
 				<div class="text-white">
 					<div class="pb-6">
