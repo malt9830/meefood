@@ -2,8 +2,18 @@
   <Teleport to="body">
     <Transition name="slide" :duration="400">
       <div v-if="showLocation" class="fixed left-0 bottom-0 z-20 w-full flex justify-end pb-16">
-        <aside class="w-full z-10 bg-white flex flex-col p-8 rounded-t-2xl shadow-top">
-          <p class="text-2xl text-gray-500 font-semibold mb-2">Anvend ny placering</p>
+        <aside class="w-full z-10 bg-white p-4 rounded-t-2xl shadow-top">
+          <p class="text-2xl text-gray-500 font-semibold">Brug anden adresse?</p>
+          <p class="text-sm">Indtast en ny adresse og find de bedste og nærmeste spisesteder.</p>
+          <fieldset class="bg-gray-300 mt-4 border-2 border-gray-500 rounded-xl cursor-not-allowed">
+            <legend class="text-xs mx-3 px-1">Nuværrende adresse</legend>
+            <input v-model="currentAddress" placeholder="Ingen" disabled class="bg-transparent px-4 py-2 rounded-xl focus:outline-none pointer-events-none">
+          </fieldset>
+          <fieldset class="mt-4 border-2 border-gray-500 rounded-xl">
+            <legend class="text-xs mx-3 px-1">Ny adresse</legend>
+            <input v-model="newAddress" placeholder="Adresse, postnummer eller by" class="bg-transparent px-4 py-2 rounded-xl focus:outline-none">
+          </fieldset>
+          <button @click="emits('closeLocation')" class="w-full bg-emerald-500 text-white font-semibold rounded-xl mt-4 py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Find nærmeste</button>
         </aside>
       </div>
     </Transition>
@@ -13,6 +23,10 @@
 <script setup>
 const props = defineProps(['showLocation'])
 const emits = defineEmits(['closeLocation'])
+
+const currentAddress = ref('Test Allé 123')
+const newAddress = ref('')
+
 </script>
 
 <style scoped>

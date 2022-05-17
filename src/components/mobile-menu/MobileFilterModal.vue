@@ -2,7 +2,7 @@
   <Teleport to="body">
     <Transition name="slide" :duration="400">
       <div v-if="showFilter" class="fixed left-0 bottom-0 z-20 w-full flex justify-end pb-16">
-        <aside class="w-full z-10 bg-white flex flex-col p-8 rounded-t-2xl shadow-top">
+        <aside class="w-full z-10 bg-white p-4 rounded-t-2xl shadow-top">
           <form class="flex flex-col grow">
             <fieldset class="flex flex-wrap gap-2">
               <legend class="text-2xl text-gray-500 font-semibold mb-2">Kategorier</legend>
@@ -30,8 +30,8 @@
                 </label>
               </div>
             </fieldset>
-            <button @click="resetFilters" class="w-full bg-emerald-200 text-emerald-900 font-semibold rounded-full mt-8 py-4 transform duration-200 hover:bg-emerald-100 active:scale-95">Fjern filtre</button>
-            <button @click="applyFilters" class="w-full bg-emerald-500 text-white font-semibold rounded-full mt-4 py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Anvend filtre</button>
+            <button @click="resetFilters" class="w-full bg-emerald-200 text-emerald-900 font-semibold rounded-xl mt-8 py-4 transform duration-200 hover:bg-emerald-100 active:scale-95">Fjern filtre</button>
+            <button @click="applyFilters" class="w-full bg-emerald-500 text-white font-semibold rounded-xl mt-4 py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Anvend filtre</button>
           </form>
         </aside>
       </div>

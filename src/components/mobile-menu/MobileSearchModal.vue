@@ -2,8 +2,8 @@
   <Teleport to="body">
     <Transition name="slide" :duration="400">
       <div v-if="showSearch" class="fixed left-0 bottom-0 z-20 w-full flex justify-end pb-16">
-        <aside class="w-full z-10 bg-white flex flex-col p-8 rounded-t-2xl shadow-top">
-          <h2>search</h2>
+        <aside class="w-full z-10 bg-white flex flex-col p-4 rounded-t-2xl shadow-top">
+          <p class="text-2xl text-gray-500 font-semibold">Søg</p>
         </aside>
       </div>
     </Transition>
