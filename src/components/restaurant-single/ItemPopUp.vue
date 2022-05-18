@@ -4,21 +4,21 @@
       class="fixed w-screen h-screen top-0 left-0 before:content-[''] before:block before:w-screen before:h-screen before:bg-black before:opacity-50"
     >
       <div
-        class="w-1/2 h-3/4 overflow-scroll bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded grid grid-rows-2 drop-shadow"
+        class="w-screen sm:w-3/4 lg:w-1/2 h-screen sm:h-3/4 overflow-scroll bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded flex flex-col items-center pt-10 sm:pt-0 gap-y-20 sm:gap-y-0 sm:grid sm:grid-rows-2 drop-shadow"
       >
         <div
-          class="flex justify-end rounded"
+          class="w-80 h-80 sm:w-full sm:h-full flex justify-end rounded"
           :style="`background-image: url(${dish.image[0].url}); background-size: cover; background-position-y: center`"
         >
           <Close
             @click="$emit('closePopUp')"
-            class="h-10 sticky top-0"
+            class="h-10 absolute sm:sticky top-0 right-0"
             :style="`fill: ${restaurant.colorSecondary}`"
           />
         </div>
-        <div class="flex flex-col gap-y-5 mx-10">
-          <div class="flex flex-col gap-y-2">
-            <div class="bg-white flex justify-between mt-5">
+        <div class="bg-white flex flex-col gap-y-10 sm:gap-y-5 px-10">
+          <div class="flex flex-col gap-y-4 sm:gap-y-2">
+            <div class=" flex justify-between mt-5">
               <div class="flex gap-x-2">
                 <h1 class="text-2xl font-semibold">{{ dish.name }}</h1>
                 <Vegetarian
@@ -55,7 +55,7 @@
             <textarea
               v-model="comment"
               @input="showComment"
-              class="border border-gray-500 rounded w-3/4 h-10 p-1 focus:outline-none"
+              class="border border-gray-500 rounded w-full lg:w-3/4 h-20 lg:h-10 p-1 focus:outline-none"
               placeholder="Skriv en kommentar"
             ></textarea>
           </div>

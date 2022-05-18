@@ -6,22 +6,23 @@
     ></div>
     <div v-if="loaded" :style="`background-color: ${restaurant.colorPrimary}`">
       <div
-        :style="`background-image: url(${restaurant.splash[0].url})`"
-        class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover bg-fixed"
+        :style="`background-image: url(${restaurant.splash[0].url}); background-size: cover`"
+        class="h-80 sm:h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover bg-fixed"
       >
       </div>
       <div class="relative flex flex-col sm:flex-row items-center sm:ml-10">
         <div
-          :style="`border: 2px solid ${restaurant.colorSecondary}; background-image: url(${restaurant.logo[0].url}); background-size: contain; background-repeat: no-repeat`"
-          class="w-40 h-40 sm:absolute top-0 md:-top-16 left-0 rounded-full bg-white flex justify-center items-center"
+          :style="`border: 2px solid ${restaurant.colorSecondary} `"
+          class="w-40 h-40 absolute -top-16 sm:top-0 xl:-top-16 sm:left-0 rounded-full bg-white flex justify-center items-center"
         >
+        <img :src="restaurant.logo[0].url" class="p-2"/>
         </div>
-        <div class="sm:ml-40 flex flex-col items-center sm:items-start">
-          <h1 v-if="loaded" class="text-3xl font-semibold sm:p-5">
+        <div class="sm:ml-40 flex flex-col items-center sm:items-start pt-24 sm:pt-0">
+          <h1 v-if="loaded" class="text-2xl sm:text-3xl font-semibold p-3 sm:p-5">
             {{ restaurant.name }}
           </h1>
           <div class="flex flex-col sm:flex-row sm:flex-wrap flex-start px-5 gap-y-2 sm:gap-x-10 sm:items-start w-screen sm:w-full sm:items-center">
-            <div class="flex justify-between sm:justify-start w-full sm:w-fit sm:gap-x-5">
+            <div class="flex flex-wrap justify-between sm:justify-start w-full sm:w-fit sm:gap-x-5">
             <p>
               {{
                 restaurant.tags[0].charAt(0).toUpperCase() +
@@ -48,7 +49,7 @@
             </div>
             </div>
             <div class="flex gap-x-2 items-center justify-between sm:justify-start sm:w-fit w-full">
-              <div class="flex gap-x-2 items-center">
+              <div class="flex gap-x-2 items-center ml-1">
               <Smile1
                 v-if="restaurant.rating > 8"
                 :fill="`${restaurant.colorSecondary}`"
@@ -88,22 +89,14 @@
               <p>{{ restaurant.deliveryTime }}min</p>
             </div>
             <div class="flex gap-x-2 items-center justify-between sm:justify-start sm:w-fit w-full">
-              <div class="flex gap-x-2 items-center">
+              <div class="flex gap-x-2 items-center ml-1">
               <Bag :fill="`${restaurant.colorSecondary}`" height="30" />
               <p v-if="mobile">Minimum pris</p>
               </div>
-              <p class="flex"><span v-if="!mobile">Min.</span> {{ restaurant.minimumPrice }}kr</p>
+              <p class="flex"><span v-if="!mobile">Min. </span> {{ restaurant.minimumPrice }}kr</p>
             </div>
-            <div class="flex w-full sm:w-fit sm:gap-x-5 items-center sm:justify-start justify-between">
-            <p>www.restaurant.dk</p>
-            <button
-              :style="`background-color: ${restaurant.colorSecondary}`"
-              class="p-1.5 sm:w-24 text-white rounded hover:opacity-75"
-              @click="info = true"
-            >
-              More info
-            </button>
-            </div>
+            <div class="flex flex-wrap w-full sm:w-fit sm:gap-x-5 items-center sm:justify-start justify-between">
+            <a href="#">www.{{restaurant.slug}}.dk</a>
             <p class="text-center" v-if="day === 'mandag'">
               Åben til {{ restaurant.mandag.slice(8) }}
             </p>
@@ -125,6 +118,14 @@
             <p class="sm:mr-10" v-if="day === 'sondag'">
               Åben til {{ restaurant.sondag.slice(8) }}
             </p>
+            </div>
+            <button
+              :style="`background-color: ${restaurant.colorSecondary}`"
+              class="p-1.5 sm:w-24 text-white rounded hover:opacity-75"
+              @click="info = true"
+            >
+              More info
+            </button>
           </div>
         </div>
       </div>

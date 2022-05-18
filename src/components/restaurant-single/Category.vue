@@ -1,6 +1,6 @@
 <template>
      <div class="my-10 sm:m-10">
-            <h2 :id="`${category}`" class="text-3xl font-semibold mb-5 ml-5 capitalize">{{category}}</h2>
+            <h2 :id="`${category}`" class="text-2xl sm:text-3xl font-semibold mb-5 ml-5 capitalize">{{category}}</h2>
             <div v-if="loaded2" class="flex flex-col gap-y-5">
               <SingleItem v-for="dish in filteredMenu" :key="dish.name" :dish="dish" :restaurant="restaurant" :category="category" />
             </div>

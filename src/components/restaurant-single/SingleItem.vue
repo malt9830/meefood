@@ -5,7 +5,7 @@
                 >
                   <div class="flex flex-col gap-y-2">
                     <div class="flex items-center gap-x-1">
-                      <h3 class="text-xl font-medium">{{ dish.name }}</h3>
+                      <h3 class="text-lg sm:text-xl font-medium">{{ dish.name }}</h3>
                       <Vegetarian
                         class="h-8"
                         :style="`fill: ${restaurant.colorSecondary}`"
@@ -20,7 +20,7 @@
                     <p class="text-xs sm:text-sm font-light">{{ dish.description }}</p>
                     <p class="text-md">{{ dish.price }}kr</p>
                   </div>
-                  <img :src="dish.image[0].url" class="w-40 h-28 rounded" />
+                  <div :style="`background-image: url(${dish.image[0].url}); background-size: cover; background-repeat: no-repeat`" class="w-40 h-28 rounded" />
                   <ItemPopUp
                   v-if="popUp"
                   :dish="dish"
