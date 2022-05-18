@@ -95,27 +95,27 @@
               </div>
               <p class="flex"><span v-if="!mobile">Min. </span> {{ restaurant.minimumPrice }}kr</p>
             </div>
-            <div class="flex flex-wrap w-full sm:w-fit sm:gap-x-5 items-center sm:justify-start justify-between">
+            <div class="flex flex-wrap w-full sm:w-fit sm:gap-x-10 items-center sm:justify-start justify-between">
             <a href="#">www.{{restaurant.slug}}.dk</a>
             <p class="text-center" v-if="day === 'mandag'">
               Åben til {{ restaurant.mandag.slice(8) }}
             </p>
-            <p class="sm:mr-10" v-if="day === 'tirsdag'">
+            <p v-if="day === 'tirsdag'">
               Åben til {{ restaurant.tirsdag.slice(8) }}
             </p>
-            <p class="sm:mr-10" v-if="day === 'onsdag'">
+            <p v-if="day === 'onsdag'">
               Åben til {{ restaurant.onsdag.slice(8) }}
             </p>
-            <p class="sm:mr-10" v-if="day === 'torsdag'">
+            <p v-if="day === 'torsdag'">
               Åben til {{ restaurant.torsdag.slice(8) }}
             </p>
-            <p class="sm:mr-10" v-if="day === 'fredag'">
+            <p v-if="day === 'fredag'">
               Åben til {{ restaurant.fredag.slice(8) }}
             </p>
-            <p class="text-center w-full sm:mr-10" v-if="day === 'lordag'">
+            <p v-if="day === 'lordag'">
               Åben til {{ restaurant.lordag.slice(8) }}
             </p>
-            <p class="sm:mr-10" v-if="day === 'sondag'">
+            <p v-if="day === 'sondag'">
               Åben til {{ restaurant.sondag.slice(8) }}
             </p>
             </div>
