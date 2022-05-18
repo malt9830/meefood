@@ -3,7 +3,7 @@
                 <div
                   class="flex justify-between mx-5"
                 >
-                  <div class="flex flex-col gap-y-2">
+                  <div class="w-1/2 flex flex-col gap-y-2">
                     <div class="flex items-center gap-x-1">
                       <h3 class="text-lg sm:text-xl font-medium">{{ dish.name }}</h3>
                       <Vegetarian

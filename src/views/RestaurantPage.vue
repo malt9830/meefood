@@ -1,13 +1,13 @@
 <template>
-  <main :class="textColor">
+  <main :class="textColor" class="scroll-smooth">
     <div
       v-if="!loaded"
-      class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover bg-fixed"
+      class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover"
     ></div>
     <div v-if="loaded" :style="`background-color: ${restaurant.colorPrimary}`">
       <div
         :style="`background-image: url(${restaurant.splash[0].url}); background-size: cover`"
-        class="h-80 sm:h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover bg-fixed"
+        class="h-80 sm:h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover"
       >
       </div>
       <div class="relative flex flex-col sm:flex-row items-center sm:ml-10">
@@ -130,7 +130,7 @@
         </div>
       </div>
       <div class="sm:grid sm:grid-cols-6 mt-5">
-        <div v-if="!mobile"
+        <div v-if="!tablet"
           class="flex flex-col pt-5 gap-y-5"
           :style="`border-top: solid 1px ${restaurant.colorSecondary}; border-right: solid 1px ${restaurant.colorSecondary}`"
         >
@@ -187,7 +187,7 @@
             />
           </div>
         </div>
-        <div v-if="!mobile"
+        <div v-if="!tablet"
           class="flex flex-col"
           :style="`border-top: solid 1px ${restaurant.colorSecondary}`"
         >
@@ -223,6 +223,8 @@ const info = ref(false);
 const search = ref("");
 
 const day = ref("");
+
+const tablet = ref(false);
 
 const mobile = ref(false);
 
@@ -276,18 +278,14 @@ onMounted(() => {
     day.value = "lordag";
   }
   console.log(day.value);
-  isMobile();
+  tablet.value = (window.innerWidth < 768 ? true : false);
+  window.addEventListener('resize', () => tablet.value = (window.innerWidth < 768 ? true : false));
+  mobile.value = (window.innerWidth < 640 ? true : false);
+  window.addEventListener('resize', () => mobile.value = (window.innerWidth < 640 ? true : false));
 });
 
-function isMobile() {
-  if (screen.width <= 760) {
-   mobile.value = true;
-   console.log(mobile.value)
-  } else {
-    mobile.value = false;
-    console.log(mobile.value)
-  }
-}
+
+
 
 Airtable.configure({
   endpointUrl: "https://api.airtable.com",
@@ -306,7 +304,9 @@ base("restaurants")
     loaded.value = true;
 
     base(`menu-${restaurant.value.slug}`)
-      .select()
+      .select({
+        view: "Grid view"
+      })
       .eachPage((res) => {
         res.forEach((dish) => {
           menu.value.push(dish.fields);
