@@ -2,16 +2,16 @@
   <Teleport to="body" v-if="isMobile && routeName !== 'home'">
     <div :class="[ (showFilter || showBasket || showLocation || showSearch) ? 'shadow-topline' : 'shadow-top' ]" class="fixed z-50 bottom-0 w-full bg-white h-16 grid grid-cols-3 items-center duration-300">
       <div v-if="routeName === 'restaurants'" @click="hideModals('filter'); showFilter = !showFilter" class="w-full h-full grid cursor-pointer">
-        <Filter :class="[ showFilter ? 'fill-green-500' : 'fill-gray-500']" class="h-6 w-auto m-auto duration-200"/>
+        <Filter :class="[ showFilter ? 'fill-emerald-500' : 'fill-gray-500']" class="h-6 w-auto m-auto duration-200"/>
       </div>
       <div v-if="routeName === 'restaurant'" @click="hideModals('basket'); showBasket = !showBasket" class="w-full h-full grid cursor-pointer">
-        <Bag2 :class="[ showBasket ? 'fill-green-500' : 'fill-gray-500']" class="h-6 w-auto m-auto duration-200"/>
+        <Bag2 :class="[ showBasket ? 'fill-emerald-500' : 'fill-gray-500']" class="h-6 w-auto m-auto duration-200"/>
       </div>
       <div @click="hideModals('location'); showLocation = !showLocation" class="w-full h-full grid cursor-pointer">
-        <Pin :class="[ showLocation ? 'fill-green-500' : 'fill-gray-500']" class="h-8 w-auto m-auto duration-200"/>
+        <Pin :class="[ showLocation ? 'fill-emerald-500' : 'fill-gray-500']" class="h-8 w-auto m-auto duration-200"/>
       </div>
       <div @click="hideModals('search'); showSearch = !showSearch" class="w-full h-full grid cursor-pointer">
-        <Search :class="[ showSearch ? 'fill-green-500' : 'fill-gray-500']" class="h-8 w-auto m-auto duration-200"/>
+        <Search :class="[ showSearch ? 'fill-emerald-500' : 'fill-gray-500']" class="h-8 w-auto m-auto duration-200"/>
       </div>
     </div>
     <MobileFilterModal :showFilter="showFilter" @closeFilter="showFilter = false"/>
