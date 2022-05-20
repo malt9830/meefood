@@ -4,7 +4,7 @@
       class="fixed w-screen h-screen top-0 left-0 before:content-[''] before:block before:w-screen before:h-screen before:bg-black before:opacity-50"
     >
       <div
-        class="w-screen sm:w-3/4 lg:w-1/2 h-screen sm:h-3/4 overflow-scroll bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded flex flex-col items-center pt-10 sm:pt-0 gap-y-20 sm:gap-y-0 sm:grid sm:grid-rows-2 drop-shadow"
+        class="w-screen sm:w-3/4 lg:w-1/2 h-screen sm:h-3/4 bg-white overflow-scroll bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded flex flex-col items-center pt-10 sm:pt-0 gap-y-20 sm:gap-y-0 sm:grid sm:grid-rows-2 drop-shadow"
       >
         <div
           class="w-80 h-80 sm:w-full sm:h-full flex justify-end rounded"
@@ -16,7 +16,7 @@
             :style="`fill: ${restaurant.colorSecondary}`"
           />
         </div>
-        <div class="bg-white flex flex-col gap-y-10 sm:gap-y-5 px-10">
+        <div class="flex flex-col gap-y-10 sm:gap-y-5 px-10">
           <div class="flex flex-col gap-y-4 sm:gap-y-2">
             <div class=" flex justify-between mt-5">
               <div class="flex gap-x-2">
@@ -60,12 +60,12 @@
             ></textarea>
           </div>
           <div
-            class="flex sticky shadow-md bottom-0 bg-white justify-center gap-x-7 py-2 "
+            class="flex bottom-0 justify-center gap-x-7 py-2 "
           >
             <button
               id="amount"
               @click="checkAmount"
-              class="p-1.5 rounded w-40 flex items-center justify-between px-10"
+              class="bg-white p-1.5 rounded w-40 flex items-center justify-between px-10"
               :style="`border: 1px solid ${restaurant.colorSecondary}; color: ${restaurant.colorSecondary}`"
             >
               <button @click="counter--" id="minus" class="text-2xl">-</button>
@@ -124,4 +124,5 @@ const props = defineProps({
 });
 
 const emits = defineEmits(["closePopUp"]);
+
 </script>

@@ -13,7 +13,7 @@
       <div class="relative flex flex-col sm:flex-row items-center sm:ml-10">
         <div
           :style="`border: 2px solid ${restaurant.colorSecondary} `"
-          class="w-40 h-40 absolute -top-16 sm:top-0 xl:-top-16 sm:left-0 rounded-full bg-white flex justify-center items-center"
+          class="w-40 h-40 absolute -top-16 sm:mt-1 sm:top-0 xl:-top-16 sm:left-0 rounded-full bg-white flex justify-center items-center"
         >
         <img :src="restaurant.logo[0].url" class="p-2"/>
         </div>
@@ -124,7 +124,7 @@
               class="p-1.5 sm:w-24 text-white rounded hover:opacity-75"
               @click="info = true"
             >
-              More info
+              Mere info
             </button>
           </div>
         </div>
@@ -159,11 +159,11 @@
           <div class="flex gap-x-5 m-5">
             <div class="flex items-center">
               <Vegetarian :fill="`${restaurant.colorSecondary}`" height="40" />
-              <p>vegetarian</p>
+              <p>vegetar</p>
             </div>
             <div class="flex items-center">
               <Vegan :fill="`${restaurant.colorSecondary}`" height="40" />
-              <p>vegan</p>
+              <p>vegansk</p>
             </div>
           </div>
           <div v-if="search === ''">
