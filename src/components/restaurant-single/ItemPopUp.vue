@@ -3,8 +3,9 @@
     <div
       class="fixed w-screen h-screen top-0 left-0 before:content-[''] before:block before:w-screen before:h-screen before:bg-black before:opacity-50"
     >
+      <div @click="$emit('closePopUp')" class="absolute top-0 left-0 h-full w-full"/>
       <div
-        class="w-screen sm:w-3/4 lg:w-1/2 h-screen sm:h-3/4 bg-white overflow-scroll bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded flex flex-col items-center pt-10 sm:pt-0 gap-y-20 sm:gap-y-0 sm:grid sm:grid-rows-2 drop-shadow"
+        class="w-screen sm:w-3/4 lg:w-1/2 h-screen sm:h-3/4 bg-white overflow-auto bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded flex flex-col items-center pt-10 sm:pt-0 gap-y-20 sm:gap-y-0 sm:grid sm:grid-rows-2 drop-shadow"
       >
         <div
           class="w-80 h-80 sm:w-full sm:h-full flex justify-end rounded"
@@ -12,7 +13,7 @@
         >
           <Close
             @click="$emit('closePopUp')"
-            class="h-10 absolute sm:sticky top-0 right-0"
+            class="h-10 absolute sm:sticky top-0 right-0 cursor-pointer"
             :style="`fill: ${restaurant.colorSecondary}`"
           />
         </div>
