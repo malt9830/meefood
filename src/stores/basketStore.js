@@ -15,11 +15,11 @@ export const useBasketStore = defineStore({
   actions: {
     addToBasket(item, counter, comment, picked) {
       this.$patch((state) => {
-        if (state.basket.includes(item)) {
+        if (state.basket.includes(item) && picked === item.picked) {
           item.amount = item.amount + counter;
           console.log(item.amount);
           console.log(state.basket);
-        } else {
+        } else if (!state.basket.includes(item)) {
           item.amount = counter;
           item.comment = comment;
           item.picked = picked;
@@ -27,6 +27,10 @@ export const useBasketStore = defineStore({
           console.log(item.comment);
           state.basket.push(item);
           console.log(state.basket);
+        } else if (state.basket.includes(item) && picked !== item.picked) {
+          item.picked = picked;
+          state.basket.push(item);
+          console.log("same dish, different option")
         }
       });
     },
