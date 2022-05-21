@@ -2,12 +2,14 @@
     <section class="max-w-5xl mx-auto py-10">
       <h2 class="text-3xl font-semibold text-center">Det gøres ikke nemmere!</h2>
       <Carousel :items-to-show="1" :breakpoints="breakpoints">
-        <Slide v-for="inst in instructions" :key="inst.number">
-          <div class="px-12 md:px-8">
-            <img class="place-self-center px-12 py-4" :src="`./src/assets/instructions/instructions-${inst.number}.svg`">
-            <p class="text-xl lg:text-2xl text-center">{{ inst.text }}</p>
-          </div>
-        </Slide>
+        <template #slides>
+          <Slide v-for="inst in instructions" :key="inst.number">
+            <div class="px-12 md:px-8">
+              <img class="place-self-center px-12 py-4" :src="`./instructions/instructions-${inst.number}.svg`">
+              <p class="text-xl lg:text-2xl text-center">{{ inst.text }}</p>
+            </div>
+          </Slide>
+        </template>
         <template #addons>
           <Navigation/>
           <Pagination class="mt-4 lg:hidden"/>
