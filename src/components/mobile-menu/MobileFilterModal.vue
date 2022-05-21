@@ -1,12 +1,8 @@
 <template>
   <Teleport to="body">
-    <Transition name="slide" :duration="300">
-      <div v-if="showFilter" class="fixed left-0 top-0 z-20 h-full w-full flex justify-end">
-        <div @click="emits('closeFilter')" class="absolute left-0 top-0 h-full w-full bg-black opacity-40" />
-        <aside class="h-full w-[25rem] max-w-[90%] z-10 bg-white flex flex-col p-8 rounded-l-2xl">
-          <div class="flex flex-row justify-end">
-            <img @click="emits('closeFilter')" class="h-8 w-auto cursor-pointer transform duration-200 hover:scale-110" src="/src/assets/icons/close-circle.svg">
-          </div>
+    <Transition name="slide" :duration="400">
+      <div v-if="showFilter" class="fixed left-0 bottom-0 z-20 w-full flex justify-end pb-16">
+        <aside class="w-full z-10 bg-white p-4 rounded-t-2xl shadow-top">
           <form class="flex flex-col grow">
             <fieldset class="flex flex-wrap gap-2">
               <legend class="text-2xl text-gray-500 font-semibold mb-2">Kategorier</legend>
@@ -34,8 +30,8 @@
                 </label>
               </div>
             </fieldset>
-            <button @click="resetFilters" class="w-full bg-emerald-200 text-emerald-900 font-semibold rounded-full mt-8 py-4 transform duration-200 hover:bg-emerald-100 active:scale-95">Fjern filtre</button>
-            <button @click="applyFilters" class="w-full bg-emerald-500 text-white font-semibold rounded-full mt-4 py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Anvend filtre</button>
+            <button @click="resetFilters" class="w-full bg-emerald-200 text-emerald-900 font-semibold rounded-xl mt-8 py-4 transform duration-200 hover:bg-emerald-100 active:scale-95">Fjern filtre</button>
+            <button @click="applyFilters" class="w-full bg-emerald-500 text-white font-semibold rounded-xl mt-4 py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Anvend filtre</button>
           </form>
         </aside>
       </div>
@@ -88,13 +84,13 @@ function resetFilters(e) {
 <style scoped>
 .slide-enter-active aside,
 .slide-leave-active aside {
-  transform: translateX(0%);
-  transition-duration: 300ms;
+  transform: translateY(0%);
+  transition-duration: 400ms;
 }
 
 .slide-enter-from aside,
 .slide-leave-to aside {
-  transform: translateX(100%);
-  transition-duration: 300ms;
+  transform: translateY(100%);
+  transition-duration: 400ms;
 }
 </style>
