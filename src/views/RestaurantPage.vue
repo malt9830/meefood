@@ -312,7 +312,7 @@ base("restaurants")
         });
       });
       setTimeout(() => {
-        // loaded2.value = true
+        loaded2.value = true
       }, 2000)
   });
 </script>
