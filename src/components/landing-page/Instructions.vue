@@ -1,6 +1,6 @@
 <template>
     <section class="max-w-5xl mx-auto py-10">
-      <h2 class="text-3xl font-semibold text-center">Så nemt er det!</h2>
+      <h2 class="text-3xl font-semibold text-center">Det gøres ikke nemmere!</h2>
       <Carousel :items-to-show="1" :breakpoints="breakpoints">
         <Slide v-for="inst in instructions" :key="inst.number">
           <div class="px-12 md:px-8">
@@ -33,11 +33,11 @@ const instructions = [
   },
   {
     number: 2,
-    text: "Vælg restaurant og mad"
+    text: "Vælg dine livretter"
   },
   {
     number: 3,
-    text: "Få din mad leveret"
+    text: "Levering til døren"
   }
 ]
 </script>
