@@ -30,7 +30,7 @@ export const useBasketStore = defineStore({
         } else if (state.basket.includes(item) && picked !== item.picked) {
           item.picked = picked;
           state.basket.push(item);
-          console.log("same dish, different option")
+          console.log("same dish, different option");
         }
       });
     },
@@ -38,11 +38,9 @@ export const useBasketStore = defineStore({
       this.$patch(() => {
         if (item.amount >= 2) {
           item.amount = item.amount - 1;
-          console.log(state.basket);
         } else {
           this.$patch((state) => {
             state.basket = state.basket.filter((el) => el !== item);
-            console.log(state.basket);
           });
         }
       });

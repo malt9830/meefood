@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
     <Transition name="slide" :duration="400">
-      <div v-if="showSearch" class="fixed left-0 bottom-0 z-20 w-full flex justify-end pb-16">
+      <div v-if="showSearch" class="fixed left-0 bottom-0 z-40 w-full flex justify-end pb-16">
         <aside class="w-full z-10 bg-white flex flex-col p-4 rounded-t-2xl shadow-top">
           <p class="text-2xl text-gray-500 font-semibold">Søg</p>
           <fieldset class="mt-4 border-2 border-gray-500 rounded-xl">
@@ -22,6 +22,12 @@ const props = defineProps(['showSearch'])
 const emits = defineEmits(['closeSearch'])
 
 const store = useFilterStore()
+const router = useRouter()
+const route = useRoute()
+
+const routeName = computed(() => {
+  return route.name
+})
 
 const restaurantSearch = ref('')
 
@@ -40,6 +46,9 @@ function resetSearch(e) {
 
 function startSearch(e) {
   e.preventDefault()
+
+  // Push to restaurants view if not there
+  if (routeName !== 'restaurants') router.push('restaurants')
 
   // Reset filters and search value
   store.$reset()

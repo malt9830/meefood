@@ -1,5 +1,5 @@
 <template>
-  <header :class="{'bg-emerald-500' : routeName === 'restaurants'}" class="absolute z-20 text-white w-full py-4 px-8">
+  <header :class="{'bg-emerald-500' : routeName === 'restaurants'}" class="absolute z-20 text-white w-full py-3 px-4">
       <nav class="max-w-7xl mx-auto flex flex-row justify-between items-center">
         <RouterLink to="/"><Logo/></RouterLink>  
         <div v-if="routeName !== 'home' && !isMobile" class="relative text-black place-self-center rounded-xl">
@@ -13,7 +13,7 @@
           <RouterLink to="/restaurants">Restauranter</RouterLink>
           <RouterLink to="/" class="px-2 py-1 border border-white rounded-xl duration-200 hover:bg-white hover:text-black">Log ind</RouterLink>
         </div>
-        <img v-if="isMobile" @click="showMenu = !showMenu" class="h-8 w-auto cursor-pointer transform duration-200 hover:scale-110" src="/src/assets/icons/filter.svg">
+        <!-- <img v-if="isMobile" @click="showMenu = !showMenu" class="h-8 w-auto cursor-pointer transform duration-200 hover:scale-110" src="/src/assets/icons/filter.svg"> -->
       </nav>
   </header>
 </template>

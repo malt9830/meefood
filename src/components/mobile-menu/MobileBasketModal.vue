@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
     <Transition name="slide" :duration="400">
-      <div v-if="showBasket" class="fixed left-0 bottom-0 z-20 w-full flex justify-end pb-16">
+      <div v-if="showBasket" class="fixed left-0 bottom-0 z-40 w-full flex justify-end pb-16">
         <aside class="w-full z-10 bg-white p-4 rounded-t-2xl shadow-top">
           <p class="text-2xl text-gray-500 font-semibold">Kurv</p>
           <p v-if="store.basket.length === 0">Din kurv er tom</p>

@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
     <Transition name="slide" :duration="400">
-      <div v-if="showLocation" class="fixed left-0 bottom-0 z-20 w-full flex justify-end pb-16">
+      <div v-if="showLocation" class="fixed left-0 bottom-0 z-40 w-full flex justify-end pb-16">
         <aside class="w-full z-10 bg-white p-4 rounded-t-2xl shadow-top">
           <p class="text-2xl text-gray-500 font-semibold">Brug anden adresse?</p>
           <p class="text-sm">Indtast en ny adresse og find de bedste og nærmeste spisesteder.</p>
