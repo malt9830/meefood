@@ -5,7 +5,7 @@
         <div v-if="routeName !== 'home' && !isMobile" class="relative text-black place-self-center rounded-xl">
           <div class="absolute -z-10 top-0 left-0 w-full h-full bg-white opacity-70 rounded-xl pointer-events-none"/>
           <div class="flex flex-row gap-2">
-            <img src="/src/assets/icons/vegan.svg" class="h-8 w-auto p-1">
+            <Pin class="py-1 ml-2 fill-gray-500" />
             <input placeholder="Indtast din adresse" class="bg-transparent py-1 focus-visible:outline-none">
           </div>
         </div>
