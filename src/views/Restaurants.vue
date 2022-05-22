@@ -1,8 +1,11 @@
 <template>
-  <main class="max-w-7xl mx-auto pt-24 px-4">
+  <main class="max-w-7xl mx-auto pt-24 pb-8 px-4">
     <div class="flex flex-row justify-between">
       <h2 class="text-3xl font-semibold">Restauranter</h2>
       <img @click="showFilter = !showFilter" class="hidden md:block w-9 cursor-pointer transform hover:scale-110 duration-200" src="/src/assets/icons/filter.svg">
+    </div>
+    <div v-if="filteredRestaurants.length === 0" class="mt-2">
+      <p>Der kunne ikke findes nogen restauranter for '{{ store.activeSearch }}'.</p>
     </div>
     <div v-if="loaded" class="grid gap-6 pt-4 md:grid-cols-2 lg:grid-cols-3">
       <RestaurantCard v-for="rest in filteredRestaurants" :key="rest.slug" :restaurant="rest"/>
@@ -36,7 +39,7 @@ const restaurants = ref([])
 const filteredRestaurants = computed(() => {
   const filteredRestaurants = restaurants.value.filter(rest => {
     // Check if restaurant tags matches any filter tags or if no filters apply
-    if(rest.tags.some(el => store.activeFilters.includes(el)) || store.activeFilters.length === 0) return rest
+    if(rest.tags.some(el => store.activeFilters.includes(el)) || store.activeFilters.length === 0 && rest.name.includes(store.activeSearch)) return rest
   })
 
   filteredRestaurants.sort((a, b) => {

@@ -13,7 +13,7 @@
             <legend class="text-xs mx-3 px-1">Ny adresse</legend>
             <input v-model="newAddress" placeholder="Adresse, postnummer eller by" class="bg-transparent px-4 py-2 rounded-xl focus:outline-none">
           </fieldset>
-          <button @click="emits('closeLocation')" class="w-full bg-emerald-500 text-white font-semibold rounded-xl mt-4 py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Find nærmeste</button>
+          <button @click="findRestaurants" class="w-full bg-emerald-500 text-white font-semibold text-center rounded-xl mt-4 py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Find nærmeste</button>
         </aside>
       </div>
     </Transition>
@@ -21,11 +21,29 @@
 </template>
 
 <script setup>
+import { useFilterStore } from '/src/stores/filterStore'
+
 const props = defineProps(['showLocation'])
 const emits = defineEmits(['closeLocation'])
 
+const store = useFilterStore()
+const router = useRouter()
+
 const currentAddress = ref('Test Allé 123')
 const newAddress = ref('')
+
+function findRestaurants(e) {
+  e.preventDefault()
+
+  // Reset filters and search value
+  store.$reset()
+
+  // Switch to restaurant view
+  router.push('/restaurants')
+
+  // Close modal after switching view
+  emits('closeLocation')
+}
 
 </script>
 

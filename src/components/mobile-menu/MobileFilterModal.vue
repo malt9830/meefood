@@ -62,6 +62,9 @@ watch(props, () => {
 function applyFilters(e) {
   e.preventDefault()
 
+  // Reset previous filters
+  store.$reset()
+
   // Pass new filtering to store to update
   store.updateFilters(activeFilters.value, activeSorting.value)
 

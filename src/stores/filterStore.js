@@ -7,6 +7,7 @@ export const useFilterStore = defineStore("filter", {
       sorting: ["Mest populære", "Nærmeste", "Pris", "Leveringspris", "Leveringstid", "Minimumspris"],
       activeFilters: [],
       activeSorting: "Mest populære",
+      activeSearch: "",
     };
   },
   getters: {
@@ -27,6 +28,9 @@ export const useFilterStore = defineStore("filter", {
     updateFilters(activeFilters, activeSorting) {
       this.activeFilters = activeFilters;
       this.activeSorting = activeSorting;
+    },
+    updateSearch(input) {
+      this.activeSearch = input;
     },
   },
 });

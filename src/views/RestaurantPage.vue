@@ -1,5 +1,5 @@
 <template>
-  <main :class="`text-${textColor}`" class="pb-1">
+  <main :class="`text-${textColor}`">
     <div
       v-if="!loaded"
       class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover"
