@@ -5,7 +5,7 @@
       <img @click="showFilter = !showFilter" class="hidden md:block w-9 cursor-pointer transform hover:scale-110 duration-200" src="/src/assets/icons/filter.svg">
     </div>
     <div v-if="loaded && filteredRestaurants.length === 0" class="mt-2">
-      <p>Der kunne ikke findes nogen restauranter for '{{ store.activeSearch }}'.</p>
+      <p>Der kunne ikke findes nogen restauranter for '{{ filterStore.activeSearch }}'.</p>
     </div>
     <div v-if="loaded" class="grid gap-6 pt-4 md:grid-cols-2 lg:grid-cols-3">
       <RestaurantCard v-for="rest in filteredRestaurants" :key="rest.slug" :restaurant="rest"/>
@@ -21,14 +21,14 @@
 import { useFilterStore } from '/src/stores/filterStore';
 import Airtable from 'airtable'
 
-const store = useFilterStore()
+const filterStore = useFilterStore()
 
 const activeSorting = computed(() => {
-  if (store.activeSorting === "Mest populære") return 'rating'
-  if (store.activeSorting === "Pris") return 'priceRange'
-  if (store.activeSorting === "Leveringspris") return 'deliveryCost'
-  if (store.activeSorting === "Leveringstid") return 'deliveryTime'
-  if (store.activeSorting === "Minimumspris") return 'minimumPrice'
+  if (filterStore.activeSorting === "Mest populære") return 'rating'
+  if (filterStore.activeSorting === "Pris") return 'priceRange'
+  if (filterStore.activeSorting === "Leveringspris") return 'deliveryCost'
+  if (filterStore.activeSorting === "Leveringstid") return 'deliveryTime'
+  if (filterStore.activeSorting === "Minimumspris") return 'minimumPrice'
 })
 
 const showFilter = ref(false)
@@ -39,11 +39,11 @@ const restaurants = ref([])
 const filteredRestaurants = computed(() => {
   const filteredRestaurants = restaurants.value.filter(rest => {
     // Check if restaurant tags matches any filter tags or if no filters apply
-    if(rest.tags.some(el => store.activeFilters.includes(el)) || store.activeFilters.length === 0 && rest.name.toLowerCase().includes(store.activeSearch.toLowerCase())) return rest
+    if(rest.tags.some(el => filterStore.activeFilters.includes(el)) || filterStore.activeFilters.length === 0 && rest.name.toLowerCase().includes(filterStore.activeSearch.toLowerCase())) return rest
   })
 
   filteredRestaurants.sort((a, b) => {
-    return (a[store.sortingValue] - b[store.sortingValue]) * store.sortingDirection
+    return (a[filterStore.sortingValue] - b[filterStore.sortingValue]) * filterStore.sortingDirection
   })
 
   return filteredRestaurants

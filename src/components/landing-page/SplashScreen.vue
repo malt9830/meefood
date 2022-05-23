@@ -1,63 +1,58 @@
 <template>
   <div class="relative h-[80vh] w-full bg-center bg-cover bg-fixed grid grid-rows-[2fr_3fr]">
-    <!-- <img class="absolute pointer-events-none w-3/5 hidden sm:block" src="/src/assets/splash-image/banner-desktop.png"> -->
-    <!-- <div class="absolute pointer-events-none w-full">
-      <div class="w-full h-60 bg-emerald-500"/>
-      <img class="w-full object-cover" src="/src/assets/splash-image/banner-bottom.svg">
-    </div> -->
-    <!-- <img class="absolute pointer-events-none w-full sm:hidden" src="/src/assets/splash-image/banner-mobile.png"> -->
     <div class="z-10 bg-emerald-500 flex items-end">
       <div class="max-w-4xl w-full mx-auto px-4">
-        <h2 class="flex flex-row gap-2 text-white text-4xl font-bold mb-8">
-          <span>Spis</span>
-          <span :class="[wordHidden ? 'max-w-0' : 'max-w-[6rem]']" class="inline-block underline underline-offset-4 overflow-x-clip overflow-y-visible duration-[800ms]">{{ currentWord }}</span>
-          <span>som helst</span>
-        </h2>
-        <form class="flex gap-2 max-w-sm rounded-xl bg-white border-2 border-white">
-          <input class="grow px-4 py-2 rounded-xl focus:outline-none" placeholder="Adresse, postnummer eller by">
+        <AnimatedSlogan/>
+        <form class="flex gap-2 max-w-xl rounded-xl bg-white border-2 border-white">
+          <Pin @click="getUserLocation" class="fill-gray-500 py-2 ml-2 h-10 cursor-pointer"/>
+          <input v-model="address" class="grow py-2 rounded-xl focus:outline-none" placeholder="Adresse, postnummer eller by">
           <RouterLink to="/restaurants" class="inline-block text-center bg-emerald-500 border border-white text-white hover:bg-emerald-600 py-2 px-4 rounded-xl duration-200">Søg</RouterLink>
         </form>
+        <!-- <p @click="getUserLocation" class="mt-2 text-white underline underline-offset-4 cursor-pointer duration-200">Brug nuværende placering</p> -->
       </div>
     </div>
     <div class="bg-[url('./assets/splash-image.png')] w-full bg-cover bg-center">
-      <div class="absolute w-full h-40 bg-[url('./assets/splash-image/banner-bottom.svg')] bg-no-repeat bg-center bg-cover"/>
+      <div class="w-full h-40 bg-[url('./assets/splash-image/banner-bottom.svg')] bg-no-repeat bg-center bg-cover transform -translate-y-1"/>
     </div>
   </div>
 </template>
 
 <script setup>
-const currentWord = ref('hvad')
-const wordHidden = ref(false)
+import { useLocationStore } from '/src/stores/locationStore'
 
-setInterval(() => {
-  wordHidden.value = true
+const locationStore = useLocationStore()
 
-  setTimeout(() => {
-    wordHidden.value = false
+const address = ref('')
 
-    if (currentWord.value === 'hvad') {
-      currentWord.value = 'hvor'
-    } else if (currentWord.value === 'hvor') {
-      currentWord.value = 'når'
-    } else if (currentWord.value === 'når') {
-      currentWord.value = 'hvad'
-    }
-  }, 1000)
-}, 2500)
+// Update location
+locationStore.$subscribe((state) => {address.value = state.events.newValue})
+
+// Adjust securement in Google API before building
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+const key = 'AIzaSyDkTlYsFLGYBZLggJBXm2ioiiinqj3Odt4'
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// Get address when mounted
+onMounted(() => {address.value = locationStore.address})
+    
+function getUserLocation() {
+  // Get coordinates of current location
+  navigator.geolocation.getCurrentPosition((pos) => {
+    const lat = pos.coords.latitude
+    const lng = pos.coords.longitude
+
+    locationStore.updateLocation(lat, lng, 'Testvej 123')
+
+    // Dont use api while testing
+    return
+
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${key}`)
+      .then(res => {
+        console.log(res)
+        // address.value = res.data.results[0].formatted_address
+        locationStore.updateLocation(lat, lng, res.data.results[0].formatted_address)
+      })
+      .catch(err => console.log(err))
+  })
+}
 </script>
-
-<style scoped>
-.shift-enter-active,
-.shift-leave-active {
-  transition: all 700ms ease-in-out;
-}
-
-.shift-enter-from {
-  color: transparent;
-  transform: translateY(-100%);
-}
-.shift-leave-to {
-  color: transparent;
-  transform: translateY(100%)
-}
-</style>

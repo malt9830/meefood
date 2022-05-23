@@ -2,12 +2,12 @@
   <header :class="{'bg-emerald-500' : routeName === 'restaurants'}" class="absolute z-20 text-white w-full py-3 px-4">
       <nav class="max-w-7xl mx-auto flex flex-row justify-between items-center">
         <RouterLink to="/"><Logo/></RouterLink>  
-        <div v-if="routeName !== 'home' && !isMobile" class="relative text-black place-self-center rounded-xl">
+        <div v-if="routeName !== 'home' && !isMobile" class="relative grow max-w-sm text-black place-self-center rounded-xl">
           <div class="absolute -z-10 top-0 left-0 w-full h-full bg-white opacity-70 rounded-xl pointer-events-none"/>
-          <div class="flex flex-row gap-2">
+          <form class="flex flex-row gap-2">
             <Pin class="py-1 ml-2 fill-gray-500" />
-            <input placeholder="Indtast din adresse" class="bg-transparent py-1 focus-visible:outline-none">
-          </div>
+            <input v-model="address" placeholder="Indtast din adresse" class="bg-transparent py-1 focus-visible:outline-none">
+          </form>
         </div>
         <div v-if="!isMobile" class="flex flex-row gap-4 items-center">
           <RouterLink to="/restaurants">Restauranter</RouterLink>
@@ -19,6 +19,9 @@
 </template>
 
 <script setup>
+import { useLocationStore } from '/src/stores/locationStore'
+
+const locationStore = useLocationStore()
 const route = useRoute()
 
 const routeName = computed(() => {
@@ -28,6 +31,11 @@ const routeName = computed(() => {
 const showMenu = ref(false)
 
 const isMobile = ref(false)
+
+const address = ref('')
+
+// Update location
+locationStore.$subscribe((state) => {address.value = state.events.newValue})
 
 onMounted(() => {
   isMobile.value = (window.innerWidth < 767 ? true : false)
