@@ -1,10 +1,10 @@
 <template>
 	<section class="py-10 md:py-28">
 		<div class="relative grid grid-cols-10 grid-rows-4 md:hidden">
-			<div class="bg-emerald-600 col-start-1 col-end-11 row-start-2 row-end-5" />
-			<img class="col-start-2 col-end-10 row-start-1 row-end-5" src="/src/assets/download-app/app-mockup.png" />
+			<div class="bg-emerald-600 col-start-1 col-end-11 row-start-3 row-end-5" />
+			<img class="px-2 sm:px-12 col-span-full row-start-1 row-end-5" src="/src/assets/download-app/app-mockup.png" />
 		</div>
-		<div class="bg-emerald-600 text-white px-4 py-12">
+		<div class="bg-emerald-600 text-white px-4 pb-12 pt-6 md:pt-12">
 			<div class="max-w-4xl mx-auto grid gap-4 md:grid-cols-[2fr_3fr]">
 				<div>
 					<p class="text-3xl font-semibold">Download vores app</p>
