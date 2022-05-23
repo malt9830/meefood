@@ -1,6 +1,6 @@
 <template>
   <header class="absolute z-20 text-white w-full">
-    <div :class="{'bg-emerald-500' : routeName === 'restaurants'}">
+    <div :class="{'pr-4' : showAddressMenu}" class="bg-emerald-500">
         <nav class="z-20 max-w-7xl mx-auto flex flex-row justify-between items-center px-4 py-3">
           <RouterLink to="/"><Logo/></RouterLink>  
           <div v-if="routeName !== 'home' && !isMobile" @click="showAddressMenu = !showAddressMenu; address = ''" class="max-w-sm bg-white/70 text-black grow place-self-center rounded-xl cursor-pointer">
@@ -16,14 +16,19 @@
         </nav>
     </div>
     <Transition name="slide" :duration="200">
-      <fieldset v-if="routeName !== 'home' && !isMobile && showAddressMenu" class="absolute -z-10 w-full py-2 bg-white text-black shadow-bottom">
-        <div class="flex flex-row gap-2 max-w-lg mx-auto">
-					<Pin @click="locationStore.getLocation" class="fill-gray-500 py-2 ml-2 h-10 cursor-pointer" />
-					<input v-model="address" class="grow py-2 rounded-xl focus:outline-none" placeholder="Indtast din adresse" />
-					<button @click="findRestaurants(); showAddressMenu = false" class="inline-block text-center bg-emerald-500 border border-white text-white hover:bg-emerald-600 py-2 px-4 rounded-xl duration-200">Søg</button>
-        </div>
-      </fieldset>
+        <fieldset v-if="routeName !== 'home' && !isMobile && showAddressMenu" class="absolute -z-10 w-full text-black shadow-bottom">
+          <div class="w-full bg-white py-2 pr-4">
+            <div class="flex flex-row gap-2 max-w-lg mx-auto rounded-xl border-2 border-emerald-500 overflow-hidden">
+              <Pin @click="locationStore.getLocation" class="fill-gray-500 py-2 ml-2 h-10 cursor-pointer" />
+              <input v-model="address" class="grow py-2 rounded-xl focus:outline-none" placeholder="Indtast din adresse" />
+              <button @click="findRestaurants(); showAddressMenu = false" class="inline-block text-center bg-emerald-500 text-white hover:bg-emerald-600 py-2 px-4 duration-200">Søg</button>
+            </div>
+          </div>
+        </fieldset>
     </Transition>
+    <Teleport to="body">
+      <div v-if="showAddressMenu" @click="showAddressMenu = false" class="fixed top-0 left-0 h-screen w-screen bg-black/50" />
+    </Teleport>
   </header>
 </template>
 
@@ -45,6 +50,9 @@ const showAddressMenu = ref(false)
 const isMobile = ref(false)
 
 const address = ref('')
+
+// Prevent scrolling body when a modal is open
+watch(showAddressMenu, (modal) => {document.querySelector("body").style = (modal ? 'overflow: hidden; padding-right: 1rem' : 'overflow: auto')})
 
 onMounted(() => {
   isMobile.value = (window.innerWidth < 767 ? true : false)
@@ -83,5 +91,9 @@ function findRestaurants () {
 .slide-leave-to {
   transform: translateY(-100%);
   transition-duration: 200ms;
+}
+
+.slide-leave-active > div {
+  padding-right: 0;
 }
 </style>

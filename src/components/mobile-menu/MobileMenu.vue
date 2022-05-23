@@ -53,13 +53,8 @@ const showingModal = computed(() => {
   return [showFilter, showBasket, showLocation, showSearch, showUser].some(modal => modal.value === true)
 })
 
-watch(showingModal, () => {
-  if (showingModal.value === true) {
-    document.querySelector("body").style.overflow = 'hidden'
-  } else {
-    document.querySelector("body").style.overflow = 'auto'
-  }
-})
+// Prevent scrolling body when a modal is open
+watch(showingModal, (modal) => {document.querySelector("body").style.overflow = (modal ? 'hidden' : 'auto')})
 
 onMounted(() => {
   isMobile.value = (window.innerWidth < 600 ? true : false)
