@@ -27,7 +27,7 @@ const router = useRouter()
 const address = ref("")
 
 // Update location
-locationStore.$subscribe((state) => {address.value = state.events.newValue});
+locationStore.$onAction(({ getLocation, after }) => { after(() => address.value = locationStore.address)})
 
 // Get address when mounted
 onMounted(() => {address.value = locationStore.address})

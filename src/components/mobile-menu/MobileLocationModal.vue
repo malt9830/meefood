@@ -30,10 +30,7 @@ const router = useRouter()
 const address = ref('')
 
 // Update location
-locationStore.$subscribe((state) => {address.value = state.events.newValue});
-
-// Get address when mounted
-onMounted(() => {address.value = locationStore.address})
+locationStore.$onAction(({ getLocation, after }) => { after(() => address.value = locationStore.address)})
 
 function findRestaurants() {
   // Reset filters and search value

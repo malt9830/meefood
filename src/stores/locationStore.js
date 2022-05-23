@@ -4,8 +4,6 @@ export const useLocationStore = defineStore("location", {
   state: () => {
     return {
       address: "",
-      latitude: 0,
-      longitude: 0,
     };
   },
   getters: {},
@@ -37,6 +35,7 @@ export const useLocationStore = defineStore("location", {
       });
     },
     updateLocation(adr) {
+      if (adr === "") return;
       this.address = adr;
     },
   },

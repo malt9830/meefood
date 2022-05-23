@@ -1,40 +1,50 @@
 <template>
-  <header :class="{'bg-emerald-500' : routeName === 'restaurants'}" class="absolute z-20 text-white w-full py-3 px-4">
-      <nav class="max-w-7xl mx-auto flex flex-row justify-between items-center">
-        <RouterLink to="/"><Logo/></RouterLink>  
-        <div v-if="routeName !== 'home' && !isMobile" class="relative grow max-w-sm text-black place-self-center rounded-xl">
-          <div class="absolute -z-10 top-0 left-0 w-full h-full bg-white opacity-70 rounded-xl pointer-events-none"/>
-          <form class="flex flex-row gap-2">
-            <Pin class="py-1 ml-2 fill-gray-500" />
-            <input v-model="address" placeholder="Indtast din adresse" class="grow bg-transparent py-1 focus-visible:outline-none">
-          </form>
+  <header class="absolute z-20 text-white w-full">
+    <div :class="{'bg-emerald-500' : routeName === 'restaurants'}">
+        <nav class="z-20 max-w-7xl mx-auto flex flex-row justify-between items-center px-4 py-3">
+          <RouterLink to="/"><Logo/></RouterLink>  
+          <div v-if="routeName !== 'home' && !isMobile" @click="showAddressMenu = !showAddressMenu; address = ''" class="max-w-sm bg-white/70 text-black grow place-self-center rounded-xl cursor-pointer">
+            <form class="flex flex-row gap-2">
+              <Pin class="py-2 ml-2 fill-gray-500 cursor-pointer" />
+              <p class="grow bg-transparent py-1 flex items-center">{{ locationStore.address }}<span v-if="locationStore.address === ''" class="text-gray-500">Hvor skal maden leveres?</span></p>
+            </form>
+          </div>
+          <div v-if="!isMobile" class="flex flex-row gap-4 items-center">
+            <RouterLink to="/restaurants">Restauranter</RouterLink>
+            <RouterLink to="/" class="px-2 py-1 border border-white rounded-xl duration-200 hover:bg-white hover:text-black">Log ind</RouterLink>
+          </div>
+        </nav>
+    </div>
+    <Transition name="slide" :duration="200">
+      <fieldset v-if="routeName !== 'home' && !isMobile && showAddressMenu" class="absolute -z-10 w-full py-2 bg-white text-black shadow-bottom">
+        <div class="flex flex-row gap-2 max-w-lg mx-auto">
+					<Pin @click="locationStore.getLocation" class="fill-gray-500 py-2 ml-2 h-10 cursor-pointer" />
+					<input v-model="address" class="grow py-2 rounded-xl focus:outline-none" placeholder="Indtast din adresse" />
+					<button @click="findRestaurants(); showAddressMenu = false" class="inline-block text-center bg-emerald-500 border border-white text-white hover:bg-emerald-600 py-2 px-4 rounded-xl duration-200">Søg</button>
         </div>
-        <div v-if="!isMobile" class="flex flex-row gap-4 items-center">
-          <RouterLink to="/restaurants">Restauranter</RouterLink>
-          <RouterLink to="/" class="px-2 py-1 border border-white rounded-xl duration-200 hover:bg-white hover:text-black">Log ind</RouterLink>
-        </div>
-      </nav>
+      </fieldset>
+    </Transition>
   </header>
 </template>
 
 <script setup>
 import { useLocationStore } from '/src/stores/locationStore'
+import { useFilterStore } from '/src/stores/filterStore'
 
 const locationStore = useLocationStore()
+const filterStore = useFilterStore()
+const router = useRouter()
 const route = useRoute()
 
 const routeName = computed(() => {
   return route.name
 })
 
-const showMenu = ref(false)
+const showAddressMenu = ref(false)
 
 const isMobile = ref(false)
 
 const address = ref('')
-
-// Update location
-locationStore.$subscribe((state) => {address.value = state.events.newValue})
 
 onMounted(() => {
   isMobile.value = (window.innerWidth < 767 ? true : false)
@@ -43,4 +53,35 @@ onMounted(() => {
     isMobile.value = (window.innerWidth < 767 ? true : false)
   })
 })
+
+// Update location
+locationStore.$onAction(({ getLocation, after }) => { after(() => address.value = locationStore.address)})
+
+function findRestaurants () {
+  // Reset filters and search value
+  filterStore.$reset()
+
+  // Switch to restaurant view
+  if (routeName.value !== 'restaurants') router.push('/restaurants')
+
+  // Update location
+  locationStore.updateLocation(address.value)
+
+  // Empty input field
+  address.value = ''
+}
 </script>
+
+<style scoped>
+.slide-enter-active,
+.slide-leave-active {
+  transform: translateY(0%);
+  transition-duration: 200ms;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateY(-100%);
+  transition-duration: 200ms;
+}
+</style>
