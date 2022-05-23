@@ -5,16 +5,11 @@
         <aside class="w-full z-10 bg-white p-4 rounded-t-2xl shadow-top">
           <p class="text-2xl text-gray-500 font-semibold">Brug anden adresse?</p>
           <p class="text-sm">Indtast en ny adresse og find de bedste og nærmeste spisesteder.</p>
-          <!-- <fieldset class="bg-gray-300 mt-4 border-2 border-gray-500 rounded-xl cursor-not-allowed">
-            <legend class="text-xs mx-3 px-1">Nuværrende adresse</legend>
-            <input v-model="currentAddress" placeholder="Ingen" disabled class="bg-transparent px-4 py-2 rounded-xl focus:outline-none pointer-events-none">
-          </fieldset> -->
           <fieldset class="mt-4 border-2 border-gray-500 rounded-xl">
-            <!-- <legend class="text-xs mx-3 px-1">Ny adresse</legend> -->
-            <input v-model="address" placeholder="Adresse, postnummer eller by" class="bg-transparent px-4 py-2 rounded-xl focus:outline-none">
-            <!-- <input v-model="newAddress" placeholder="Adresse, postnummer eller by" class="bg-transparent px-4 py-2 rounded-xl focus:outline-none"> -->
+            <input v-model="address" placeholder="Indtast din adresse" class="bg-transparent w-full px-4 py-2 rounded-xl focus:outline-none">
           </fieldset>
-          <button @click="findRestaurants" class="w-full bg-emerald-500 text-white font-semibold text-center rounded-xl mt-4 py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Find nærmeste</button>
+          <button @click="locationStore.getLocation" class="w-full bg-emerald-200 text-emerald-900 font-semibold rounded-xl mt-4 py-4 transform duration-200 hover:bg-emerald-100 active:scale-95">Brug placering</button>
+          <button @click="emits('closeLocation'); findRestaurants()" class="w-full bg-emerald-500 text-white font-semibold text-center rounded-xl mt-4 py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Find nærmeste</button>
         </aside>
       </div>
     </Transition>
@@ -32,27 +27,24 @@ const locationStore = useLocationStore()
 const filterStore = useFilterStore()
 const router = useRouter()
 
-// const currentAddress = ref('Test Allé 123')
-// const newAddress = ref('')
-
 const address = ref('')
 
 // Update location
-locationStore.$subscribe((state) => {address.value = state.events.newValue})
+locationStore.$subscribe((state) => {address.value = state.events.newValue});
 
-function findRestaurants(e) {
-  e.preventDefault()
+// Get address when mounted
+onMounted(() => {address.value = locationStore.address})
 
+function findRestaurants() {
   // Reset filters and search value
   filterStore.$reset()
 
   // Switch to restaurant view
   router.push('/restaurants')
 
-  // Close modal after switching view
-  emits('closeLocation')
+  // Update location
+  locationStore.updateLocation(address.value)
 }
-
 </script>
 
 <style scoped>

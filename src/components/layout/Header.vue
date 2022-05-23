@@ -6,14 +6,13 @@
           <div class="absolute -z-10 top-0 left-0 w-full h-full bg-white opacity-70 rounded-xl pointer-events-none"/>
           <form class="flex flex-row gap-2">
             <Pin class="py-1 ml-2 fill-gray-500" />
-            <input v-model="address" placeholder="Indtast din adresse" class="bg-transparent py-1 focus-visible:outline-none">
+            <input v-model="address" placeholder="Indtast din adresse" class="grow bg-transparent py-1 focus-visible:outline-none">
           </form>
         </div>
         <div v-if="!isMobile" class="flex flex-row gap-4 items-center">
           <RouterLink to="/restaurants">Restauranter</RouterLink>
           <RouterLink to="/" class="px-2 py-1 border border-white rounded-xl duration-200 hover:bg-white hover:text-black">Log ind</RouterLink>
         </div>
-        <!-- <img v-if="isMobile" @click="showMenu = !showMenu" class="h-8 w-auto cursor-pointer transform duration-200 hover:scale-110" src="/src/assets/icons/filter.svg"> -->
       </nav>
   </header>
 </template>
