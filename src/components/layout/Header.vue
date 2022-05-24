@@ -1,6 +1,6 @@
 <template>
   <header class="absolute z-20 text-white w-full">
-    <div :class="{'pr-4' : showAddressMenu}" class="bg-emerald-500">
+    <div :class="{'pr-4' : showAddressMenu, 'bg-emerald-500' : routeName !== 'restaurant', 'bg-black/50' : routeName === 'restaurant'}">
         <nav class="z-20 max-w-7xl mx-auto flex flex-row justify-between items-center px-4 py-3">
           <RouterLink to="/"><Logo/></RouterLink>  
           <div v-if="routeName !== 'home' && !isMobile" @click="showAddressMenu = !showAddressMenu; address = ''" class="max-w-sm bg-white/70 text-black grow place-self-center rounded-xl cursor-pointer">
