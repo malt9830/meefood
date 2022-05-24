@@ -18,8 +18,8 @@
     <Transition name="slide" :duration="200">
         <fieldset v-if="routeName !== 'home' && !isMobile && showAddressMenu" class="absolute -z-10 w-full text-black shadow-bottom">
           <div class="w-full bg-white py-2 pr-4">
-            <div class="flex flex-row gap-2 max-w-lg mx-auto rounded-xl border-2 border-emerald-500 overflow-hidden">
-              <Pin @click="locationStore.getLocation" class="fill-gray-500 py-2 ml-2 h-10 cursor-pointer" />
+            <div class="flex flex-row gap-2 max-w-lg mx-auto rounded-xl border-2 border-emerald-500 group overflow-hidden">
+              <Pin @click="locationStore.getLocation" class="fill-gray-500 py-2 ml-2 h-10 group-focus-within:animate-twirl cursor-pointer" />
               <input v-model="address" class="grow py-2 rounded-xl focus:outline-none" placeholder="Indtast din adresse" />
               <button @click="findRestaurants(); showAddressMenu = false" class="inline-block text-center bg-emerald-500 text-white hover:bg-emerald-600 py-2 px-4 duration-200">Søg</button>
             </div>

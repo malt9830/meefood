@@ -13,11 +13,17 @@ module.exports = {
     extend: {
       animation: {
         dash: "dash 1s ease-in-out infinite",
+        twirl: "twirl 6s cubic-bezier(.5,-0.8,.34,1.56) infinite",
       },
       keyframes: {
         dash: {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(100%)" },
+        },
+        twirl: {
+          "0%": { transform: "rotateY(0deg)" },
+          "25%": { transform: "rotateY(360deg)" },
+          "100%": { transform: "rotateY(360deg)" },
         },
       },
     },

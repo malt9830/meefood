@@ -3,8 +3,8 @@
 		<div class="z-10 bg-emerald-500 flex items-end">
 			<div class="max-w-4xl w-full mx-auto px-4">
 				<AnimatedSlogan />
-				<fieldset class="flex gap-2 max-w-xl rounded-xl bg-white border-2 border-white">
-					<Pin @click="locationStore.getLocation" class="fill-gray-500 py-2 ml-2 h-10 cursor-pointer" />
+				<fieldset class="flex gap-2 max-w-xl rounded-xl bg-white border-2 border-white group">
+					<Pin @click="locationStore.getLocation" class="fill-gray-500 py-2 ml-2 h-10 group-focus-within:animate-twirl cursor-pointer" />
 					<input v-model="address" class="grow py-2 rounded-xl focus:outline-none" placeholder="Indtast din adresse" />
 					<button @click="findRestaurants" class="inline-block text-center bg-emerald-500 border border-white text-white hover:bg-emerald-600 py-2 px-4 rounded-xl duration-200">Søg</button>
 				</fieldset>
