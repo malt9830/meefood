@@ -2,10 +2,10 @@
   <div
     class="fixed top-0 left-0 w-screen h-screen overflow-hidden bg-emerald-50"
   >
-    <Header class="absolute top-0 left-0 bg-emerald-700" />
+    <Header class="sm:absolute sm:top-0 sm:left-0 bg-emerald-700" />
     <ArrowLeft
       @click="$emit('closePayment')"
-      class="w-10 absolute top-24 left-5 hover:opacity-75 cursor-pointer"
+      class="w-10 sm:absolute sm:top-24 sm:left-5 hover:opacity-75 cursor-pointer"
     />
     <div
       class="sm:absolute drop-shadow-xl sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 w-full sm:w-3/4 md:w-5/12 h-full bg-emerald-50 sm:h-fit sm:bg-gradient-to-b sm:from-emerald-500 sm:to-emerald-300 sm:rounded-2xl pt-20 sm:pt-0"
@@ -123,6 +123,7 @@
       Godkend betaling
     </button>
   </div>
+  <ThankYou v-if="paymentValid" :restaurant="restaurant" :levering="levering" :deliveryDay="deliveryDay" :deliveryHour="deliveryHour" />
 </template>
 
 <script setup>
@@ -131,6 +132,14 @@ const cardNumber = ref("");
 const expiryMonth = ref("");
 const expiryYear = ref("");
 const securityCode = ref("");
+const paymentValid = ref(false);
+
+const props = defineProps({
+  restaurant: Object,
+  levering: Boolean,
+  deliveryDay: String,
+  deliveryHour: String,
+});
 
 function formatNumber(e) {
   e.target.value = e.target.value
@@ -212,6 +221,9 @@ function pay() {
   }
   if (securityCode.value.length < 3) {
     document.querySelector("#code").classList.add("border-red-500")
+  }
+  if (nameOnCard.value.length > 1 && cardNumber.value.length === 19 && expiryMonth.value.length == 2 && expiryYear.value.length == 2 && securityCode.value.length === 3) {
+      paymentValid.value = true;
   }
 }
 </script>

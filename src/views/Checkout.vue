@@ -252,7 +252,7 @@
         </a>
       </div>
     </div>
-    <PaymentCard v-if="payment && formValid" @close-payment="payment = false"/>
+    <PaymentCard v-if="payment && formValid" @close-payment="payment = false" :restaurant="restaurant" :levering="levering" :deliveryDay="deliveryDay" :deliveryHour="deliveryHour"/>
   </main>
 </template>
 
@@ -299,6 +299,8 @@ const email = ref("");
 
 const formValid = ref(false);
 
+const deliveryHour = ref("");
+
 Airtable.configure({
   endpointUrl: "https://api.airtable.com",
   apiKey: "keyiA3gmotxYIJjLc",
@@ -342,8 +344,9 @@ const textColor = computed(() => {
 
 function checkForm() {
   if (fornavn.value.length > 0 && efternavn.value.length > 0 && adresse.value.length > 0 && postcode.value.length === 4 && city.value.length > 0 && email.value.length > 0 && telefonnummer.value.length === 8) {
-    formValid.value = true
-    console.log(formValid.value)
+    formValid.value = true;
+    deliveryHour.value = document.querySelector("#timeSelect").value;
+    console.log(formValid.value);
     payment.value = true
   } if (fornavn.value.length < 1) {
     document.querySelector("#fornavn").classList.add("border-red-500")
