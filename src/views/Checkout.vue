@@ -75,46 +75,96 @@
 
             <div v-if="levering" class="space-y-4">
               <h2 class="font-semibold text-xl">Leveringsadresse</h2>
+              <div class="space-y-1">
               <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="Fornavn"
+                v-model="fornavn"
+                class="border-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="fornavn"
                 type="text"
                 placeholder="Fornavn"
+                required
+                @input="checkFornavn"
               />
+             
+              </div>
+              <div class="space-y-1">
               <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="Efternavn"
+              v-model="efternavn"
+                class="border-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="efternavn"
                 type="text"
                 placeholder="Efternavn"
+                required
+                @input="checkEfternavn"
               />
-              <div class="grid grid-cols-[auto_6rem] gap-2">
+             
+              </div>
+              <div class="flex gap-2">
+                <div class="space-y-1">
                 <input
-                  class="mr-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="Adresse"
+                v-model="adresse"
+                  class="border-2 mr-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="adresse"
                   type="text"
-                  placeholder="Adresse"
+                  placeholder="Vejnavn og nummer"
+                  required
+                  @input="checkAdresse"
                 />
+                
+                </div>
+                <div class="space-y-1">
                 <input
-                  class="w- shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                v-model="postcode"
+                  class="border-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="postnummer"
                   type="text"
                   placeholder="Post nr."
+                  minlength="4"
+                  maxlength="4"
+                  required
+                  @input="checkPostcode"
                 />
+               
               </div>
+              </div>
+              <div class="space-y-1">
               <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="Email"
+              v-model="city"
+                class="border-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="city"
                 type="text"
-                placeholder="Email"
+                placeholder="By"
+                required
+                @input="checkCity"
               />
+             
+              </div>
+              <div class="space-y-1">
               <input
-                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="Telefonnummer"
+              v-model="email"
+                class="border-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="email"
+                type="email"
+                placeholder="Email"
+                required
+                @input="checkEmail"
+              />
+              
+              </div>
+              <div class="space-y-1">
+              <input
+              v-model="telefonnummer"
+                class="border-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="telefonnummer"
                 type="text"
                 placeholder="Telefonnummer"
                 minlength="8"
                 maxlength="8"
+                required
+                @input="checkPhone"
               />
+              
+            </div>
             </div>
             <div class="space-y-3">
               <h2 class="font-semibold text-xl">Betalingsmetoder</h2>
@@ -194,7 +244,7 @@
           Tilbage til menuen</a
         >
         <a
-          href="#"
+          @click="checkForm"
           :style="`background-color: ${restaurant.colorSecondary}`"
           class="rounded-2xl py-2 px-6 text-white hover:opacity-75 self-center m-3"
         >
@@ -202,6 +252,7 @@
         </a>
       </div>
     </div>
+    <PaymentCard v-if="payment && formValid" @close-payment="payment = false"/>
   </main>
 </template>
 
@@ -225,9 +276,28 @@ const menu = ref([]);
 const levering = ref(true);
 
 const closingTime = ref("");
+
 const openingTime = ref("");
 
 const deliveryDay = ref("i dag");
+
+const payment = ref(false);
+
+const fornavn = ref("");
+
+const efternavn = ref("");
+
+const adresse = ref("");
+
+const postcode = ref("");
+
+const city = ref("");
+
+const telefonnummer = ref("");
+
+const email = ref("");
+
+const formValid = ref(false);
 
 Airtable.configure({
   endpointUrl: "https://api.airtable.com",
@@ -269,6 +339,84 @@ const textColor = computed(() => {
   // Return Tailwind text class of black or white based on brightness
   return luminance > 150 ? "text-black" : "text-white";
 });
+
+function checkForm() {
+  if (fornavn.value.length > 0 && efternavn.value.length > 0 && adresse.value.length > 0 && postcode.value.length === 4 && city.value.length > 0 && email.value.length > 0 && telefonnummer.value.length === 8) {
+    formValid.value = true
+    console.log(formValid.value)
+    payment.value = true
+  } if (fornavn.value.length < 1) {
+    document.querySelector("#fornavn").classList.add("border-red-500")
+  } if (efternavn.value.length < 1) {
+   document.querySelector("#efternavn").classList.add("border-red-500")
+  } if (adresse.value.length < 1) {
+    document.querySelector("#adresse").classList.add("border-red-500")
+  } if (postcode.value.length < 4) {
+    document.querySelector("#postnummer").classList.add("border-red-500")
+  } if (email.value.length < 1) {
+    document.querySelector("#email").classList.add("border-red-500")
+  } if (telefonnummer.value.length !== 8) {
+    document.querySelector("#telefonnummer").classList.add("border-red-500")
+  } if (city.value.length < 1) {
+    document.querySelector("#city").classList.add("border-red-500")
+  }
+}
+
+function checkFornavn() {
+  if (fornavn.value.length > 1 && document.querySelector("#fornavn").classList.contains("border-red-500")) {
+    document.querySelector("#fornavn").classList.remove("border-red-500")
+  } else if (fornavn.value.length < 1) {
+    document.querySelector("#fornavn").classList.add("border-red-500")
+  }
+}
+
+function checkEfternavn() {
+  if (efternavn.value.length > 1 && document.querySelector("#efternavn").classList.contains("border-red-500")) {
+    document.querySelector("#efternavn").classList.remove("border-red-500")
+  } else if (efternavn.value.length < 1) {
+    document.querySelector("#efternavn").classList.add("border-red-500")
+  }
+}
+
+function checkAdresse() {
+  if (adresse.value.length > 1 && document.querySelector("#adresse").classList.contains("border-red-500")) {
+    document.querySelector("#adresse").classList.remove("border-red-500")
+  } else if (adresse.value.length < 1) {
+    document.querySelector("#adresse").classList.add("border-red-500")
+  }
+}
+
+function checkPostcode() {
+  if (postcode.value.length > 1 && document.querySelector("#postnummer").classList.contains("border-red-500")) {
+    document.querySelector("#postnummer").classList.remove("border-red-500")
+  } else if (postcode.value.length < 1) {
+    document.querySelector("#postnummer").classList.add("border-red-500")
+  }
+}
+
+function checkCity() {
+  if (city.value.length > 1 && document.querySelector("#city").classList.contains("border-red-500")) {
+    document.querySelector("#city").classList.remove("border-red-500")
+  } else if (city.value.length < 1) {
+    document.querySelector("#city").classList.add("border-red-500")
+  }
+}
+
+function checkEmail() {
+  if (email.value.length > 1 && document.querySelector("#email").classList.contains("border-red-500")) {
+    document.querySelector("#email").classList.remove("border-red-500")
+  } else if (email.value.length < 1) {
+    document.querySelector("#email").classList.add("border-red-500")
+  }
+}
+
+function checkPhone() {
+  if (telefonnummer.value.length > 1 && document.querySelector("#telefonnummer").classList.contains("border-red-500")) {
+    document.querySelector("#telefonnummer").classList.remove("border-red-500")
+  } else if (telefonnummer.value.length < 1) {
+    document.querySelector("#telefonnummer").classList.add("border-red-500")
+  }
+}
 
 function populate() {
   var select = document.querySelector("#timeSelect");
