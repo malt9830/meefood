@@ -9,7 +9,7 @@
   >
     <div class="flex justify-between items-center">
       <h3 class="text-md">{{ dish.amount }}x {{ dish.name }}</h3>
-      <p class="text-sm">{{ dish.amount * dish.price }}kr</p>
+      <p class="text-sm">{{ dish.amount * dish.price }} kr</p>
     </div>
     <div class="flex justify-between items-center">
       <p class="text-xs" v-if="dish.comment">"{{ dish.comment }}"</p>
@@ -19,12 +19,12 @@
         <Minus
           @click="store.subtractAmount(dish)"
           :fill="`${restaurant.colorSecondary}`"
-          class="h-5"
+          class="h-5 cursor-pointer"
         />
         <Plus
           @click="store.addAmount(dish)"
           :fill="`${restaurant.colorSecondary}`"
-          class="h-5"
+          class="h-5 cursor-pointer"
         />
       </div>
     </div>
@@ -36,15 +36,15 @@
   />
     <div class="flex justify-between mx-4">
       <p class="font-medium">Subtotal</p>
-      <p>{{ store.totalPrice }}kr</p>
+      <p>{{ store.totalPrice }} kr</p>
     </div>
     <div class="flex justify-between mx-4">
       <p class="font-medium">Levering</p>
-      <p>{{ restaurant.deliveryCost }}kr</p>
+      <p>{{ restaurant.deliveryCost }} kr</p>
     </div>
     <div class="flex justify-between mx-4">
       <p class="font-medium">Samlet</p>
-      <p>{{ store.totalPrice + restaurant.deliveryCost }}kr</p>
+      <p>{{ store.totalPrice + restaurant.deliveryCost }} kr</p>
     </div>
     <div class="flex justify-center mt-5">
     <RouterLink :to="`/checkout/${restaurant.slug}`"><button

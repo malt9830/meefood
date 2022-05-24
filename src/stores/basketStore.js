@@ -13,30 +13,41 @@ export const useBasketStore = defineStore({
     },
   },
   actions: {
-    addToBasket(item, counter, comment, picked) {
+    addToBasket(item, counter, picked) {
       this.$patch((state) => {
-        if (state.basket.includes(item) && picked === item.picked) {
-          item.amount = item.amount + counter;
-          console.log(item.amount);
-          console.log(state.basket);
-        } else if (!state.basket.includes(item)) {
-          item.amount = counter;
-          item.comment = comment;
-          item.picked = picked;
-          console.log(picked);
-          console.log(item.comment);
-          state.basket.push(item);
-          console.log(state.basket);
-        } else if (state.basket.includes(item) && picked !== item.picked) {
-          item.picked = picked;
-          state.basket.push(item);
-          console.log("same dish, different option");
+        // If dish had no picked
+        if (picked === "") {
+          if (!state.basket.includes(item)) {
+            item.amount = counter;
+            state.basket.push(item);
+          } else if (state.basket.includes(item)) {
+            item.amount += counter;
+          }
+        } else if (picked !== "") {
+          if (!state.basket.includes(item)) {
+            item.amount = counter;
+            item.picked = picked;
+            state.basket.push(item);
+          } else if (state.basket.includes(item)) {
+            item.amount += counter;
+          }
         }
+        // if (state.basket.includes(item) && picked === item.picked) {
+        //   item.amount = item.amount + counter;
+        // } else if (!state.basket.includes(item)) {
+        //   item.amount = counter;
+        //   item.comment = comment;
+        //   item.picked = picked;
+        //   state.basket.push(item);
+        // } else if (state.basket.includes(item) && picked !== item.picked) {
+        //   item.picked = picked;
+        //   state.basket.push(item);
+        // }
       });
     },
     subtractAmount(item) {
       this.$patch(() => {
-        if (item.amount >= 2) {
+        if (item.amount > 1) {
           item.amount = item.amount - 1;
         } else {
           this.$patch((state) => {

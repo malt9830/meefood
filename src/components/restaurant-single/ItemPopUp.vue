@@ -1,11 +1,11 @@
 <template>
   <Teleport to="body">
     <div
-      class="fixed w-screen h-screen top-0 left-0 before:content-[''] before:block before:w-screen before:h-screen before:bg-black before:opacity-50"
+      class="fixed z-20 w-screen h-screen top-0 left-0 before:content-[''] before:block before:w-screen before:h-screen before:bg-black before:opacity-50"
     >
       <div @click="$emit('closePopUp')" class="absolute top-0 left-0 h-full w-full"/>
       <div
-        class="w-screen sm:w-3/4 lg:w-1/2 h-screen sm:h-3/4 bg-white overflow-auto bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded flex flex-col items-center pt-10 sm:pt-0 gap-y-20 sm:gap-y-0 sm:grid sm:grid-rows-2 drop-shadow"
+        class="w-screen sm:w-3/4 lg:w-1/2 h-screen sm:h-3/4 bg-white overflow-auto bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded flex flex-col items-center pt-10 sm:pt-0 gap-y-20 sm:gap-y-0 sm:grid sm:grid-rows-2"
       >
         <div
           class="w-80 h-80 sm:w-full sm:h-full flex justify-end rounded"
@@ -33,7 +33,7 @@
                   v-if="dish.vegan === true"
                 />
               </div>
-              <p class="text-xl">{{ dish.price }}kr</p>
+              <p class="text-xl">{{ dish.price }} kr</p>
             </div>
             <p class="text-sm">{{ dish.description }}</p>
             <div v-if="dish.options">
@@ -41,43 +41,34 @@
                 <div
                   v-for="option in dish.options"
                   :key="option"
-                  class="flex gap-x-2 my-1"
+                  class="flex gap-x-2 my-1 items-center"
                 >
                   <input
                     v-model="picked"
-                    name="option"
                     type="radio"
-                    :value="`${option}`"
+                    :id="option"
+                    :value="option"
                   />
-                  <label>{{ option }}</label>
+                  <label :for="option">{{ option }}</label>
                 </div>
               </fieldset>
             </div>
-            <textarea
-              v-model="comment"
-              @input="showComment"
-              class="border border-gray-500 rounded w-full lg:w-3/4 h-20 lg:h-10 p-1 focus:outline-none"
-              placeholder="Skriv en kommentar"
-            ></textarea>
           </div>
           <div
             class="flex bottom-0 justify-center gap-x-7 py-2 "
           >
-            <button
+            <div
               id="amount"
               @click="checkAmount"
-              class="bg-white p-1.5 rounded w-40 flex items-center justify-between px-10"
+              class="bg-white rounded w-40 grid grid-cols-3 items-center justify-between"
               :style="`border: 1px solid ${restaurant.colorSecondary}; color: ${restaurant.colorSecondary}`"
             >
-              <button @click="counter--" id="minus" class="text-2xl">-</button>
-              <p class="font-semibold">{{ counter }}</p>
-              <button @click="counter++" class="text-2xl">+</button>
-            </button>
+              <button @click="counter--" :disabled="counter < 2" class="text-2xl py-1.5">-</button>
+              <p class="font-semibold text-center">{{ counter }}</p>
+              <button @click="counter++" class="text-2xl py-1.5">+</button>
+            </div>
             <button
-              @click="
-                store.addToBasket(dish, counter, comment, picked);
-                $emit('closePopUp');
-              "
+              @click="basketStore.addToBasket(dish, counter, picked);$emit('closePopUp');"
               class="p-1.5 rounded w-40 text-white hover:opacity-75"
               :style="`background: ${restaurant.colorSecondary}`"
             >
@@ -93,30 +84,11 @@
 <script setup>
 import { useBasketStore } from "/src/stores/basketStore";
 
-const store = useBasketStore();
+const basketStore = useBasketStore();
+const emits = defineEmits(["closePopUp"]);
 
 const counter = ref(1);
-const comment = ref("");
-
-onMounted(() => {
-  if (counter.value < 2) {
-    document.querySelector("#minus").disabled = true;
-  } else {
-    document.querySelector("#minus").disabled = false;
-  }
-});
-
-function showComment() {
-  console.log(comment.value);
-}
-
-function checkAmount() {
-  if (counter.value < 2) {
-    document.querySelector("#minus").disabled = true;
-  } else {
-    document.querySelector("#minus").disabled = false;
-  }
-}
+const picked = ref('')
 
 const props = defineProps({
   dish: Object,
@@ -124,6 +96,7 @@ const props = defineProps({
   popUp: Boolean,
 });
 
-const emits = defineEmits(["closePopUp"]);
+// If dish has options, set picked to first value
+onMounted(() => {picked.value = (props.dish.options === undefined ? '' : props.dish.options[0])})
 
 </script>

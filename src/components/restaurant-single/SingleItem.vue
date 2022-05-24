@@ -1,5 +1,5 @@
 <template>
-    <div class="dish" @click="popUp = true">
+    <div class="cursor-pointer" @click="popUp = true">
       <div
         class="flex justify-between"
       >
@@ -18,7 +18,7 @@
             />
           </div>
           <p class="text-xs sm:text-sm font-light">{{ dish.description }}</p>
-          <p class="text-md">{{ dish.price }}kr</p>
+          <p class="text-md">{{ dish.price }} kr</p>
         </div>
         <div :style="`background-image: url(${dish.image[0].url}); background-size: cover; background-repeat: no-repeat`" class="w-40 h-28 bg-center rounded" />
         <ItemPopUp
@@ -42,9 +42,14 @@ const props = defineProps({
 
 const popUp = ref(false);
 
+watch(popUp, (modal) => {
+  document.querySelector("body").style.overflow = (modal ? 'hidden' : 'auto')
+  document.querySelector("main > div").style.paddingRight = (modal ? '1rem' : '0rem')
+  document.querySelector("header > div").style.paddingRight = (modal ? '1rem' : '0rem')
+})
+
 function closePopUp() {
   popUp.value = false;
-  console.log(popUp.value)
 }
 
 </script>
