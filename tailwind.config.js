@@ -13,7 +13,7 @@ module.exports = {
     extend: {
       animation: {
         dash: "dash 1s ease-in-out infinite",
-        twirl: "twirl 6s cubic-bezier(.5,-0.8,.34,1.56) infinite",
+        twirl: "twirl 6s cubic-bezier(.5,-0.8,.34,1.56) 2s infinite",
       },
       keyframes: {
         dash: {
