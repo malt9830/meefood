@@ -26,7 +26,7 @@
         :dish="dish"
         :restaurant="restaurant"
         :popUp="popUp"
-        @close-pop-up="closePopUp"
+        @close-pop-up="popUp = false"
       />
       </div>
     </div>
@@ -42,9 +42,11 @@ const props = defineProps({
 
 const popUp = ref(false);
 
-function closePopUp() {
-  popUp.value = false;
-  console.log(popUp.value)
-}
-
+// Prevent scrolling body when a modal is open
+watch(popUp, (modal) => {
+  document.querySelector("body").style.overflow = (modal ? 'hidden' : 'auto')
+  document.querySelector("main > div").style.paddingRight = (modal ? '1rem' : '0')
+  document.querySelector("main > div > div:first-of-type").style.width = (modal ? 'calc(100% + 1rem)' : '100%')
+  document.querySelector("header > div").style.paddingRight = (modal ? '1rem' : '0')
+})
 </script>

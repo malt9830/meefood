@@ -13,9 +13,9 @@
       <div class="relative flex flex-col max-w-7xl mx-auto sm:flex-row items-center sm:l-10">
         <div
           :style="`border: 2px solid ${restaurant.colorSecondary} `"
-          class="w-40 h-40 absolute -top-16 sm:mt-1 sm:top-0 xl:-top-16 sm:left-0 sm:m-4 rounded-full bg-white flex justify-center items-center"
+          class="w-40 h-40 absolute -top-16 sm:mt-1 sm:top-0 lg:-top-16 sm:left-0 sm:m-4 rounded-full bg-white flex justify-center items-center"
         >
-        <img :src="restaurant.logo[0].url" class="p-2"/>
+          <img :src="restaurant.logo[0].url" class="p-2"/>
         </div>
         <div class="sm:ml-48 flex flex-col w-full items-center sm:items-start pt-24 sm:pt-0">
           <h1 v-if="loaded" class="text-2xl sm:text-3xl font-semibold p-3 sm:p-5">
@@ -134,13 +134,15 @@
           class="flex flex-col pt-5 gap-y-5"
           :style="`border-top: solid 1px ${restaurant.colorSecondary}; border-right: solid 1px ${restaurant.colorSecondary}`"
         >
-          <div class="sticky top-0">
-            <div class="flex items-center ml-5 my-5">
+          <div class="sticky top-0 pt-5">
+            <div
+                class="flex items-center mx-4 bg-white rounded overflow-hidden"
+                :style="`border: solid 1px ${restaurant.colorSecondary}`">
+              <Search class="p-1"/>
               <input
                 v-model="search"
-                class="rounded w-5/6 h-8 focus:outline-none p-1 bg-[url('./assets/icons/search-gray.svg')] bg-no-repeat pl-8 md:pl-10 text-gray-500 text-xs md:text-sm"
+                class="w-5/6 h-8 outline-none focus:outline-none p-1 text-gray-500 text-xs md:text-sm"
                 placeholder="Søg en ret"
-                :style="`border: solid 1px ${restaurant.colorSecondary}`"
               />
             </div>
             <div
@@ -213,11 +215,9 @@ import { computed, onMounted } from "@vue/runtime-core";
 const route = useRoute();
 
 const loaded = ref(false);
-
 const loaded2 = ref(false)
 
 const restaurant = ref();
-
 const menu = ref([]);
 
 const info = ref(false);
@@ -227,7 +227,6 @@ const search = ref("");
 const day = ref("");
 
 const tablet = ref(false);
-
 const mobile = ref(false);
 
 const categories = computed(() => {
@@ -259,6 +258,14 @@ const textColor = computed(() => {
   // Return Tailwind text class of black or white based on brightness
   return luminance > 150 ? "black" : "white";
 });
+
+// Prevent scrolling body when a modal is open
+watch(info, (modal) => {
+  document.querySelector("body").style.overflow = (modal ? 'hidden' : 'auto')
+  document.querySelector("main > div").style.paddingRight = (modal ? '1rem' : '0')
+  document.querySelector("main > div > div:first-of-type").style.width = (modal ? 'calc(100% + 1rem)' : '100%')
+  document.querySelector("header > div").style.paddingRight = (modal ? '1rem' : '0')
+})
 
 onMounted(() => {
   const d = new Date();

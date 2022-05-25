@@ -204,7 +204,7 @@
         </div>
     </div>
     
-    <PaymentCard v-if="formValid" :restaurant="restaurant" :deliveryMethod="deliveryMethod" :deliveryDay="deliveryDay" :deliveryTime="deliveryTime"/>
+    <PaymentCard v-if="formValid" @closePayment="formValid = false" :restaurant="restaurant" :deliveryMethod="deliveryMethod" :deliveryDay="deliveryDay" :deliveryTime="deliveryTime"/>
   </main>
 </template>
 
@@ -285,6 +285,12 @@ function validateForm () {
     formValid.value = true
   }
 }
+
+// Prevent scrolling body when a modal is open
+watch(formValid, (modal) => {
+  document.querySelector("body").style.overflow = (modal ? 'hidden' : 'auto')
+  document.querySelector("header > div").style.paddingRight = (modal ? '1rem' : '0')
+})
 
 Airtable.configure({
   endpointUrl: "https://api.airtable.com",

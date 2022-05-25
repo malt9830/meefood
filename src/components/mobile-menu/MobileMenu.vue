@@ -1,13 +1,13 @@
 <template>
   <Teleport to="body" v-if="showMobileMenu">
     <div :class="[ (showFilter || showBasket || showLocation || showSearch) ? 'shadow-topline' : 'shadow-top' ]" class="fixed z-50 bottom-0 w-full bg-white h-16 grid grid-cols-4 items-center duration-300">
-      <RouterLink to="restaurants" v-if="routeName === 'home'" @click="hideModals" class="w-full h-full grid cursor-pointer">
+      <RouterLink to="/restaurants" v-if="routeName === 'home' || routeName === 'checkout'" @click="hideModals" class="w-full h-full grid cursor-pointer">
         <Restaurant class="h-8 w-auto m-auto fill-gray-500"/>
       </RouterLink>
       <div v-if="routeName === 'restaurants'" @click="hideModals('filter'); showFilter = !showFilter" class="w-full h-full grid cursor-pointer">
         <Filter :class="[ showFilter ? 'fill-emerald-500' : 'fill-gray-500']" class="h-6 w-auto m-auto duration-200"/>
       </div>
-      <div v-if="routeName === 'restaurant' || routeName === 'checkout'" @click="hideModals('basket'); showBasket = !showBasket" class="w-full h-full grid cursor-pointer">
+      <div v-if="routeName === 'restaurant'" @click="hideModals('basket'); showBasket = !showBasket" class="w-full h-full grid cursor-pointer">
         <Bag2 :class="[ showBasket ? 'fill-emerald-500' : 'fill-gray-500']" class="h-6 w-auto m-auto duration-200"/>
       </div>
       <div @click="hideModals('location'); showLocation = !showLocation" class="w-full h-full grid cursor-pointer">

@@ -6,6 +6,7 @@ module.exports = {
     },
     boxShadow: {
       card: "0px 1px 3px #707070",
+      button: "0px -3px 15px #707070",
       top: "0px -3px 10px #707070",
       bottom: "0px 3px 10px #707070",
       topline: "0px -1px 1px #707070",

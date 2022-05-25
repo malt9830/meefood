@@ -1,11 +1,11 @@
 <template>
   <div
-    class="fixed top-0 left-0 w-screen h-screen overflow-hidden bg-emerald-50"
+    class="fixed z-40 top-0 left-0 w-screen h-screen overflow-hidden bg-emerald-50"
   >
-    <!-- <ArrowLeft
+    <ArrowLeft
       @click="$emit('closePayment')"
       class="w-10 sm:absolute sm:top-24 sm:left-5 hover:opacity-75 cursor-pointer"
-    /> -->
+    />
     <div
       class="sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 w-full sm:w-3/4 md:w-5/12 h-full bg-emerald-50 sm:h-fit sm:bg-gradient-to-b sm:from-emerald-500 sm:to-emerald-300 sm:rounded-2xl pt-20 sm:pt-0"
     >
@@ -116,7 +116,7 @@
       Godkend betaling
     </button>
   </div>
-  <ThankYou v-if="paymentValid" :restaurant="restaurant" :deliveryMethod="deliveryMethod" :deliveryDay="deliveryDay" :deliveryTime="deliveryTime" />
+  <ThankYou v-if="paymentValid" @closeModals="$emit('closePayment')" :restaurant="restaurant" :deliveryMethod="deliveryMethod" :deliveryDay="deliveryDay" :deliveryTime="deliveryTime" />
 </template>
 
 <script setup>
@@ -126,6 +126,7 @@ const props = defineProps({
   deliveryDay: String,
   deliveryTime: String,
 });
+const emits = defineEmits(['closePayment'])
 
 const formSubmitted = ref(false)
 const paymentValid = ref(false);
@@ -161,6 +162,8 @@ function formatYear() {
     document.querySelector("#code").focus();
   }
 }
+
+onMounted(() => window.scrollTo({top: 0}))
 </script>
 
 <style scoped>
