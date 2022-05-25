@@ -278,8 +278,12 @@ const email = ref("")
 const phone = ref("")
 
 function validateForm () {
-  formValid.value = document.querySelector("[delivery-form]").checkValidity()
-  formSubmitted.value = true
+  if (deliveryMethod.value === "levering") {
+    formValid.value = document.querySelector("[delivery-form]").checkValidity()
+    formSubmitted.value = true
+  } else if (deliveryMethod.value === "afhentning") {
+    formValid.value = true
+  }
 }
 
 Airtable.configure({

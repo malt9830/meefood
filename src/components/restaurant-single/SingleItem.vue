@@ -1,5 +1,5 @@
 <template>
-    <div class="dish" @click="popUp = true">
+    <div class="cursor-pointer" @click="popUp = true">
       <div
         class="flex justify-between"
       >
