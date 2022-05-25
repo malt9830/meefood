@@ -45,13 +45,9 @@ const showLocation = ref(false)
 const showSearch = ref(false)
 const showUser = ref(false)
 
-const showMobileMenu = computed(() => {
-  return (isMobile.value === true ? true : false)
-})
+const showMobileMenu = computed(() => {return (isMobile.value === true ? true : false)})
 
-const showingModal = computed(() => {
-  return [showFilter, showBasket, showLocation, showSearch, showUser].some(modal => modal.value === true)
-})
+const showingModal = computed(() => {return [showFilter, showBasket, showLocation, showSearch, showUser].some(modal => modal.value === true)})
 
 // Prevent scrolling body when a modal is open
 watch(showingModal, (modal) => {document.querySelector("body").style.overflow = (modal ? 'hidden' : 'auto')})

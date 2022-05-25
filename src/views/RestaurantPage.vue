@@ -121,7 +121,7 @@
             </div>
             <button
               :style="`background-color: ${restaurant.colorSecondary}`"
-              class="p-1.5 mt-2 sm:mt-0 sm:w-24 text-white rounded hover:opacity-75"
+              class="p-1.5 mt-2 sm:mt-0 sm:w-24 text-white rounded duration-200 hover:opacity-75"
               @click="info = true"
             >
               Mere info
@@ -313,6 +313,6 @@ base("restaurants")
       });
       setTimeout(() => {
         loaded2.value = true
-      }, 2000)
+      }, 500)
   });
 </script>
