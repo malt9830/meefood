@@ -97,26 +97,26 @@
             </div>
             <div class="flex flex-wrap w-full place-self-center sm:w-fit sm:gap-x-10 items-center sm:justify-start justify-between">
             <a href="#">www.{{restaurant.slug}}.dk</a>
-            <p class="text-center" v-if="day === 'mandag'">
-              Åben til {{ restaurant.mandag.slice(8) }}
+            <p class="text-center" v-if="day === 'monday'">
+              Åben til {{ restaurant.monday.slice(8) }}
             </p>
-            <p v-if="day === 'tirsdag'">
-              Åben til {{ restaurant.tirsdag.slice(8) }}
+            <p v-if="day === 'tuesday'">
+              Åben til {{ restaurant.tuesday.slice(8) }}
             </p>
-            <p v-if="day === 'onsdag'">
-              Åben til {{ restaurant.onsdag.slice(8) }}
+            <p v-if="day === 'wednesday'">
+              Åben til {{ restaurant.wednesday.slice(8) }}
             </p>
-            <p v-if="day === 'torsdag'">
-              Åben til {{ restaurant.torsdag.slice(8) }}
+            <p v-if="day === 'thursday'">
+              Åben til {{ restaurant.thursday.slice(8) }}
             </p>
-            <p v-if="day === 'fredag'">
-              Åben til {{ restaurant.fredag.slice(8) }}
+            <p v-if="day === 'friday'">
+              Åben til {{ restaurant.friday.slice(8) }}
             </p>
-            <p v-if="day === 'lordag'">
-              Åben til {{ restaurant.lordag.slice(8) }}
+            <p v-if="day === 'saturday'">
+              Åben til {{ restaurant.saturday.slice(8) }}
             </p>
-            <p v-if="day === 'sondag'">
-              Åben til {{ restaurant.sondag.slice(8) }}
+            <p v-if="day === 'sunday'">
+              Åben til {{ restaurant.sunday.slice(8) }}
             </p>
             </div>
             <button
