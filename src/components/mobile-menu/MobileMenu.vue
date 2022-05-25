@@ -7,7 +7,7 @@
       <div v-if="routeName === 'restaurants'" @click="hideModals('filter'); showFilter = !showFilter" class="w-full h-full grid cursor-pointer">
         <Filter :class="[ showFilter ? 'fill-emerald-500' : 'fill-gray-500']" class="h-6 w-auto m-auto duration-200"/>
       </div>
-      <div v-if="routeName === 'restaurant'" @click="hideModals('basket'); showBasket = !showBasket" class="w-full h-full grid cursor-pointer">
+      <div v-if="routeName === 'restaurant' || routeName === 'checkout'" @click="hideModals('basket'); showBasket = !showBasket" class="w-full h-full grid cursor-pointer">
         <Bag2 :class="[ showBasket ? 'fill-emerald-500' : 'fill-gray-500']" class="h-6 w-auto m-auto duration-200"/>
       </div>
       <div @click="hideModals('location'); showLocation = !showLocation" class="w-full h-full grid cursor-pointer">

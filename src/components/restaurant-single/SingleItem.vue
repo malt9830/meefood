@@ -20,7 +20,7 @@
           <p class="text-xs sm:text-sm font-light">{{ dish.description }}</p>
           <p class="text-md">{{ dish.price }}kr</p>
         </div>
-        <div :style="`background-image: url(${dish.image[0].url}); background-size: cover; background-repeat: no-repeat`" class="w-40 h-28 rounded" />
+        <div :style="`background-image: url(${dish.image[0].url})`" class="w-40 h-28 rounded bg-cover bg-no-repeat bg-center" />
         <ItemPopUp
         v-if="popUp"
         :dish="dish"

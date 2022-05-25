@@ -36,7 +36,7 @@
               <p>{{ store.totalPrice + 30 }} kr</p>
             </div>
           </div>
-          <button @click="emits('closeLocation')" :class="{ 'brightness-50 pointer-events-none' : store.basket.length === 0}" class="w-full bg-emerald-500 text-white font-semibold rounded-xl py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Gå til kassen</button>
+          <RouterLink :to="`/checkout/${route.params.id}`" @click="emits('closeBasket')" :class="{ 'brightness-50 pointer-events-none' : store.basket.length === 0}" class="block text-center w-full bg-emerald-500 text-white font-semibold rounded-xl py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Gå til kassen</RouterLink>
         </aside>
       </div>
     </Transition>
@@ -49,6 +49,7 @@ import { useBasketStore } from "/src/stores/basketStore";
 const props = defineProps(['showBasket'])
 const emits = defineEmits(['closeBasket'])
 const store = useBasketStore();
+const route = useRoute()
 </script>
 
 <style scoped>

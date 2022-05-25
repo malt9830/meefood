@@ -41,9 +41,7 @@ const filterStore = useFilterStore()
 const router = useRouter()
 const route = useRoute()
 
-const routeName = computed(() => {
-  return route.name
-})
+const routeName = computed(() => {return route.name})
 
 const showAddressMenu = ref(false)
 
