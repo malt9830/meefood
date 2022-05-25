@@ -4,13 +4,13 @@
   >
     <ArrowLeft
       @click="$emit('closePayment')"
-      class="w-10 sm:absolute sm:top-24 sm:left-5 hover:opacity-75 cursor-pointer"
+      class="w-10 sm:absolute sm:top-24 sm:left-5 hover:opacity-75 m-4 cursor-pointer"
     />
     <div
-      class="sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 w-full sm:w-3/4 md:w-5/12 h-full bg-emerald-50 sm:h-fit sm:bg-gradient-to-b sm:from-emerald-500 sm:to-emerald-300 sm:rounded-2xl pt-20 sm:pt-0"
+      class="sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 w-full sm:w-3/4 md:w-5/12 h-full bg-emerald-100 sm:h-fit sm:bg-gradient-to-b sm:from-emerald-500 sm:to-emerald-300 sm:rounded-2xl pt-20 sm:pt-0"
     >
       <div class="flex flex-col justify-between my-5 gap-y-2">
-        <div class="flex justify-center gap-x-5">
+        <div class="flex justify-center gap-x-5 mb-6">
           <img class="w-14" src="../../assets/cards/visa.jpg" alt="visa" />
           <img
             class="w-14"
