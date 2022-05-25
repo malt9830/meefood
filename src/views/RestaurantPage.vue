@@ -97,26 +97,8 @@
             </div>
             <div class="flex flex-wrap w-full place-self-center sm:w-fit sm:gap-x-10 items-center sm:justify-start justify-between">
             <a href="#">www.{{restaurant.slug}}.dk</a>
-            <p class="text-center" v-if="day === 'monday'">
-              Åben til {{ restaurant.monday.slice(8) }}
-            </p>
-            <p v-if="day === 'tuesday'">
-              Åben til {{ restaurant.tuesday.slice(8) }}
-            </p>
-            <p v-if="day === 'wednesday'">
-              Åben til {{ restaurant.wednesday.slice(8) }}
-            </p>
-            <p v-if="day === 'thursday'">
-              Åben til {{ restaurant.thursday.slice(8) }}
-            </p>
-            <p v-if="day === 'friday'">
-              Åben til {{ restaurant.friday.slice(8) }}
-            </p>
-            <p v-if="day === 'saturday'">
-              Åben til {{ restaurant.saturday.slice(8) }}
-            </p>
-            <p v-if="day === 'sunday'">
-              Åben til {{ restaurant.sunday.slice(8) }}
+            <p class="text-center">
+              Åben til {{ closingTime }}
             </p>
             </div>
             <button
@@ -210,9 +192,11 @@
 
 <script setup>
 import { useBasketStore } from '../stores/basketStore'
+import { useSearchStore } from '../stores/searchStore'
 import Airtable from "airtable";
 
 const basketStore = useBasketStore()
+const searchStore = useSearchStore()
 const route = useRoute();
 
 const loaded = ref(false);
@@ -230,6 +214,12 @@ const day = ref("");
 const tablet = ref(false);
 const mobile = ref(false);
 
+const closingTime = computed(() => {
+  const date = new Date();
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+  
+  return restaurant.value[days[date.getDay()]].slice(8)
+})
 
 const categories = computed(() => {
   const restaurantCategories = [];
@@ -280,26 +270,13 @@ watch(loaded, () => {
 basketStore.$subscribe((mutation, state) => {
   localStorage.setItem(`basket-${restaurant.value.slug}`, JSON.stringify(state.basket))
 })  
-  
+
+// Update search value when changed in mobile menu
+searchStore.$subscribe(() => search.value = searchStore.dish)
 
 onMounted(() => {
-  const d = new Date();
-  let number = d.getDay();
-  if (number === 0) {
-    day.value = "sondag";
-  } else if (number === 1) {
-    day.value = "mandag";
-  } else if (number === 2) {
-    day.value = "tirsdag";
-  } else if (number === 3) {
-    day.value = "onsdag";
-  } else if (number === 4) {
-    day.value = "torsdag";
-  } else if (number === 5) {
-    day.value = "fredag";
-  } else if (number === 6) {
-    day.value = "lordag";
-  }
+  // Clear search on mounted
+  searchStore.$reset()
 
   tablet.value = (window.innerWidth < 768 ? true : false);
   window.addEventListener('resize', () => tablet.value = (window.innerWidth < 768 ? true : false));
