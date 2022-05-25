@@ -48,7 +48,7 @@ function startSearch(e) {
   e.preventDefault()
 
   // Push to restaurants view if not there
-  if (routeName !== 'restaurants') router.push('restaurants')
+  if (routeName !== 'restaurants') router.push('/restaurants')
 
   // Reset filters and search value
   store.$reset()
