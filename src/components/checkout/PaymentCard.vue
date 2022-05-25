@@ -1,6 +1,6 @@
 <template>
   <div
-    class="fixed z-40 top-0 left-0 w-screen h-screen overflow-hidden bg-emerald-50"
+    class="fixed z-40 top-0 left-0 w-screen h-screen overflow-hidden bg-emerald-100"
   >
     <ArrowLeft
       @click="$emit('closePayment')"
@@ -111,7 +111,7 @@
     </div>
     <button
       @click="validateForm"
-      class="absolute text-white left-1/2 -translate-x-1/2 rounded-xl font-medium hover:opacity-75 duration-200 bottom-28 sm:bottom-14 p-1.5 bg-emerald-500"
+      class="absolute text-white left-1/2 -translate-x-1/2 rounded-xl font-medium hover:opacity-75 duration-200 bottom-28 sm:bottom-14 px-3 py-2 bg-emerald-500"
     >
       Godkend betaling
     </button>

@@ -45,10 +45,3 @@ const component = defineComponent({
 });
 const center = { lat: 55.694601998040376, lng: 12.550868343712878 };
 </script>
-
-<style>
-.mapdiv .gmnoprint[role="menubar"],
-.mapdiv button[aria-label="Toggle fullscreen view"] {
-  margin-top: 4.5rem !important;
-}
-</style>

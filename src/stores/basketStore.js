@@ -15,39 +15,34 @@ export const useBasketStore = defineStore({
   actions: {
     addToBasket(item, counter, picked) {
       this.$patch((state) => {
-        // If dish had no picked
+        const clone = { ...item };
+
+        // If item is without a picked
         if (picked === "") {
-          if (!state.basket.includes(item)) {
-            item.amount = counter;
-            state.basket.push(item);
-          } else if (state.basket.includes(item)) {
-            item.amount += counter;
+          // Find item with same name
+          const itemExists = state.basket.find((el) => el.name === clone.name);
+          if (!itemExists) {
+            // If item does not exist, push to basket
+            clone.amount = counter;
+            state.basket.push(clone);
+          } else if (itemExists) {
+            // If item exists, increase amount
+            itemExists.amount += counter;
+          }
+          // If item has a picked
+        } else if (picked !== "") {
+          // Find item with same name and picked
+          const itemExists = state.basket.find((el) => el.name === clone.name && el.picked === picked);
+          if (!itemExists) {
+            // If item does not exist, push to basket
+            clone.amount = counter;
+            clone.picked = picked;
+            state.basket.push(clone);
+          } else if (itemExists) {
+            // If item exists, increase amount
+            itemExists.amount += counter;
           }
         }
-
-        // If dish had a picked
-        // else if (picked !== "") {
-        //   console.log(item, picked);
-        //   if (!state.basket.includes(item)) {
-        //     item.amount = counter;
-        //     item.picked = picked;
-        //     state.basket.push(item);
-        //   } else if (state.basket.includes(item)) {
-        //     item.amount += counter;
-        //   }
-        // }
-
-        // if (state.basket.includes(item) && picked === item.picked) {
-        //   item.amount = item.amount + counter;
-        // } else if (!state.basket.includes(item)) {
-        //   item.amount = counter;
-        //   item.comment = comment;
-        //   item.picked = picked;
-        //   state.basket.push(item);
-        // } else if (state.basket.includes(item) && picked !== item.picked) {
-        //   item.picked = picked;
-        //   state.basket.push(item);
-        // }
       });
     },
     subtractAmount(item) {
