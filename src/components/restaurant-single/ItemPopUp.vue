@@ -5,7 +5,7 @@
     >
       <div @click="$emit('closePopUp')" class="absolute top-0 left-0 h-full w-full"/>
       <div
-        class="w-screen sm:w-3/4 lg:w-1/2 h-screen sm:h-3/4 bg-white overflow-auto bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded flex flex-col items-center pt-10 sm:pt-0 gap-y-20 sm:gap-y-0 sm:grid sm:grid-rows-2"
+        class="w-screen sm:w-3/4 lg:w-1/2 h-screen sm:h-3/4 bg-white overflow-auto bg-white fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded flex flex-col items-center pt-10 sm:pt-0 gap-y-0 sm:gap-y-5 sm:grid sm:grid-rows-2"
       >
         <div
           class="w-80 h-80 sm:w-full sm:h-full flex justify-end rounded"
@@ -17,7 +17,7 @@
             :style="`fill: ${restaurant.colorSecondary}`"
           />
         </div>
-        <div class="flex flex-col gap-y-10 sm:gap-y-5 px-10">
+        <div class="flex flex-col gap-y-10 w-full overflow-scroll sm:gap-y-5 px-10">
           <div class="flex flex-col gap-y-4 sm:gap-y-2">
             <div class=" flex justify-between mt-5">
               <div class="flex gap-x-2">
@@ -55,7 +55,7 @@
             </div>
           </div>
           <div
-            class="flex bottom-0 justify-center gap-x-7 py-2 "
+            class="flex sm:static absolute bottom-20 left-1/2 -translate-x-1/2 sm:translate-x-0 justify-center gap-x-7 py-2 "
           >
             <div
               id="amount"

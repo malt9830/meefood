@@ -31,7 +31,7 @@
             <fieldset class="w-80 max-w-full mx-auto sm:mx-0 mt-10 flex justify-center rounded overflow-hidden">
               <div v-for="method in deliveryMethods" :key="method" class="w-full text-center capitalize">
                 <input v-model="deliveryMethod" :value="method" :id="method" type="radio" class="peer appearance-none">
-                <label :for="method" :style="`background-color: ${restaurant.colorSecondary}`" class="inline-block w-full py-2 cursor-pointer duration-200 opacity-60 peer-checked:opacity-100">{{ method }}</label>
+                <label :for="method" :style="`background-color: ${restaurant.colorSecondary}`" class="text-white inline-block w-full py-2 cursor-pointer duration-200 opacity-60 peer-checked:opacity-100">{{ method }}</label>
               </div>
             </fieldset>
             <div class="flex flex-col my-5">
@@ -41,12 +41,12 @@
                 <h2 class="font-semibold text-xl">{{ deliveryMethod === 'levering' ? 'Leveringstid' : 'Afhentningstid' }}</h2>
                 <div class="flex gap-x-5">
 
-                  <select v-model="deliveryDay" class="p-1.5 rounded bg-white text-gray-600">
+                  <select v-model="deliveryDay" class="p-1.5 border-2 rounded bg-white text-gray-600">
                     <option>I dag</option>
                     <option>I morgen</option>
                   </select>
 
-                  <select v-model="deliveryTime" class="p-1.5 rounded bg-white text-gray-600">
+                  <select v-model="deliveryTime" class="p-1.5 border-2 rounded bg-white text-gray-600">
                     <option>Hurtigst muligt</option>
                     <option v-for="time in deliveryHours" :key="time">{{ time }}</option>
                   </select>

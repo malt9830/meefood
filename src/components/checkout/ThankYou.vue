@@ -2,27 +2,31 @@
   <div
     class="fixed top-0 left-0 w-screen h-screen overflow-hidden bg-emerald-50"
   >
-    <Header class="bg-emerald-700" />
 
-    <h1 class="m-10 pt-14 text-center text-4xl font-semibold text-emerald-800">
-      Tak for din bestilling!
-    </h1>
-
-    <div v-if="deliveryMethod === 'levering'" class="m-5">
-      <p class="text-gray-500">Dine ordre vil blive leveret <span class="font-semibold lowercase">{{deliveryTime}}</span></p>
-    </div>
-
-    <div v-if="deliveryMethod === 'afhentning'">
-      <p class="text-gray-500">Afhentning</p>
-    </div>
     <GoogleMap
       api-key="AIzaSyDBbFP79qNW3Yf1YYc0qeC8DccgOG_7HpQ"
       :center="center"
       :zoom="15"
-      class="h-80"
+      class="h-80 mt-14"
     >
       <Marker :options="{ position: center }" />
     </GoogleMap>
+
+    <div class="flex flex-col m-7 sm:m-10 sm:gap-y-10 sm:pt-5">
+
+    <h1 class=" text-center text-2xl sm:text-4xl font-semibold text-emerald-600">
+      Tak for din bestilling hos {{restaurant.name}}!
+    </h1>
+
+    <div v-if="deliveryMethod === 'levering'" class="m-5 text-center">
+      <p class="text-gray-500">Din ordre vil blive leveret <span v-if="deliveryDay === 'I morgen'">i morgen </span><span v-if="deliveryTime !== 'Hurtigst muligt'">kl. </span> <span class="font-semibold lowercase">{{deliveryTime}}</span></p>
+    </div>
+
+    <div v-if="deliveryMethod === 'afhentning'" class="m-5 text-center">
+      <p class="text-gray-500">Din ordre kan afhentes <span v-if="deliveryDay === 'I morgen'">i morgen </span> <span v-if="deliveryTime !== 'Hurtigst muligt'">kl. </span> <span class="font-semibold lowercase">{{deliveryTime}}</span></p>
+    </div>
+
+    </div>
   </div>
 </template>
 

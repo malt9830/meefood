@@ -25,6 +25,7 @@
             <label for="cardName" class="text-black sm:text-white">Navn på kortholder</label>
             <input
               id="name"
+              :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-200' : formSubmitted }"
               class="peer p-1.5 border-2 rounded focus:outline-none text-gray-600"
               type="text"
               name="cardName"
@@ -33,9 +34,7 @@
               required
               v-model="nameOnCard"
             />
-            <p v-if="formSubmitted" class="hidden bg-red-500 w-fit p-1 rounded text-xs peer-invalid:block">
-              Dette felt er påkrævet
-            </p>
+            
           </div>
 
           <div class="flex flex-col gap-y-2">
@@ -44,6 +43,7 @@
               v-model="cardNumber"
               @keydown="formatNumber($event)"
               id="number"
+              :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-200' : formSubmitted }"
               class="peer p-1.5 border-2 rounded focus:outline-none text-gray-600"
               type="text"
               name="cardNumber"
@@ -52,9 +52,6 @@
               maxlength="19"
               required
             />
-            <p v-if="formSubmitted" class="hidden bg-red-500 w-fit p-1 rounded text-xs peer-invalid:block">
-              Dette felt er påkrævet
-            </p>
           </div>
 
           <div class="flex justify-between gap-x-2">
@@ -65,6 +62,7 @@
                   v-model="expiryMonth"
                   @keydown="formatMonth"
                   id="month"
+                  :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-200' : formSubmitted }"
                   class="peer p-1.5 border-2 rounded focus:outline-none text-gray-600"
                   type="text"
                   name="expiryMonth"
@@ -72,9 +70,6 @@
                   pattern="[0-9]{2}"
                   required
                 />
-                <p v-if="formSubmitted" class="hidden bg-red-500 w-fit p-1 rounded text-xs peer-invalid:block">
-                  Dette felt er påkrævet
-                </p>
               </div>
               <div class="flex flex-col gap-y-2 w-1/2">
                 <label for="expiryYear" class="invisible"> . </label>
@@ -82,6 +77,7 @@
                   v-model="expiryYear"
                   @keydown="formatYear"
                   id="year"
+                  :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-200' : formSubmitted }"
                   class="peer p-1.5 border-2 rounded focus:outline-none text-gray-600"
                   type="text"
                   name="expiryYear"
@@ -90,9 +86,6 @@
                   maxlength="2"
                   required
                 />
-                <p v-if="formSubmitted" class="hidden bg-red-500 w-fit p-1 rounded text-xs peer-invalid:block">
-                  Dette felt er påkrævet
-                </p>
               </div>
             </div>
 
@@ -101,6 +94,7 @@
               <input
                 v-model="securityCode"
                 id="code"
+                :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-200' : formSubmitted }"
                 class="peer p-1.5 border-2 rounded focus:outline-none text-gray-600"
                 type="text"
                 name="securityCode"
@@ -109,9 +103,7 @@
                 maxlength="3"
                 required
               />
-                <p v-if="formSubmitted" class="hidden bg-red-500 w-fit p-1 rounded text-xs peer-invalid:block">
-                  Dette felt er påkrævet
-                </p>
+               
             </div>
           </div>
         </form>
@@ -119,7 +111,7 @@
     </div>
     <button
       @click="validateForm"
-      class="absolute left-1/2 -translate-x-1/2 rounded-xl font-medium hover:opacity-75 duration-200 bottom-14 p-1.5 bg-emerald-500"
+      class="absolute text-white left-1/2 -translate-x-1/2 rounded-xl font-medium hover:opacity-75 duration-200 bottom-28 sm:bottom-14 p-1.5 bg-emerald-500"
     >
       Godkend betaling
     </button>
