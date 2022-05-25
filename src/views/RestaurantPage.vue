@@ -209,9 +209,10 @@
 </template>
 
 <script setup>
+import { useBasketStore } from '../stores/basketStore'
 import Airtable from "airtable";
-import { computed, onMounted } from "@vue/runtime-core";
 
+const basketStore = useBasketStore()
 const route = useRoute();
 
 const loaded = ref(false);
@@ -228,6 +229,7 @@ const day = ref("");
 
 const tablet = ref(false);
 const mobile = ref(false);
+
 
 const categories = computed(() => {
   const restaurantCategories = [];
@@ -267,6 +269,19 @@ watch(info, (modal) => {
   document.querySelector("header > div").style.paddingRight = (modal ? '1rem' : '0')
 })
 
+watch(loaded, () => {
+  // Load basket when restaurant is loaded
+  basketStore.$patch((state) => {
+    state.basket = (JSON.parse(localStorage.getItem(`basket-${restaurant.value.slug}`)) || [])
+  })
+})
+
+// Save in localStorage whenever basket updates in correct restaurant
+basketStore.$subscribe((mutation, state) => {
+  localStorage.setItem(`basket-${restaurant.value.slug}`, JSON.stringify(state.basket))
+})  
+  
+
 onMounted(() => {
   const d = new Date();
   let number = d.getDay();
@@ -285,6 +300,7 @@ onMounted(() => {
   } else if (number === 6) {
     day.value = "lordag";
   }
+
   tablet.value = (window.innerWidth < 768 ? true : false);
   window.addEventListener('resize', () => tablet.value = (window.innerWidth < 768 ? true : false));
   mobile.value = (window.innerWidth < 640 ? true : false);
