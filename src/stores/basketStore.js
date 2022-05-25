@@ -23,15 +23,20 @@ export const useBasketStore = defineStore({
           } else if (state.basket.includes(item)) {
             item.amount += counter;
           }
-        } else if (picked !== "") {
-          if (!state.basket.includes(item)) {
-            item.amount = counter;
-            item.picked = picked;
-            state.basket.push(item);
-          } else if (state.basket.includes(item)) {
-            item.amount += counter;
-          }
         }
+
+        // If dish had a picked
+        // else if (picked !== "") {
+        //   console.log(item, picked);
+        //   if (!state.basket.includes(item)) {
+        //     item.amount = counter;
+        //     item.picked = picked;
+        //     state.basket.push(item);
+        //   } else if (state.basket.includes(item)) {
+        //     item.amount += counter;
+        //   }
+        // }
+
         // if (state.basket.includes(item) && picked === item.picked) {
         //   item.amount = item.amount + counter;
         // } else if (!state.basket.includes(item)) {

@@ -29,8 +29,4 @@ const filteredMenu = computed(() => {
     .filter(dish => dish.category === props.category)
     .sort((a, b) => new Date(a.price) - new Date(b.price))
 })
-
-onMounted(() => {
-  console.log(props.loaded2)
-})
 </script>

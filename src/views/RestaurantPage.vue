@@ -270,7 +270,6 @@ watch(info, (modal) => {
 onMounted(() => {
   const d = new Date();
   let number = d.getDay();
-  console.log(number);
   if (number === 0) {
     day.value = "sondag";
   } else if (number === 1) {
@@ -286,7 +285,6 @@ onMounted(() => {
   } else if (number === 6) {
     day.value = "lordag";
   }
-  console.log(day.value);
   tablet.value = (window.innerWidth < 768 ? true : false);
   window.addEventListener('resize', () => tablet.value = (window.innerWidth < 768 ? true : false));
   mobile.value = (window.innerWidth < 640 ? true : false);
