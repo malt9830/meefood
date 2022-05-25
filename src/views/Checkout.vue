@@ -4,7 +4,7 @@
       v-if="!loaded"
       class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover bg-fixed"
     ></div>
-    <div v-if="loaded" :style="`background-color: ${restaurant.colorPrimary}`">
+    <div v-if="loaded" :style="`background-color: ${restaurant.colorPrimary}`" class="pb-10">
       <div
         :style="`background-image: url(${restaurant.splash[0].url})`"
         class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover bg-fixed"
@@ -25,281 +25,262 @@
           </h1>
         </div>
       </div>
-    </div>
-    <div :style="`background-color: ${restaurant.colorPrimary}`">
-      <div
-        class="flex flex-col-reverse gap-y-10 md:grid md:grid-cols-2 gap-x-10 sm:gap-x-28 py-10 justify-center px-20"
-      >
-        <div class="flex flex-col gap-y-5">
-          <div class="flex justify-center md:justify-start">
-          <div
-            class="methods cursor-pointer w-80 h-10 bg-white rounded flex justify-between mt-10 "
-          >
-            <div
-              id="afhenting"
-              :style="`background-color: ${restaurant.colorSecondary}`"
-              class="method duration-200 opacity-75 w-1/2 bg-white text-white rounded-l flex justify-center items-center"
-            >
-              <p>Afhentning</p>
-            </div>
-            <div
-              id="levering"
-              :style="`background-color: ${restaurant.colorSecondary}`"
-              class="method duration-200 opacity-75 chosen w-1/2 text-white rounded-r text-center flex justify-center items-center"
-            >
-              <p>Levering</p>
-            </div>
-          </div>
-          </div>
-          <div class="flex flex-col gap-y-10 my-5">
-            <div class="space-y-3">
-              <h2 v-if="levering" class="font-semibold text-xl">Leveringstid</h2>
-              <h2 v-if="!levering" class="font-semibold text-xl">Afhentningstid</h2>
-              <div class="flex gap-x-5">
-                <select
-                  id="daySelect"
-                  class="p-1.5 rounded bg-white text-gray-600"
-                >
-                  <option>I dag</option>
-                  <option>I morgen</option>
-                </select>
-                <select
-                  id="timeSelect"
-                  class="p-1.5 rounded bg-white text-gray-600"
-                >
-                  <option>Hurtigst muligt</option>
-                </select>
+        <div class="flex flex-col-reverse max-w-5xl mx-auto my-10 px-4 md:grid md:grid-cols-2 gap-y-10 gap-x-10 sm:gap-x-28 justify-center">
+          <div class="flex flex-col gap-y-5">
+            <!-- Delivery method -->
+            <fieldset class="w-80 max-w-full mx-auto sm:mx-0 mt-10 flex justify-center rounded overflow-hidden">
+              <div v-for="method in deliveryMethods" :key="method" class="w-full text-center capitalize">
+                <input v-model="deliveryMethod" :value="method" :id="method" type="radio" class="peer appearance-none">
+                <label :for="method" :style="`background-color: ${restaurant.colorSecondary}`" class="inline-block w-full py-2 cursor-pointer duration-200 opacity-60 peer-checked:opacity-100">{{ method }}</label>
               </div>
-            </div>
+            </fieldset>
+            <div class="flex flex-col my-5">
 
+              <!-- Delivery time -->
+              <div class="space-y-3 mb-10">
+                <h2 class="font-semibold text-xl">{{ deliveryMethod === 'levering' ? 'Leveringstid' : 'Afhentningstid' }}</h2>
+                <div class="flex gap-x-5">
 
-            <div v-if="levering" class="space-y-4">
-              <h2 class="font-semibold text-xl">Leveringsadresse</h2>
-              <div class="space-y-1">
-              <input
-                v-model="fornavn"
-                class="border-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="fornavn"
-                type="text"
-                placeholder="Fornavn"
-                required
-                @input="checkFornavn"
-              />
-             
-              </div>
-              <div class="space-y-1">
-              <input
-              v-model="efternavn"
-                class="border-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="efternavn"
-                type="text"
-                placeholder="Efternavn"
-                required
-                @input="checkEfternavn"
-              />
-             
-              </div>
-              <div class="flex gap-2">
-                <div class="space-y-1">
-                <input
-                v-model="adresse"
-                  class="border-2 mr-4 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="adresse"
-                  type="text"
-                  placeholder="Vejnavn og nummer"
-                  required
-                  @input="checkAdresse"
-                />
-                
+                  <select v-model="deliveryDay" class="p-1.5 rounded bg-white text-gray-600">
+                    <option>I dag</option>
+                    <option>I morgen</option>
+                  </select>
+
+                  <select v-model="deliveryTime" class="p-1.5 rounded bg-white text-gray-600">
+                    <option>Hurtigst muligt</option>
+                    <option v-for="time in deliveryHours" :key="time">{{ time }}</option>
+                  </select>
+
                 </div>
-                <div class="space-y-1">
-                <input
-                v-model="postcode"
-                  class="border-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="postnummer"
-                  type="text"
-                  placeholder="Post nr."
-                  minlength="4"
-                  maxlength="4"
-                  required
-                  @input="checkPostcode"
-                />
-               
               </div>
-              </div>
-              <div class="space-y-1">
-              <input
-              v-model="city"
-                class="border-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="city"
-                type="text"
-                placeholder="By"
-                required
-                @input="checkCity"
-              />
-             
-              </div>
-              <div class="space-y-1">
-              <input
-              v-model="email"
-                class="border-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="email"
-                type="email"
-                placeholder="Email"
-                required
-                @input="checkEmail"
-              />
-              
-              </div>
-              <div class="space-y-1">
-              <input
-              v-model="telefonnummer"
-                class="border-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="telefonnummer"
-                type="text"
-                placeholder="Telefonnummer"
-                minlength="8"
-                maxlength="8"
-                required
-                @input="checkPhone"
-              />
-              
-            </div>
-            </div>
-            <div class="space-y-3">
-              <h2 class="font-semibold text-xl">Betalingsmetoder</h2>
-              <div id="paymentOptions" class="flex space-x-2">
-                <img
-                  src="../assets/cards/visa.jpg"
-                  alt="visa"
-                  class="card duration-200 active w-12 hover:opacity-75 cursor-pointer"
-                />
 
-                <img
-                  src="../assets/cards/mastercard.jpg"
-                  alt="mastercard"
-                  class="card duration-200 w-12 hover:opacity-75 cursor-pointer"
-                />
+              <!-- Delivery address -->
+              <Transition name="fade" :duration="500" >
+                <form delivery-form v-if="deliveryMethod === 'levering'" class="space-y-4 mb-10 max-h-[40rem] max-w-xl overflow-hidden">
+                  <h2 class="font-semibold text-xl">Leveringsadresse</h2>
 
-                <img
-                  src="../assets/cards/dankort.jpg"
-                  alt="dankort"
-                  class="card duration-200 w-12 hover:opacity-75 cursor-pointer"
-                />
+                  <div>
+                    <input
+                      v-model="fullName"
+                      :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-200' : formSubmitted }"
+                      class="appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                      placeholder="Fulde navn"
+                      name="fullName"
+                      id="fullName"
+                      type="text"
+                      required
+                    />
+                  </div>
 
-                <img
-                  src="../assets/cards/mobilepay.jpg"
-                  alt="mobilepay"
-                  class="card duration-200 w-12 hover:opacity-75 cursor-pointer"
-                />
-              </div>
+                  <div>
+                    <input
+                      v-model="streetName"
+                      :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-50' : formSubmitted }"
+                      class="appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                      placeholder="Vejnavn og nummer"
+                      name="streetName"
+                      id="streetName"
+                      type="text"
+                      required
+                    />
+                  </div>
+
+                  <div class="grid grid-cols-[1fr_auto] gap-4">
+                    <div class="grow">
+                      <input
+                        v-model="city"
+                      :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-50' : formSubmitted }"
+                        class="appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                        placeholder="By"
+                        name="city"
+                        id="city"
+                        type="text"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <input
+                        v-model="zip"
+                      :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-50' : formSubmitted }"
+                        class="appearance-none border-2 rounded w-24 m-0 py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                        placeholder="Post nr."
+                        name="zip"
+                        id="zip"
+                        type="number"
+                        min="1000"
+                        max="9990"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <input
+                      v-model="email"
+                      :class="{'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-50' : formSubmitted}"
+                      class="appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                      placeholder="Email"
+                      name="email"
+                      id="email"
+                      type="email"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <input
+                      v-model="phone"
+                      :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-50' : formSubmitted }"
+                      class="relative appearance-none border-2 rounded w-40 py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                      placeholder="Telefonnummer"
+                      name="phone"
+                      id="phone"
+                      type="tel"
+                      pattern="([0-9]{8})|([0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2})|([0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2})"
+                      required
+                    />
+                  </div>
+
+                </form>
+              </Transition>
+
+              <!-- Payment method -->
+              <fieldset class="space-y-3">
+                <h2 class="font-semibold text-xl">Betalingsmetoder</h2>
+                <div v-for="method in paymentMethods" :key="method" class="inline-flex w-14 mr-2">
+                  <input v-model="paymentMethod" :value="method" :id="method" type="radio" class="peer appearance-none">
+                  <label :for="method" class="block cursor-pointer border-2 grayscale opacity-70 duration-200 hover:grayscale-0 hover:opacity-100 peer-checked:grayscale-0 peer-checked:opacity-100">
+                    <img :src="`../cards/${method}.jpg`">
+                  </label>
+                </div>
+              </fieldset>
+
             </div>
           </div>
-        </div>
-        <div class="md:sticky top-0 mt-5 md:mt-0 h-fit">
-          <div
-            :style="`border: 2px solid ${restaurant.colorSecondary}`"
-            class="flex flex-col gap-y-5 p-7 h-fit rounded-2xl"
-          >
-            <h2 class="text-center font-semibold text-2xl">Din bestilling</h2>
+
+          <div class="md:sticky top-0 mt-5 md:mt-0 md:pt-10 h-fit">
             <div
-              v-for="dish in store.basket"
-              :key="dish.name"
-              class="flex flex-col"
+              :style="`border: 2px solid ${restaurant.colorSecondary}`"
+              class="flex flex-col gap-y-5 p-7 h-fit rounded-2xl"
             >
-              <div class="flex justify-between items-center">
-                <h3 class="text-md">{{ dish.amount }}x {{ dish.name }}</h3>
-                <p class="text-sm">{{ dish.amount * dish.price }}kr</p>
+              <h2 class="text-center font-semibold text-2xl">Din bestilling</h2>
+              <div
+                v-for="dish in store.basket"
+                :key="dish.name"
+                class="flex flex-col"
+              >
+                <div class="flex justify-between items-center">
+                  <h3 class="text-md">{{ dish.amount }}x {{ dish.name }}</h3>
+                  <p class="text-sm">{{ dish.amount * dish.price }} kr</p>
+                </div>
+                <div class="flex justify-start items-center gap-x-5">
+                  <p class="text-xs" v-if="dish.options">{{ dish.picked }}</p>
+                  <p v-if="!dish.comment && !dish.options"></p>
+                  <p class="text-xs" v-if="dish.comment">"{{ dish.comment }}"</p>
+                </div>
               </div>
-              <div class="flex justify-start items-center gap-x-5">
-                <p class="text-xs" v-if="dish.options">{{ dish.picked }}</p>
-                <p v-if="!dish.comment && !dish.options"></p>
-                <p class="text-xs" v-if="dish.comment">"{{ dish.comment }}"</p>
-              </div>
-            </div>
-            <hr :style="`border-color: ${restaurant.colorSecondary}`" />
-            <div class="flex flex-col gap-y-4">
-              <div class="flex justify-between">
-                <p class="font-semibold">Subtotal</p>
-                <p>{{ store.totalPrice }}kr</p>
-              </div>
-              <div class="flex justify-between">
-                <p class="font-semibold">Levering</p>
-                <p>{{ restaurant.deliveryCost }}kr</p>
-              </div>
-              <div class="flex justify-between">
-                <p class="font-semibold">Samlet</p>
-                <p>{{ store.totalPrice + restaurant.deliveryCost }}kr</p>
+              <hr :style="`border-color: ${restaurant.colorSecondary}`" />
+              <div class="flex flex-col gap-y-4">
+                <div class="flex justify-between">
+                  <p class="font-semibold">Subtotal</p>
+                  <p>{{ store.totalPrice }} kr</p>
+                </div>
+                <div class="flex justify-between">
+                  <p class="font-semibold">Levering</p>
+                  <p>{{ restaurant.deliveryCost }} kr</p>
+                </div>
+                <div class="flex justify-between">
+                  <p class="font-semibold">Samlet</p>
+                  <p>{{ store.totalPrice + restaurant.deliveryCost }} kr</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="md:ml-20 py-6 flex flex-wrap justify-center md:justify-start">
-        <a
-          href="/#"
-          :style="`color: ${restaurant.colorSecondary}; border: 1px solid ${restaurant.colorSecondary}`"
-          class="rounded-2xl py-2 px-6 bg-white hover:opacity-75 self-center m-3"
-        >
-          Tilbage til menuen</a
-        >
-        <a
-          @click="checkForm"
-          :style="`background-color: ${restaurant.colorSecondary}`"
-          class="rounded-2xl py-2 px-6 text-white hover:opacity-75 self-center m-3"
-        >
-          Fortsæt til betaling
-        </a>
-      </div>
+
+        <div class="md:ml-20 flex flex-wrap justify-center gap-4 px-2">
+          <button @click="router.back()" :style="`color: ${restaurant.colorSecondary}; border: 1px solid ${restaurant.colorSecondary}`" class="rounded-2xl py-2 px-4 bg-white hover:opacity-75 self-center">Tilbage til menuen</button>
+          <button @click="validateForm" :style="`background-color: ${restaurant.colorSecondary}`" class="rounded-2xl py-2 px-4 text-white hover:opacity-75 self-center">Fortsæt til betaling</button>
+        </div>
     </div>
-    <PaymentCard v-if="payment && formValid" @close-payment="payment = false" :restaurant="restaurant" :levering="levering" :deliveryDay="deliveryDay" :deliveryHour="deliveryHour"/>
+    
+    <PaymentCard v-if="formValid" :restaurant="restaurant" :deliveryMethod="deliveryMethod" :deliveryDay="deliveryDay" :deliveryTime="deliveryTime"/>
   </main>
 </template>
 
 <script setup>
-import { computed, onMounted } from "@vue/runtime-core";
 import Airtable from "airtable";
 import { useBasketStore } from "/src/stores/basketStore";
 
-const store = useBasketStore();
+const store = useBasketStore()
+const router = useRouter()
+const route = useRoute()
 
-const route = useRoute();
+const loaded = ref(false)
+const restaurant = ref()
 
-const loaded = ref(false);
+const deliveryMethods = ['levering', 'afhentning']
+const deliveryMethod = ref('levering')
 
-const loaded2 = ref(false);
+const paymentMethods = ['visa', 'mastercard', 'dankort', 'mobilepay']
+const paymentMethod = ref('visa')
 
-const restaurant = ref();
+const deliveryDay = ref("I dag")
+const deliveryTime = ref("Hurtigst muligt")
 
-const menu = ref([]);
+const openingHours = computed(() => {
+  const date = new Date()
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+  // Get today or tomorrow based on deliveryDay
+  const day = days[date.getDay() + (deliveryDay.value === 'I morgen' ? 1 : 0)]
 
-const levering = ref(true);
+  return restaurant.value[day]
+})
 
-const closingTime = ref("");
+const deliveryHours = computed(() => {
+  const delHours = []
+  const date = new Date()
+  
+  let hour = date.getHours()
+  let min = (date.getMinutes() + (15 - ( date.getMinutes() % 15)))
 
-const openingTime = ref("");
+  // If prior to opening hours set to opening hour
+  if (hour < parseInt(openingHours.value.slice(0, 2))) {
+    hour = parseInt(openingHours.value.slice(0, 2))
+    min = parseInt(openingHours.value.slice(3, 5))
+  }
 
-const deliveryDay = ref("i dag");
+  while (hour < parseInt(openingHours.value.slice(8, 10))) {
+    // Increment min by 15 if below 45
+    if (min < 60) {
+      // Add time
+      delHours.push(`${hour}`.padStart(2, '0') + ':' + `${min}`.padEnd(2, '0'))
+      min += 15
+    } else {
+      // Increment hour by 1 and reset min
+      hour++
+      min = 0
 
-const payment = ref(false);
+      // Add time
+      if (hour === parseInt(openingHours.value.slice(8, 10)) && min === parseInt(openingHours.value.slice(11, 13))) {delHours.push(`${hour}`.padStart(2, '0') + ':' + `${min}`.padEnd(2, '0'))}
+    }
+  }
+  return delHours
+})
 
-const fornavn = ref("");
+const formSubmitted = ref(false)
+const formValid = ref(false)
+const fullName = ref("")
+const streetName = ref("")
+const city = ref("")
+const zip = ref("")
+const email = ref("")
+const phone = ref("")
 
-const efternavn = ref("");
-
-const adresse = ref("");
-
-const postcode = ref("");
-
-const city = ref("");
-
-const telefonnummer = ref("");
-
-const email = ref("");
-
-const formValid = ref(false);
-
-const deliveryHour = ref("");
+function validateForm () {
+  formValid.value = document.querySelector("[delivery-form]").checkValidity()
+  formSubmitted.value = true
+}
 
 Airtable.configure({
   endpointUrl: "https://api.airtable.com",
@@ -315,18 +296,7 @@ base("restaurants")
   .eachPage((res) => {
     restaurant.value = res[0].fields;
 
-    loaded.value = true;
-
-    base(`menu-${restaurant.value.slug}`)
-      .select()
-      .eachPage((res) => {
-        res.forEach((dish) => {
-          menu.value.push(dish.fields);
-        });
-      });
-    setTimeout(() => {
-      loaded2.value = true;
-    }, 2000);
+    loaded.value = true
   });
 
 const textColor = computed(() => {
@@ -341,222 +311,29 @@ const textColor = computed(() => {
   // Return Tailwind text class of black or white based on brightness
   return luminance > 150 ? "text-black" : "text-white";
 });
-
-function checkForm() {
-  if (fornavn.value.length > 0 && efternavn.value.length > 0 && adresse.value.length > 0 && postcode.value.length === 4 && city.value.length > 0 && email.value.length > 0 && telefonnummer.value.length === 8) {
-    formValid.value = true;
-    deliveryHour.value = document.querySelector("#timeSelect").value;
-    console.log(formValid.value);
-    payment.value = true
-  } if (fornavn.value.length < 1) {
-    document.querySelector("#fornavn").classList.add("border-red-500")
-  } if (efternavn.value.length < 1) {
-   document.querySelector("#efternavn").classList.add("border-red-500")
-  } if (adresse.value.length < 1) {
-    document.querySelector("#adresse").classList.add("border-red-500")
-  } if (postcode.value.length < 4) {
-    document.querySelector("#postnummer").classList.add("border-red-500")
-  } if (email.value.length < 1) {
-    document.querySelector("#email").classList.add("border-red-500")
-  } if (telefonnummer.value.length !== 8) {
-    document.querySelector("#telefonnummer").classList.add("border-red-500")
-  } if (city.value.length < 1) {
-    document.querySelector("#city").classList.add("border-red-500")
-  }
-}
-
-function checkFornavn() {
-  if (fornavn.value.length > 1 && document.querySelector("#fornavn").classList.contains("border-red-500")) {
-    document.querySelector("#fornavn").classList.remove("border-red-500")
-  } else if (fornavn.value.length < 1) {
-    document.querySelector("#fornavn").classList.add("border-red-500")
-  }
-}
-
-function checkEfternavn() {
-  if (efternavn.value.length > 1 && document.querySelector("#efternavn").classList.contains("border-red-500")) {
-    document.querySelector("#efternavn").classList.remove("border-red-500")
-  } else if (efternavn.value.length < 1) {
-    document.querySelector("#efternavn").classList.add("border-red-500")
-  }
-}
-
-function checkAdresse() {
-  if (adresse.value.length > 1 && document.querySelector("#adresse").classList.contains("border-red-500")) {
-    document.querySelector("#adresse").classList.remove("border-red-500")
-  } else if (adresse.value.length < 1) {
-    document.querySelector("#adresse").classList.add("border-red-500")
-  }
-}
-
-function checkPostcode() {
-  if (postcode.value.length > 1 && document.querySelector("#postnummer").classList.contains("border-red-500")) {
-    document.querySelector("#postnummer").classList.remove("border-red-500")
-  } else if (postcode.value.length < 1) {
-    document.querySelector("#postnummer").classList.add("border-red-500")
-  }
-}
-
-function checkCity() {
-  if (city.value.length > 1 && document.querySelector("#city").classList.contains("border-red-500")) {
-    document.querySelector("#city").classList.remove("border-red-500")
-  } else if (city.value.length < 1) {
-    document.querySelector("#city").classList.add("border-red-500")
-  }
-}
-
-function checkEmail() {
-  if (email.value.length > 1 && document.querySelector("#email").classList.contains("border-red-500")) {
-    document.querySelector("#email").classList.remove("border-red-500")
-  } else if (email.value.length < 1) {
-    document.querySelector("#email").classList.add("border-red-500")
-  }
-}
-
-function checkPhone() {
-  if (telefonnummer.value.length > 1 && document.querySelector("#telefonnummer").classList.contains("border-red-500")) {
-    document.querySelector("#telefonnummer").classList.remove("border-red-500")
-  } else if (telefonnummer.value.length < 1) {
-    document.querySelector("#telefonnummer").classList.add("border-red-500")
-  }
-}
-
-function populate() {
-  var select = document.querySelector("#timeSelect");
-  var hours, minutes;
-  var today = new Date();
-  let number = today.getDay();
-
-  if (number === 1) {
-    console.log(restaurant.value.mandag.slice(8));
-    var a = restaurant.value.mandag.slice(8).split(":");
-    var mandagMinutes = +a[0] * 60 + +a[1];
-    closingTime.value = mandagMinutes;
-  }
-
-  if (number === 2) {
-    console.log(restaurant.value.tirsdag.slice(8));
-    var a = restaurant.value.tirsdag.slice(8).split(":");
-    var b = restaurant.value.tirsdag.slice(0, 4).split(":");
-    closingTime.value = +a[0] * 60 + +a[1];
-    openingTime.value = +b[0] * 60 + +b[1];
-  }
-
-  if (number === 3) {
-    console.log(restaurant.value.onsdag.slice(8));
-    var a = restaurant.value.onsdag.slice(8).split(":");
-    var onsdagMinutes = +a[0] * 60 + +a[1];
-    closingTime.value = onsdagMinutes;
-  }
-
-  if (number === 4) {
-    console.log(restaurant.value.torsdag.slice(8));
-    var a = restaurant.value.torsdag.slice(8).split(":");
-    var torsdagMinutes = +a[0] * 60 + +a[1];
-    closingTime.value = torsdagMinutes;
-  }
-
-  if (number === 5) {
-    console.log(restaurant.value.fredag.slice(8));
-    var a = restaurant.value.fredag.slice(8).split(":");
-    var fredagMinutes = +a[0] * 60 + +a[1];
-    closingTime.value = fredagMinutes;
-  }
-
-  if (number === 6) {
-    console.log(restaurant.value.lordag.slice(8));
-    var a = restaurant.value.lordag.slice(8).split(":");
-    var lordagMinutes = +a[0] * 60 + +a[1];
-    closingTime.value = lordagMinutes;
-  }
-
-  if (number === 0) {
-    console.log(restaurant.value.sondag.slice(8));
-    var a = restaurant.value.sondag.slice(8).split(":");
-    var sondagMinutes = +a[0] * 60 + +a[1];
-    closingTime.value = sondagMinutes;
-  }
-
-  for (var i = openingTime.value; i <= closingTime.value; i += 15) {
-    hours = Math.floor(i / 60);
-    minutes = i % 60;
-    if (minutes < 10) {
-      minutes = "0" + minutes; // adding leading zero
-    }
-    const option = document.createElement("option");
-    option.setAttribute("value", i);
-
-    var currentHour = today.getHours();
-    option.innerText = hours + ":" + minutes;
-
-    document.querySelector("#daySelect").addEventListener("change", () => {
-      if (document.querySelector("#daySelect").value === "I morgen") {
-        deliveryDay.value = "I morgen";
-        select.appendChild(option);
-        console.log(deliveryDay.value);
-      } else {
-        deliveryDay.value = "I dag";
-        console.log(deliveryDay.value);
-        if (hours > currentHour) {
-          select.appendChild(option);
-        }
-      }
-    });
-
-    if (deliveryDay.value === "I morgen") {
-      console.log("works");
-      select.appendChild(option);
-    } else {
-      if (hours > currentHour) {
-        select.appendChild(option);
-      }
-    }
-  }
-}
-
-onMounted(() => {
-  populate();
-  var options = document.querySelectorAll(".card");
-  for (var i = 0; i < options.length; i++) {
-    var option = options[i];
-    option.addEventListener("click", function () {
-      var x = document.querySelectorAll(".active");
-      if (x.length) {
-        x[0].classList.remove("active");
-      }
-      this.classList.toggle("active");
-    });
-  }
-  var methods = document.querySelectorAll(".method");
-  for (var i = 0; i < methods.length; i++) {
-    var method = methods[i];
-    method.addEventListener("click", function () {
-      var y = document.querySelectorAll(".chosen");
-      if (y.length) {
-        y[0].classList.remove("chosen");
-      }
-      this.classList.toggle("chosen");
-    });
-  }
-  document.querySelector(".methods").addEventListener("click", () => {
-    if (document.querySelector("#afhenting").classList.contains("chosen")) {
-      levering.value = false;
-      console.log(levering.value);
-    } else {
-      levering.value = true;
-      console.log(levering.value);
-    }
-  });
-});
 </script>
 
 <style scoped>
-.active {
-  border: 2px solid green;
+/* Hide number arrows on inputs */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; 
+}
+/* Animation for transitiong between delivery methods */
+.fade-enter-active,
+.fade-leave-active {
+  max-height: 40rem;
+  transition-timing-function: ease-in;
+  transition-duration: 500ms;
 }
 
-.chosen {
-  border: green 2px solid;
-  opacity: 100%;
+.fade-enter-from,
+.fade-leave-to {
+  margin-bottom: 0;
+  max-height: 0rem;
+  transition-timing-function: ease-out;
+  transition-duration: 500ms;
 }
 </style>
