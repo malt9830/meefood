@@ -140,6 +140,13 @@
           :style="`border-top: solid 1px ${restaurant.colorSecondary}; border-right-color: ${restaurant.colorSecondary}`"
           class="col-span-6 md:col-span-4 border-r-0 md:border-r"
         >
+
+          <div v-if="mobile || tablet" :style="`background-color:${restaurant.colorPrimary}`" class="sticky -top-1 w-full flex gap-2 p-4 overflow-scroll">
+            <button v-for="category in categories" :key="category" :style="`background-color:${restaurant.colorSecondary}`" class="px-2 py-1 rounded-full duration-200 transform active:scale-110">
+              <a :href="`#${category}`" class="capitalize">{{ category }}</a>
+            </button>
+          </div>
+
           <div class="flex gap-x-5 m-5">
             <div class="flex items-center">
               <Vegetarian :fill="`${restaurant.colorSecondary}`" height="40" />
@@ -150,6 +157,7 @@
               <p>vegansk</p>
             </div>
           </div>
+
           <div v-if="search === ''">
             <Category
               v-for="category in categories"
