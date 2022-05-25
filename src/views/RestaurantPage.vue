@@ -313,6 +313,6 @@ base("restaurants")
       });
       setTimeout(() => {
         loaded2.value = true
-      }, 500)
+      }, (Math.floor(Math.random() * 1500 + 500)))
   });
 </script>

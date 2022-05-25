@@ -61,6 +61,6 @@ base('restaurants').select({}).eachPage(res => {
 
   setTimeout(() => {
     loaded.value = true
-  }, 2000)
+  }, (Math.floor(Math.random() * 1500 + 500)))
 })
 </script>
