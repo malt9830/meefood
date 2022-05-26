@@ -1,7 +1,7 @@
 <template>
   <main class="max-w-7xl mx-auto pt-24 pb-8 px-4">
     <div class="flex flex-row justify-between">
-      <h2 class="text-3xl font-semibold">Restauranter</h2>
+      <h2 class="text-3xl text-gray-800 font-semibold">Restauranter</h2>
       <img @click="showFilter = !showFilter" class="hidden md:block w-9 cursor-pointer transform hover:scale-110 duration-200" src="/src/assets/icons/filter.svg">
     </div>
     <div v-if="loaded && filteredRestaurants.length === 0" class="mt-2">

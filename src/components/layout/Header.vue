@@ -4,14 +4,15 @@
         <nav class="z-20 max-w-7xl mx-auto flex flex-row justify-between items-center px-4 py-3">
           <RouterLink to="/"><Logo/></RouterLink>  
           <div v-if="routeName !== 'home' && !isMobile" @click="showAddressMenu = !showAddressMenu; address = ''" class="max-w-sm bg-white/70 text-black grow place-self-center rounded-xl cursor-pointer">
-            <form class="flex flex-row gap-2">
+            <form class="grow flex flex-row gap-2">
               <Pin class="py-2 ml-2 fill-gray-500 cursor-pointer" />
-              <p class="grow bg-transparent py-1 flex items-center">{{ locationStore.address }}<span v-if="locationStore.address === ''" class="text-gray-500">Hvor skal maden leveres?</span></p>
+              <p class="grow bg-transparent p-1 flex items-center whitespace-nowrap">{{ locationStore.address }}<span v-if="locationStore.address === ''" class="text-gray-500">Hvor skal maden leveres?</span></p>
             </form>
           </div>
           <div v-if="!isMobile" class="flex flex-row gap-4 items-center">
-            <RouterLink to="/restaurants">Restauranter</RouterLink>
-            <RouterLink to="/" class="px-2 py-1 border border-white rounded-xl duration-200 hover:bg-white hover:text-black">Log ind</RouterLink>
+            <RouterLink to="/restaurants" class="hover:opacity-75">Restauranter</RouterLink>
+            <RouterLink to="/" class="px-2 py-1 border border-white rounded duration-200 hover:bg-white hover:text-black">Log ind</RouterLink>
+           
           </div>
         </nav>
     </div>
@@ -53,10 +54,10 @@ const address = ref('')
 watch(showAddressMenu, (modal) => {document.querySelector("body").style = (modal ? 'overflow: hidden; padding-right: 1rem' : 'overflow: auto')})
 
 onMounted(() => {
-  isMobile.value = (window.innerWidth < 767 ? true : false)
+  isMobile.value = (window.innerWidth < 640 ? true : false)
 
   window.addEventListener('resize', () => {
-    isMobile.value = (window.innerWidth < 767 ? true : false)
+    isMobile.value = (window.innerWidth < 640 ? true : false)
   })
 })
 

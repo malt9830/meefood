@@ -1,7 +1,7 @@
 <template>
-  <RouterLink class="block cursor-pointer rounded-2xl shadow-card group transform hover:scale-[103%] duration-200" :to="`/restaurant/${restaurant.slug}`">
-    <div class="relative flex flex-col w-full h-40 rounded-t-2xl">
-      <div class="absolute flex h-full w-full rounded-t-2xl overflow-hidden">
+  <RouterLink class="bg-white block cursor-pointer rounded-xl shadow-card group transform hover:scale-[103%] duration-200" :to="`/restaurant/${restaurant.slug}`">
+    <div class="relative flex flex-col w-full h-40 rounded-t-xl">
+      <div class="absolute flex h-full w-full rounded-t-xl overflow-hidden">
         <img class="absolute w-full h-auto place-self-center object-cover -z-10 transform scale-110 group-hover:scale-100 duration-200" :src="restaurant.splash[0].url">
         <div class="h-[120%] w-full bg-gradient-to-t from-black via-transparent" />
       </div>
@@ -27,22 +27,22 @@
           <span class="capitalize">{{ restaurant.tags[0] }}</span>
         </span>
         <span class="flex gap-1 items-center">
-          <Smile1 v-if="restaurant.rating > 8" class="fill-emerald-500 h-6 w-auto"/>
-          <Smile2 v-if="restaurant.rating > 6 && restaurant.rating <= 8" class="fill-emerald-500 h-6 w-auto"/>
-          <Smile3 v-if="restaurant.rating > 4 && restaurant.rating <= 6" class="fill-emerald-500 h-6 w-auto"/>
-          <Smile4 v-if="restaurant.rating <= 4" class="fill-emerald-500 h-6 w-auto"/>
+          <Smile1 v-if="restaurant.rating > 8" class="fill-emerald-500 h-5 w-auto"/>
+          <Smile2 v-if="restaurant.rating > 6 && restaurant.rating <= 8" class="fill-emerald-500 h-5 w-auto"/>
+          <Smile3 v-if="restaurant.rating > 4 && restaurant.rating <= 6" class="fill-emerald-500 h-5 w-auto"/>
+          <Smile4 v-if="restaurant.rating <= 4" class="fill-emerald-500 h-5 w-auto"/>
           <span>{{ restaurant.rating }}</span>
         </span>
         <span class="flex gap-1 items-center">
-          <Bike class="fill-emerald-500 h-6 w-auto"/>
+          <Bike class="fill-emerald-500 h-5 w-auto"/>
           <span>{{ restaurant.deliveryCost }} kr.</span>
         </span>
         <span class="flex gap-1 items-center">
-          <Bag class="fill-emerald-500 h-6 w-auto"/>
+          <Bag class="fill-emerald-500 h-5 w-auto"/>
           <span>Min. {{ restaurant.minimumPrice }} kr.</span>
         </span>
         <span class="flex gap-1 items-center">
-          <Dollar v-for="n in parseInt(restaurant.priceRange)" :key="n" class="fill-emerald-500 h-6 w-auto"/>
+          <Dollar v-for="n in parseInt(restaurant.priceRange)" :key="n" class="fill-emerald-500 h-5 w-auto"/>
         </span>   
       </p>
     </div>

@@ -1,8 +1,8 @@
 <template>
-  <div class="relative rounded-2xl shadow-card overflow-hidden">
+  <div class="relative rounded-xl shadow-card overflow-hidden">
     <div>
-      <div class="relative flex flex-col w-full h-40 rounded-t-2xl">
-        <div class="absolute flex h-full w-full rounded-t-2xl overflow-hidden">
+      <div class="relative flex flex-col w-full h-40 rounded-t-xl">
+        <div class="absolute flex h-full w-full rounded-t-xl overflow-hidden">
           <div class="h-full w-full bg-gray-200" />
         </div>
         <div class="flex flex-row mt-auto px-2 transform translate-y-6">

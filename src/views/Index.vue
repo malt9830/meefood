@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="bg-emerald-50">
     <SplashScreen/>
     <Instructions/>
     <MobileBanner/>

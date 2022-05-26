@@ -19,10 +19,10 @@ export const useLocationStore = defineStore("location", {
         const lat = pos.coords.latitude;
         const lng = pos.coords.longitude;
 
-        this.updateLocation("Testvej 12A, Protoby 9090, Danmark");
+        // this.updateLocation("Testvej 12A, Protoby 9090, Danmark");
 
         // Fake address while testing to reduce API calls
-        return;
+        // return;
 
         axios
           .get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${key}`)

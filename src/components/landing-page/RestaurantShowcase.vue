@@ -1,11 +1,11 @@
 <template>
   <section class="max-w-7xl mx-auto py-10 px-4">
-    <h2 class="text-3xl font-semibold">Mest populære</h2>
+    <h2 class="text-3xl text-gray-800 font-semibold">Mest populære</h2>
     <div v-if="loaded" class="grid gap-6 pt-4 md:grid-cols-2 lg:grid-cols-3">
       <RestaurantCard v-for="rest in restaurants" :key="rest.slug" :restaurant="rest"/>
     </div>
     <div class="flex justify-center mt-8">
-      <RouterLink to="/restaurants" class="inline-block text-center bg-emerald-500 text-white text-xl hover:bg-emerald-600 py-2 px-4 rounded-xl duration-200">Se alle restauranter</RouterLink>
+      <RouterLink to="/restaurants" class="inline-block text-center bg-emerald-500 text-white text-xl hover:bg-emerald-600 py-2 px-4 rounded duration-200">Se alle restauranter</RouterLink>
     </div>
   </section>
 </template>

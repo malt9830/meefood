@@ -41,7 +41,7 @@
                 <h2 class="font-semibold text-xl">{{ deliveryMethod === 'levering' ? 'Leveringstid' : 'Afhentningstid' }}</h2>
                 <div class="flex gap-x-5">
 
-                  <select v-model="deliveryDay" class="p-1.5 border-2 rounded bg-white text-gray-600">
+                  <select @change="deliveryTime = 'Hurtigst muligt'" v-model="deliveryDay" class="p-1.5 border-2 rounded bg-white text-gray-600">
                     <option>I dag</option>
                     <option>I morgen</option>
                   </select>
@@ -59,12 +59,13 @@
                 <form delivery-form v-if="deliveryMethod === 'levering'" class="space-y-4 mb-10 max-h-[40rem] max-w-xl overflow-hidden">
                   <h2 class="font-semibold text-xl">Leveringsadresse</h2>
 
-                  <div>
+                  <div class="space-y-1">
+                    <label>Fulde navn</label>
                     <input
                       v-model="fullName"
-                      :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-200' : formSubmitted }"
+                      :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-100' : formSubmitted }"
                       class="appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
-                      placeholder="Fulde navn"
+                      placeholder="Indtast fulde navn"
                       name="fullName"
                       id="fullName"
                       type="text"
@@ -72,12 +73,13 @@
                     />
                   </div>
 
-                  <div>
+                  <div class="space-y-1">
+                    <label>Vejnavn og nummer</label>
                     <input
                       v-model="streetName"
-                      :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-50' : formSubmitted }"
+                      :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-100' : formSubmitted }"
                       class="appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
-                      placeholder="Vejnavn og nummer"
+                      placeholder="Indtast vejnavn og nummer"
                       name="streetName"
                       id="streetName"
                       type="text"
@@ -86,40 +88,44 @@
                   </div>
 
                   <div class="grid grid-cols-[1fr_auto] gap-4">
-                    <div class="grow">
+                    <div class="grow space-y-1">
+                       <label>By</label>
                       <input
                         v-model="city"
-                      :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-50' : formSubmitted }"
+                        :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-100' : formSubmitted }"
                         class="appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
-                        placeholder="By"
+                        placeholder="Indtast by"
                         name="city"
                         id="city"
                         type="text"
                         required
                       />
                     </div>
-                    <div>
+                    <div class="space-y-1">
+                       <label class="block">Post nr.</label>
                       <input
                         v-model="zip"
-                      :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-50' : formSubmitted }"
-                        class="appearance-none border-2 rounded w-24 m-0 py-2 px-3 text-gray-700 leading-tight focus:outline-none"
-                        placeholder="Post nr."
+                        :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-100' : formSubmitted }"
+                        class="appearance-none border-2 rounded w-36 m-0 py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                        placeholder="Indtast post nr."
                         name="zip"
                         id="zip"
-                        type="number"
-                        min="1000"
-                        max="9990"
+                        type="text"
+                        minlength="4"
+                        maxlength="4"
+                        pattern="[0-9]{4}"
                         required
                       />
                     </div>
                   </div>
 
-                  <div>
+                  <div class="space-y-1">
+                    <label >E-mail</label>
                     <input
                       v-model="email"
-                      :class="{'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-50' : formSubmitted}"
+                      :class="{'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-100' : formSubmitted}"
                       class="appearance-none border-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
-                      placeholder="Email"
+                      placeholder="Indtast e-mail"
                       name="email"
                       id="email"
                       type="email"
@@ -127,17 +133,21 @@
                     />
                   </div>
 
-                  <div>
+                  <div class="space-y-1">
+                    <label class="block">Telefonnummer</label>
                     <input
                       v-model="phone"
-                      :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-50' : formSubmitted }"
-                      class="relative appearance-none border-2 rounded w-40 py-2 px-3 text-gray-700 leading-tight focus:outline-none"
-                      placeholder="Telefonnummer"
+                      :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-100' : formSubmitted }"
+                      class="relative appearance-none border-2 w-52 rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                      placeholder="Indtast telefonnummer"
                       name="phone"
                       id="phone"
                       type="tel"
                       pattern="([0-9]{8})|([0-9]{2} [0-9]{2} [0-9]{2} [0-9]{2})|([0-9]{2}-[0-9]{2}-[0-9]{2}-[0-9]{2})"
                       required
+                      
+                      maxlength="11"
+                      @keydown="formatPhoneNumber($event)"
                     />
                   </div>
 
@@ -150,7 +160,7 @@
                 <div v-for="method in paymentMethods" :key="method" class="inline-flex w-14 mr-2">
                   <input v-model="paymentMethod" :value="method" :id="method" type="radio" class="peer appearance-none">
                   <label :for="method" class="block cursor-pointer border-2 grayscale opacity-70 duration-200 hover:grayscale-0 hover:opacity-100 peer-checked:grayscale-0 peer-checked:opacity-100">
-                    <img :src="`../cards/${method}.jpg`">
+                    <img class="h-8 object-cover" :src="`../cards/${method}.jpg`">
                   </label>
                 </div>
               </fieldset>
@@ -165,7 +175,7 @@
             >
               <h2 class="text-center font-semibold text-2xl">Din bestilling</h2>
               <div
-                v-for="dish in store.basket"
+                v-for="dish in basketStore.basket"
                 :key="dish.name"
                 class="flex flex-col"
               >
@@ -183,7 +193,7 @@
               <div class="flex flex-col gap-y-4">
                 <div class="flex justify-between">
                   <p class="font-semibold">Subtotal</p>
-                  <p>{{ store.totalPrice }} kr</p>
+                  <p>{{ basketStore.totalPrice }} kr</p>
                 </div>
                 <div class="flex justify-between">
                   <p class="font-semibold">Levering</p>
@@ -191,7 +201,7 @@
                 </div>
                 <div class="flex justify-between">
                   <p class="font-semibold">Samlet</p>
-                  <p>{{ store.totalPrice + restaurant.deliveryCost }} kr</p>
+                  <p>{{ basketStore.totalPrice + restaurant.deliveryCost }} kr</p>
                 </div>
               </div>
             </div>
@@ -199,8 +209,8 @@
         </div>
 
         <div class="md:ml-20 flex flex-wrap justify-center gap-4 px-2">
-          <button @click="router.back()" :style="`color: ${restaurant.colorSecondary}; border: 1px solid ${restaurant.colorSecondary}`" class="rounded-2xl py-2 px-4 bg-white hover:opacity-75 self-center">Tilbage til menuen</button>
-          <button @click="validateForm" :style="`background-color: ${restaurant.colorSecondary}`" class="rounded-2xl py-2 px-4 text-white hover:opacity-75 self-center">Fortsæt til betaling</button>
+          <button @click="router.back()" :style="`color: ${restaurant.colorSecondary}; border: 1px solid ${restaurant.colorSecondary}`" class="rounded py-2 px-4 bg-white hover:opacity-75 self-center duration-200">Tilbage til menuen</button>
+          <button @click="validateForm" :style="`background-color: ${restaurant.colorSecondary}`" class="rounded py-2 px-4 text-white hover:opacity-75 self-center duration-200">Fortsæt til betaling</button>
         </div>
     </div>
     
@@ -212,7 +222,7 @@
 import Airtable from "airtable";
 import { useBasketStore } from "/src/stores/basketStore";
 
-const store = useBasketStore()
+const basketStore = useBasketStore()
 const router = useRouter()
 const route = useRoute()
 
@@ -250,6 +260,11 @@ const deliveryHours = computed(() => {
     min = parseInt(openingHours.value.slice(3, 5))
   }
 
+    if (deliveryDay.value === 'I morgen') {
+      console.log("test")
+    hour = parseInt(openingHours.value.slice(0, 2));
+  }
+
   while (hour < parseInt(openingHours.value.slice(8, 10))) {
     // Increment min by 15 if below 45
     if (min < 60) {
@@ -276,6 +291,13 @@ const city = ref("")
 const zip = ref("")
 const email = ref("")
 const phone = ref("")
+
+function formatPhoneNumber(e) {
+  e.target.value = e.target.value
+    .replace(/[^\dA-Z]/g, "")
+    .replace(/(.{2})/g, "$1 ")
+    .trim();
+}
 
 function validateForm () {
   if (deliveryMethod.value === "levering") {
@@ -321,16 +343,17 @@ const textColor = computed(() => {
   // Return Tailwind text class of black or white based on brightness
   return luminance > 150 ? "text-black" : "text-white";
 });
+
+watch(loaded, () => {
+  // Load basket when restaurant is loaded
+  basketStore.$patch((state) => {
+    state.basket = (JSON.parse(localStorage.getItem(`basket-${restaurant.value.slug}`)) || [])
+  })
+})
 </script>
 
 <style scoped>
-/* Hide number arrows on inputs */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none; 
-}
+
 /* Animation for transitiong between delivery methods */
 .fade-enter-active,
 .fade-leave-active {

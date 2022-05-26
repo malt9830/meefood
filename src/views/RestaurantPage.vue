@@ -120,7 +120,7 @@
             <div
                 class="flex items-center mx-4 bg-white rounded overflow-hidden"
                 :style="`border: solid 1px ${restaurant.colorSecondary}`">
-              <Search class="p-1"/>
+              <Search class="p-1 fill-gray-500"/>
               <input
                 v-model="search"
                 class="w-5/6 h-8 outline-none focus:outline-none p-1 text-gray-500 text-xs md:text-sm"

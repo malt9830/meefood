@@ -47,13 +47,14 @@
       <p>{{ store.totalPrice + restaurant.deliveryCost }} kr</p>
     </div>
     <div class="flex justify-center mt-5">
-    <RouterLink v-if="store.totalPrice >= restaurant.minimumPrice" :to="`/checkout/${restaurant.slug}`"><button
+    <RouterLink :class="{'pointer-events-none opacity-50' : store.totalPrice <= restaurant.minimumPrice}"  :to="`/checkout/${restaurant.slug}`"><button
       :style="`background-color: ${restaurant.colorSecondary}`"
-      class="p-1.5 rounded text-white hover:opacity-75"
+      class="p-1.5 px-4 rounded text-white hover:opacity-75"
     >
       Gå til kassen
     </button></RouterLink>
   </div>
+  <p v-if="store.totalPrice <= restaurant.minimumPrice" class="text-center mt-5">Minimum pris: {{restaurant.minimumPrice}}kr</p>
   </div>
   
   </div>
@@ -63,6 +64,8 @@
 import { useBasketStore } from "/src/stores/basketStore";
 
 const store = useBasketStore();
+
+
 
 
 const props = defineProps({

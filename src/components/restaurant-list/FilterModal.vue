@@ -34,8 +34,8 @@
                 </label>
               </div>
             </fieldset>
-            <button @click="resetFilters" class="w-full bg-emerald-200 text-emerald-900 font-semibold rounded-full mt-8 py-4 transform duration-200 hover:bg-emerald-100 active:scale-95">Fjern filtre</button>
-            <button @click="applyFilters" class="w-full bg-emerald-500 text-white font-semibold rounded-full mt-4 py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Anvend filtre</button>
+            <button @click="resetFilters" class="w-full bg-emerald-200 text-emerald-900 font-semibold rounded mt-8 py-4 transform duration-200 hover:bg-emerald-100 active:scale-95">Fjern filtre</button>
+            <button @click="applyFilters" class="w-full bg-emerald-500 text-white font-semibold rounded mt-4 py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Anvend filtre</button>
           </form>
         </aside>
       </div>
