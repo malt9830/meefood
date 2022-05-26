@@ -58,10 +58,10 @@ const showingModal = computed(() => {return [showFilter, showBasket, showLocatio
 watch(showingModal, (modal) => {document.querySelector("body").style.overflow = (modal ? 'hidden' : 'auto')})
 
 onMounted(() => {
-  isMobile.value = (window.innerWidth < 600 ? true : false)
+  isMobile.value = (window.innerWidth < 640 ? true : false)
 
   window.addEventListener('resize', () => {
-    isMobile.value = (window.innerWidth < 600 ? true : false)
+    isMobile.value = (window.innerWidth < 640 ? true : false)
   })
 })
 
