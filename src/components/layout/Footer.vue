@@ -4,7 +4,7 @@
 			<div class="grid lg:grid-cols-3">
 				<div>
 				<div class="text-white self-center pb-6 lg:pb-6 place-self-center content-center">
-        	<RouterLink to="/"><Logo class="mx-auto"/></RouterLink>
+        	<RouterLink to="/"><Logo class="w-40 mx-auto"/></RouterLink>
 				</div>
 				<div class="flex space-x-4 justify-center pb-12">
 					<a href="http://">

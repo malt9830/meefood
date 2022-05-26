@@ -11,13 +11,13 @@
     >
       <div class="flex flex-col justify-between my-5 gap-y-2">
         <div class="flex justify-center gap-x-5 mb-6">
-          <img class="w-14" src="../../assets/cards/visa.jpg" alt="visa" />
+          <img class="w-14" src="../../../cards/visa.jpg" alt="visa" />
           <img
             class="w-14"
-            src="../../assets/cards/mastercard.jpg"
+            src="../../../cards/mastercard.jpg"
             alt="mastercard"
           />
-          <img class="w-14" src="../../assets/cards/dankort.jpg" alt="dankort" />
+          <img class="w-14" src="../../../cards/dankort.jpg" alt="dankort" />
         </div>
 
         <form payment-form class="flex flex-col gap-y-5 mx-5">

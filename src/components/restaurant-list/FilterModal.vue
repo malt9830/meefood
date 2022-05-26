@@ -5,7 +5,7 @@
         <div @click="emits('closeFilter')" class="absolute left-0 top-0 h-full w-full bg-black opacity-40" />
         <aside class="h-full w-[25rem] max-w-[90%] z-10 bg-white flex flex-col p-8 rounded-l-2xl">
           <div class="flex flex-row justify-end">
-            <img @click="emits('closeFilter')" class="h-8 w-auto cursor-pointer transform duration-200 hover:scale-110" src="/src/assets/icons/close-circle.svg">
+            <CloseCircle @click="emits('closeFilter')" class="h-10 w-auto fill-emerald-500 cursor-pointer transform duration-200 hover:scale-110"/>
           </div>
           <form class="flex flex-col grow">
             <fieldset class="flex flex-wrap gap-2">

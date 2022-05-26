@@ -10,7 +10,7 @@
 				</fieldset>
 			</div>
 		</div>
-		<div class="bg-[url('./assets/splash-image.png')] w-full bg-cover bg-center">
+		<div class="bg-[url('./assets/splash-image/splash-image-orange.png')] w-full bg-fixed bg-no-repeat bg-bottom bg-cover">
 			<div class="w-full h-40 bg-[url('./assets/splash-image/banner-bottom.svg')] bg-no-repeat bg-center bg-cover transform -translate-y-1" />
 		</div>
 	</div>
