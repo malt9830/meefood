@@ -4,12 +4,16 @@ export const useBasketStore = defineStore({
   id: "basket",
   state: () => ({
     basket: [],
+    minimumPrice: 0,
   }),
   getters: {
     totalPrice(state) {
       let total = 0;
       state.basket.map((el) => (total += el.price * el.amount));
       return total;
+    },
+    reachedMinimumPrice(state) {
+      return this.totalPrice >= state.minimumPrice;
     },
   },
   actions: {

@@ -13,9 +13,9 @@
             </div>
             <div class="flex justify-between items-center text-sm">
               <p class="text-xs" v-if="dish.comment">"{{ dish.comment }}"</p>
-              <p v-if="!dish.comment && !dish.options" class="text-emerald-500 underline underline-offset-1">Tilføj note</p>
+              <!-- <p v-if="!dish.comment && !dish.options" class="text-emerald-500 underline underline-offset-1">Tilføj note</p> -->
               <p class="text-xs" v-if="dish.options">{{dish.picked}}</p>
-              <div class="flex items-center justify-end">
+              <div class="flex items-center ml-auto">
                 <Minus @click="store.subtractAmount(dish)" class="h-6 fill-emerald-500"/>
                 <Plus @click="store.addAmount(dish)" class="h-6 fill-emerald-500"/>
               </div>
@@ -36,7 +36,7 @@
               <p>{{ store.totalPrice + 30 }} kr</p>
             </div>
           </div>
-          <RouterLink :to="`/checkout/${route.params.id}`" @click="emits('closeBasket')" :class="{ 'brightness-50 pointer-events-none' : store.basket.length === 0}" class="block text-center w-full bg-emerald-500 text-white font-semibold rounded-xl py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Gå til kassen</RouterLink>
+          <RouterLink :to="`/checkout/${route.params.id}`" @click="emits('closeBasket')" :class="{ 'brightness-50 pointer-events-none' : store.basket.length === 0 || !store.reachedMinimumPrice}" class="block text-center w-full bg-emerald-500 text-white font-semibold rounded-xl py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Gå til kassen</RouterLink>
         </aside>
       </div>
     </Transition>

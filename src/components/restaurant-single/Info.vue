@@ -14,7 +14,7 @@
                   />
         </GoogleMap>
         
-        <div class="flex flex-col mx-5 gap-y-8 pt-32 lg:top-16 relative">
+        <div class="flex flex-col mx-5 gap-y-8 pt-12 relative">
           <div class="flex flex-col gap-y-2 mx-3">
           <h1 class="text-xl font-semibold">Åbningstider</h1>
           <div>

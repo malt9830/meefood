@@ -141,7 +141,7 @@
           class="col-span-6 md:col-span-4 border-r-0 md:border-r"
         >
 
-          <div v-if="mobile || tablet" :style="`background-color:${restaurant.colorPrimary}`" class="sticky -top-1 w-full flex gap-2 p-4 overflow-scroll">
+          <div v-if="mobile || tablet" :style="`background-color:${restaurant.colorPrimary}`" class="sticky -top-1 w-full flex gap-2 p-4 overflow-auto">
             <button v-for="category in categories" :key="category" :style="`background-color:${restaurant.colorSecondary}`" class="px-2 py-1 rounded-full duration-200 transform active:scale-110">
               <a :href="`#${category}`" class="capitalize">{{ category }}</a>
             </button>
@@ -271,6 +271,11 @@ watch(loaded, () => {
   // Load basket when restaurant is loaded
   basketStore.$patch((state) => {
     state.basket = (JSON.parse(localStorage.getItem(`basket-${restaurant.value.slug}`)) || [])
+  })
+
+  // Set minimum price
+  basketStore.$patch((state) => {
+    state.minimumPrice = restaurant.value.minimumPrice
   })
 })
 
