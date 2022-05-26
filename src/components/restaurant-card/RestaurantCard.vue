@@ -15,7 +15,7 @@
             <p class="text-sm leading-none font-bold">{{ restaurant.deliveryTime }}</p>
             <p class="text-xs leading-none font-semibold">min</p>
           </div>
-          <img class="h-full w-auto" src="/src/assets/icons/time-alternative.svg">
+          <TimeAlt class="h-full w-auto"/>
         </div>
       </div>
     </div>
