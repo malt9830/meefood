@@ -1,7 +1,7 @@
 <template>
 	<h2 class="flex flex-row gap-2 text-white text-3xl md:text-4xl font-bold mb-8">
 		<span>Spis</span>
-		<span :class="[wordHidden ? 'max-w-0' : 'max-w-[6rem]']" class="inline-block underline underline-offset-4 overflow-x-clip overflow-y-visible duration-[800ms]">{{ currentWord }}</span>
+		<span :class="[wordHidden ? 'max-w-0' : 'max-w-[6rem]']" class="inline-block underline underline-offset-2 overflow-hidden duration-[800ms]">{{ currentWord }}</span>
 		<span>som helst</span>
 	</h2>
 </template>
