@@ -4,9 +4,9 @@
       <div v-if="showFilter" class="fixed left-0 bottom-0 z-40 w-full flex justify-end pb-16">
         <aside class="w-full z-10 bg-white p-4 rounded-t-2xl shadow-top">
           <form class="flex flex-col grow">
-            <fieldset class="flex flex-wrap gap-2">
-              <legend class="text-2xl text-gray-500 font-semibold mb-2">Kategorier</legend>
-              <div v-for="filter in store.filters" :key="filter" class="capitalize transform duration-200 active:scale-90">
+            <p class="text-2xl text-gray-500 font-semibold mb-2">Kategorier</p>
+            <fieldset class="flex flex-wrap">
+              <div v-for="filter in store.filters" :key="filter" class="mb-2 mr-2 capitalize transform duration-200 active:scale-90">
                 <input
                   type="checkbox" :id="filter" :value="filter" v-model="activeFilters"
                   class="peer appearance-none">
@@ -17,9 +17,9 @@
                 </label>
               </div>
             </fieldset>
-            <fieldset class="flex flex-wrap gap-2 mt-8">
-              <legend class="text-2xl text-gray-500 font-semibold mb-2">Sortér efter</legend>
-              <div v-for="sort in store.sorting" :key="sort" class="transform duration-200 active:scale-90">
+            <p class="text-2xl text-gray-500 font-semibold mb-2 mt-4">Sortér efter</p>
+            <fieldset class="flex flex-wrap">
+              <div v-for="sort in store.sorting" :key="sort" class="mb-2 mr-2 transform duration-200 active:scale-90">
                 <input
                   type="radio" :id="sort" :value="sort" v-model="activeSorting"
                   class="peer appearance-none">

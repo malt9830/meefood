@@ -44,7 +44,7 @@ function resetSearch(e) {
 function startSearch(e) {
   e.preventDefault()
 
-  searchStore.startSearch(search.value)
+  searchStore.startSearch(search.value.trim())
 
   // Close modal after applying filters
   emits('closeSearchDish')

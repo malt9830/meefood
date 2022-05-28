@@ -79,21 +79,21 @@
               <Bike :fill="`${restaurant.colorSecondary}`" height="20" />
               <p v-if="mobile">Leveringsgebyr</p>
               </div>
-              <p>{{ restaurant.deliveryCost }}kr</p>
+              <p>{{ restaurant.deliveryCost }} kr.</p>
             </div>
             <div class="flex gap-x-2 place-self-center items-center justify-between sm:justify-start sm:w-fit w-full">
               <div class="flex gap-x-2 items-center">
               <Time :fill="`${restaurant.colorSecondary}`" height="20" />
               <p v-if="mobile">Leveringstid</p>
               </div>
-              <p>{{ restaurant.deliveryTime }}min</p>
+              <p>{{ restaurant.deliveryTime }} min</p>
             </div>
             <div class="flex gap-x-2 place-self-center items-center justify-between sm:justify-start sm:w-fit w-full">
               <div class="flex gap-x-2 items-center ml-1">
               <Bag :fill="`${restaurant.colorSecondary}`" height="30" />
               <p v-if="mobile">Minimum pris</p>
               </div>
-              <p class="flex"><span v-if="!mobile">Min. </span> {{ restaurant.minimumPrice }}kr</p>
+              <p class="flex"><span v-if="!mobile">Min. </span> {{ restaurant.minimumPrice }} kr.</p>
             </div>
             <div class="flex flex-wrap w-full place-self-center sm:w-fit sm:gap-x-10 items-center sm:justify-start justify-between">
             <a href="#">www.{{restaurant.slug}}.dk</a>
@@ -141,13 +141,13 @@
           class="col-span-6 md:col-span-4 border-r-0 md:border-r"
         >
 
-          <div v-if="mobile || tablet" :style="`background-color:${restaurant.colorPrimary}`" class="sticky -top-1 w-full flex gap-2 p-4 overflow-auto">
-            <button v-for="category in categories" :key="category" :style="`background-color:${restaurant.colorSecondary}`" class="px-2 py-1 rounded-full duration-200 transform active:scale-110">
+          <div v-if="mobile || tablet" :style="`background-color:${restaurant.colorPrimary}`" class="sticky -top-1 w-full flex p-4 pt-3 pb-2 overflow-auto text-white">
+            <button v-for="category in categories" :key="category" :style="`background-color:${restaurant.colorSecondary}`" class="mr-2 px-2 py-1 rounded-full duration-200 transform active:scale-110">
               <a :href="`#${category}`" class="capitalize">{{ category }}</a>
             </button>
           </div>
 
-          <div class="flex gap-x-5 m-5">
+          <div class="flex gap-x-5 m-4">
             <div class="flex items-center">
               <Vegetarian :fill="`${restaurant.colorSecondary}`" height="40" />
               <p>vegetar</p>

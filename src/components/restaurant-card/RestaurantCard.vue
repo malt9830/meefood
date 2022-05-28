@@ -10,39 +10,43 @@
           <img class="w-full min-w-full place-self-center p-2" :src="restaurant.logo[0].url">
         </div>
         <p class="text-2xl font-semibold text-white whitespace-nowrap px-2 pb-2 self-center">{{ restaurant.name }}</p>
-        <div class="flex bg-white border border-emerald-500 h-10 p-1 pl-3 ml-auto rounded-full transform translate-y-9">
+        <!-- <div class="flex bg-white border border-emerald-500 h-10 p-1 pl-3 ml-auto rounded-full transform translate-y-9">
           <div class="mr-2 place-self-center text-emerald-500 text-center">
             <p class="text-sm leading-none font-bold">{{ restaurant.deliveryTime }}</p>
             <p class="text-xs leading-none font-semibold">min</p>
           </div>
           <TimeAlt class="h-full w-auto"/>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="px-4 pb-2 pt-1">
       <p class="text-sm pl-20">{{ restaurant.slogan }}</p>
       <hr class="my-1">
-      <p class="flex flex-wrap gap-2 text-sm">
+      <p class="flex flex-wrap gap-2 text-xs">
         <span class="flex items-center">
           <span class="capitalize">{{ restaurant.tags[0] }}</span>
         </span>
         <span class="flex gap-1 items-center">
-          <Smile1 v-if="restaurant.rating > 8" class="fill-emerald-500 h-5 w-auto"/>
-          <Smile2 v-if="restaurant.rating > 6 && restaurant.rating <= 8" class="fill-emerald-500 h-5 w-auto"/>
-          <Smile3 v-if="restaurant.rating > 4 && restaurant.rating <= 6" class="fill-emerald-500 h-5 w-auto"/>
-          <Smile4 v-if="restaurant.rating <= 4" class="fill-emerald-500 h-5 w-auto"/>
+          <Smile1 v-if="restaurant.rating > 8" class="fill-emerald-500 h-4 w-auto"/>
+          <Smile2 v-if="restaurant.rating > 6 && restaurant.rating <= 8" class="fill-emerald-500 h-4 w-auto"/>
+          <Smile3 v-if="restaurant.rating > 4 && restaurant.rating <= 6" class="fill-emerald-500 h-4 w-auto"/>
+          <Smile4 v-if="restaurant.rating <= 4" class="fill-emerald-500 h-4 w-auto"/>
           <span>{{ restaurant.rating }}</span>
         </span>
         <span class="flex gap-1 items-center">
-          <Bike class="fill-emerald-500 h-5 w-auto"/>
+          <Time class="fill-emerald-500 h-4 w-auto"/>
+          <span>{{ restaurant.deliveryTime }} min</span>
+        </span>
+        <span class="flex gap-1 items-center">
+          <Bike class="fill-emerald-500 h-4 w-auto"/>
           <span>{{ restaurant.deliveryCost }} kr.</span>
         </span>
         <span class="flex gap-1 items-center">
-          <Bag class="fill-emerald-500 h-5 w-auto"/>
+          <Bag class="fill-emerald-500 h-4 w-auto"/>
           <span>Min. {{ restaurant.minimumPrice }} kr.</span>
         </span>
         <span class="flex gap-1 items-center">
-          <Dollar v-for="n in parseInt(restaurant.priceRange)" :key="n" class="fill-emerald-500 h-5 w-auto"/>
+          <Dollar v-for="n in parseInt(restaurant.priceRange)" :key="n" class="fill-emerald-500 h-4 w-auto"/>
         </span>   
       </p>
     </div>

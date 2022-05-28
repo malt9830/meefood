@@ -54,7 +54,7 @@ function startSearch(e) {
   filterStore.$reset()
 
   // Update search value in filterStore
-  filterStore.updateSearch(restaurantSearch.value)
+  filterStore.updateSearch(restaurantSearch.value.trim())
 
   // Close modal after applying filters
   emits('closeSearchRest')

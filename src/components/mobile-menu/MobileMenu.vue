@@ -7,8 +7,15 @@
       <button v-if="routeName === 'restaurants'" @click="hideModals('filter'); showFilter = !showFilter" class="w-full h-full grid cursor-pointer">
         <Filter :class="[ showFilter ? 'fill-emerald-500' : 'fill-gray-500']" class="h-6 w-auto m-auto duration-200"/>
       </button>
-      <button v-if="routeName === 'restaurant'" @click="hideModals('basket'); showBasket = !showBasket" class="w-full h-full grid cursor-pointer">
-        <Bag2 :class="[ showBasket ? 'fill-emerald-500' : 'fill-gray-500']" class="h-6 w-auto m-auto duration-200"/>
+      <button v-if="routeName === 'restaurant'" @click="hideModals('basket'); showBasket = !showBasket" class="grid place-content-center w-full h-full cursor-pointer">
+        <div class="grid grid-rows-1 grid-cols-1 place-content-center">
+          <Bag2 :class="[ showBasket ? 'fill-emerald-500' : 'fill-gray-500']" class="h-12 w-auto m-auto p-2.5 col-span-full row-span-full duration-200"/>
+          <span v-if="basketStore.basket.length > 0" :class="[ showBasket ? 'bg-gray-500' : 'bg-emerald-500']" class="grid place-content-center h-5 w-5 ml-auto mt-auto col-span-full row-span-full rounded-full duration-200">
+            <p class="text-white text-xs">
+              {{ basketStore.totalItems }}
+            </p>
+          </span>
+        </div>
       </button>
       <button @click="hideModals('location'); showLocation = !showLocation" class="w-full h-full grid cursor-pointer">
         <Pin :class="[ showLocation ? 'fill-emerald-500' : 'fill-gray-500']" class="h-8 w-auto m-auto duration-200"/>
@@ -35,6 +42,9 @@
 </template>
 
 <script setup>
+import { useBasketStore } from "/src/stores/basketStore";
+
+const basketStore = useBasketStore();
 const route = useRoute()
 
 const routeName = computed(() => {

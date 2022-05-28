@@ -54,7 +54,7 @@
             </div>
           </div>
         </div>
-        <div class="flex bottom-20 justify-center gap-x-7 py-2 mt-auto mb-4">
+        <div class="flex bottom-20 justify-center gap-x-7 pb-6">
           <div
             id="amount"
             @click="checkAmount"

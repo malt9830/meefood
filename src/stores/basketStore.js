@@ -12,6 +12,9 @@ export const useBasketStore = defineStore({
       state.basket.map((el) => (total += el.price * el.amount));
       return total;
     },
+    totalItems(state) {
+      return state.basket.reduce((prevValue, currDish) => prevValue + currDish.amount, 0);
+    },
     reachedMinimumPrice(state) {
       return this.totalPrice >= state.minimumPrice;
     },
