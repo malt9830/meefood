@@ -85,6 +85,11 @@ function resetFilters(e) {
 </script>
 
 <style scoped>
+input {
+   -webkit-appearance: none;
+   -moz-appearance:    none;
+   appearance:         none;
+}
 .slide-enter-active aside,
 .slide-leave-active aside {
   transform: translateY(0%);
