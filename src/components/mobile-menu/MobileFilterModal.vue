@@ -9,7 +9,7 @@
               <div v-for="filter in store.filters" :key="filter" class="mb-2 mr-2 capitalize transform duration-200 active:scale-90">
                 <input
                   type="checkbox" :id="filter" :value="filter" v-model="activeFilters"
-                  class="peer appearance-none">
+                  class="peer appearance-none w-0">
                 <label
                   :for="filter"
                   class="inline-block bg-white text-emerald-500 px-3 py-1 border border-emerald-500 rounded-full cursor-pointer duration-200 peer-checked:bg-emerald-500 peer-checked:text-white hover:bg-emerald-50">
@@ -22,7 +22,7 @@
               <div v-for="sort in store.sorting" :key="sort" class="mb-2 mr-2 transform duration-200 active:scale-90">
                 <input
                   type="radio" :id="sort" :value="sort" v-model="activeSorting"
-                  class="peer appearance-none">
+                  class="peer appearance-none w-0">
                 <label
                   :for="sort"
                   class="inline-block bg-white text-emerald-500 px-3 py-1 border border-emerald-500 rounded-full cursor-pointer duration-200 peer-checked:bg-emerald-500 peer-checked:text-white hover:bg-emerald-50">
