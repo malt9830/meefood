@@ -7,7 +7,7 @@
         api-key="AIzaSyDBbFP79qNW3Yf1YYc0qeC8DccgOG_7HpQ"
         :center="center"
         :zoom="15"
-        class="h-3/5 sm:h-1/2"
+        class="h-1/2"
       >
         <Marker :options="{ position: center }" />
       </GoogleMap>

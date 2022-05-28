@@ -5,7 +5,7 @@
     >
       <div @click="$emit('closePopUp')" class="absolute bg-black/50 top-0 left-0 h-full w-full"/>
       <aside
-        class="place-self-center w-screen sm:w-3/4 lg:w-1/2 max-w-2xl h-screen sm:h-3/4 bg-white overflow-hidden fixed rounded flex flex-col px-4 py-16 sm:py-0 sm:px-0"
+        class="place-self-center w-screen sm:w-3/4 lg:w-1/2 max-w-2xl h-full sm:h-3/4 bg-white overflow-hidden fixed rounded flex flex-col px-4 py-16 sm:py-0 sm:px-0"
       >
         <div scrollable @scroll="dishScrolled" class="w-full grow overflow-auto">
           <div class="w-full h-60 sm:w-full sm:h-3/5 flex justify-end rounded bg-center bg-cover" :style="`background-image: url(${dish.image[0].url})`">
