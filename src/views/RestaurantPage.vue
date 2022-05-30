@@ -172,7 +172,7 @@
           <div v-if="search !== ''">
             <SearchResult
               :restaurant="restaurant"
-              :menu="menu"
+              :menuLoaded="menuLoaded"
               :search="search"
               :searchResult="searchResult"
             />
@@ -242,9 +242,7 @@ const categories = computed(() => {
 });
 
 const searchResult = computed(() => {
-  return menu.value.filter((dish) => {
-    return dish.name.toLowerCase().indexOf(search.value.toLowerCase()) != -1;
-  });
+  return menu.value.filter((dish) => dish.name.toLowerCase().includes(search.value));
 });
 
 const textColor = computed(() => {
