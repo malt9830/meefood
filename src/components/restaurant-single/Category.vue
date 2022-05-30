@@ -1,13 +1,10 @@
 <template>
-     <div class="sm:m-10 m-4">
-            <h2 :id="`${category}`" class="text-2xl sm:text-3xl font-semibold mb-5 capitalize">{{category}}</h2>
-            <div v-if="loaded2" class="flex flex-col gap-y-5">
-              <SingleItem v-for="dish in filteredMenu" :key="dish.name" :dish="dish" :restaurant="restaurant" :category="category" />
-            </div>
-            <div v-if="!loaded2" class="flex flex-col gap-y-5">
-              <SingleItemPlaceholder v-for="dish in filteredMenu" :key="dish.name" :dish="dish" :restaurant="restaurant" :category="category" :primaryColor="primaryColor" :textColor="textColor" />
-            </div>
-      </div>
+  <div class="sm:m-10 m-4">
+    <h2 :id="`${category}`" class="text-2xl sm:text-3xl font-semibold mb-5 capitalize">{{category}}</h2>
+    <div class="flex flex-col gap-y-5">
+      <SingleItem v-for="dish in filteredMenu" :key="dish.name" :dish="dish" :restaurant="restaurant" :category="category" :menuLoaded="menuLoaded" :primaryColor="primaryColor" :textColor="textColor" />
+    </div>
+  </div>
 </template>
       
 <script setup>
@@ -19,7 +16,7 @@ const props = defineProps({
     category: String,
     search: String,
     searchResult: Array,
-    loaded2: Boolean,
+    menuLoaded: Boolean,
     textColor: String,
     primaryColor: String,
 })

@@ -46,10 +46,9 @@
               :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-200' : formSubmitted }"
               class="peer p-1.5 border-2 rounded focus:outline-none text-gray-600"
               type="text"
-              name="cardNumber"
+              number="cardNumber"
               placeholder="XXXX XXXX XXXX XXXX"
               pattern="([0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4})"
-              maxlength="19"
               required
             />
           </div>
@@ -64,7 +63,7 @@
                   id="month"
                   :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-200' : formSubmitted }"
                   class="peer p-1.5 border-2 rounded focus:outline-none text-gray-600"
-                  type="text"
+                  type="number"
                   name="expiryMonth"
                   placeholder="MM"
                   pattern="[0-9]{2}"
@@ -79,7 +78,7 @@
                   id="year"
                   :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-200' : formSubmitted }"
                   class="peer p-1.5 border-2 rounded focus:outline-none text-gray-600"
-                  type="text"
+                  type="number"
                   name="expiryYear"
                   placeholder="YY"
                   pattern="[0-9]{2}"
@@ -96,7 +95,7 @@
                 id="code"
                 :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-200' : formSubmitted }"
                 class="peer p-1.5 border-2 rounded focus:outline-none text-gray-600"
-                type="text"
+                type="number"
                 name="securityCode"
                 placeholder="XXX"
                 pattern="[0-9]{3}"

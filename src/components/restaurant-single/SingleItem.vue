@@ -1,7 +1,11 @@
 <template>
-    <div class="cursor-pointer" @click="popUp = true">
-      <div
-        class="flex justify-between"
+    <div class="cursor-pointer">
+      <div class="relative h-full w-full">
+        <SingleItemPlaceholder v-if="!menuLoaded" :primaryColor="primaryColor" :textColor="textColor" />
+      </div>
+      <div @click="popUp = true"
+            :class="[ menuLoaded ? 'opacity-100' : 'opacity-0 pointer-events-none']"
+            class="flex justify-between"
       >
         <div class="w-1/2 flex flex-col gap-y-2">
           <div class="flex items-center gap-x-1">
@@ -21,13 +25,17 @@
           <p class="text-md">{{ dish.price }}kr</p>
         </div>
         <div :style="`background-image: url(${dish.image[0].url})`" class="w-40 h-28 rounded bg-cover bg-no-repeat bg-center" />
-        <ItemPopUp
-        v-if="popUp"
-        :dish="dish"
-        :restaurant="restaurant"
-        :popUp="popUp"
-        @close-pop-up="popUp = false"
-      />
+        
+        <Teleport to="body">
+          <Transition name="slide" :duration="300">
+            <ItemPopUp
+              v-if="popUp"
+              :dish="dish"
+              :restaurant="restaurant"
+              @closePopUp="popUp = false"
+            />
+          </Transition>
+        </Teleport>
       </div>
     </div>
 </template>
@@ -37,7 +45,10 @@
 const props = defineProps({
   dish: Object,
   restaurant: Object,
-  category: String
+  category: String,
+  menuLoaded: Boolean,
+  primaryColor: String,
+  textColor: String
 })
 
 const popUp = ref(false);

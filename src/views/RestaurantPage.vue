@@ -1,10 +1,7 @@
 <template>
   <main :class="`text-${textColor}`">
-    <div
-      v-if="!loaded"
-      class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover"
-    ></div>
-    <div v-if="loaded" :style="`background-color: ${restaurant.colorPrimary}`" class="pb-4">
+    <SplashPlaceholder v-if="showSplashPlaceholder" :tablet="tablet"/>
+    <div v-if="restaurantLoaded" :style="`background-color: ${restaurant.colorPrimary}`" class="pb-4">
       <div
         :style="`background-image: url(${restaurant.splash[0].url}); background-size: cover`"
         class="h-80 sm:h-[50vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover"
@@ -18,7 +15,7 @@
           <img :src="restaurant.logo[0].url" class="p-2"/>
         </div>
         <div class="sm:ml-48 flex flex-col w-full items-center sm:items-start pt-24 sm:pt-0">
-          <h1 v-if="loaded" class="text-2xl sm:text-3xl font-semibold p-3 sm:p-5">
+          <h1 v-if="restaurantLoaded" class="text-2xl sm:text-3xl font-semibold p-3 sm:p-5">
             {{ restaurant.name }}
           </h1>
           <div class="flex flex-col sm:flex-row sm:flex-wrap flex-start place-items-center px-5 gap-y-2 sm:gap-x-6 sm:items-start w-full">
@@ -103,8 +100,8 @@
             </div>
             <button
               :style="`background-color: ${restaurant.colorSecondary}`"
-              class="p-1.5 mt-2 sm:mt-0 sm:w-24 text-white rounded duration-200 hover:opacity-75"
-              @click="info = true"
+              class="py-2 px-4 mt-2 sm:mt-0 text-white whitespace-nowrap rounded duration-200 hover:opacity-75"
+              @click="showInfo = true"
             >
               Mere info
             </button>
@@ -141,7 +138,7 @@
           class="col-span-6 md:col-span-4 border-r-0 md:border-r"
         >
 
-          <div v-if="mobile || tablet" :style="`background-color:${restaurant.colorPrimary}`" class="sticky -top-1 w-full flex p-4 pt-3 pb-2 overflow-auto text-white">
+          <div v-if="mobile || tablet" :style="`background-color:${restaurant.colorPrimary}`" class="sticky -top-1 w-full flex p-4 pt-3 pb-2 overflow-auto whitespace-nowrap text-white">
             <button v-for="category in categories" :key="category" :style="`background-color:${restaurant.colorSecondary}`" class="mr-2 px-2 py-1 rounded-full duration-200 transform active:scale-110">
               <a :href="`#${category}`" class="capitalize">{{ category }}</a>
             </button>
@@ -167,7 +164,7 @@
               :menu="menu"
               :search="search"
               :searchResult="searchResult"
-              :loaded2="loaded2"
+              :menuLoaded="menuLoaded"
               :textColor="textColor"
               :primaryColor="restaurant.colorPrimary"
             />
@@ -185,14 +182,17 @@
           class="flex flex-col"
           :style="`border-top: solid 1px ${restaurant.colorSecondary}`"
         >
-          <Basket :restaurant="restaurant" :loaded="loaded" />
+          <Basket :restaurant="restaurant" :restaurantLoaded="restaurantLoaded" />
         </div>
-        <Info
-          v-if="info === true"
-          :info="info"
-          :restaurant="restaurant"
-          @close-info="info = false"
-        />
+        <Teleport to="body">
+          <Transition name="slide" :duration="300">
+              <Info
+                v-if="showInfo"
+                :restaurant="restaurant"
+                @closeInfo="showInfo = false"
+              />
+          </Transition>
+        </Teleport>
       </div>
     </div>
   </main>
@@ -207,13 +207,14 @@ const basketStore = useBasketStore()
 const searchStore = useSearchStore()
 const route = useRoute();
 
-const loaded = ref(false);
-const loaded2 = ref(false)
+const showSplashPlaceholder = ref(true)
+const restaurantLoaded = ref(false)
+const menuLoaded = ref(false)
 
 const restaurant = ref();
 const menu = ref([]);
 
-const info = ref(false);
+const showInfo = ref(false);
 
 const search = ref("");
 
@@ -260,15 +261,15 @@ const textColor = computed(() => {
 });
 
 // Prevent scrolling body when a modal is open
-watch(info, (modal) => {
+watch(showInfo, (modal) => {
   document.querySelector("body").style.overflow = (modal ? 'hidden' : 'auto')
   document.querySelector("main > div").style.paddingRight = (modal ? '1rem' : '0')
   document.querySelector("main > div > div:first-of-type").style.width = (modal ? 'calc(100% + 1rem)' : '100%')
   document.querySelector("header > div").style.paddingRight = (modal ? '1rem' : '0')
 })
 
-watch(loaded, () => {
-  // Load basket when restaurant is loaded
+watch(restaurantLoaded, () => {
+  // Load basket when restaurant is restaurantLoaded
   basketStore.$patch((state) => {
     state.basket = (JSON.parse(localStorage.getItem(`basket-${restaurant.value.slug}`)) || [])
   })
@@ -311,7 +312,10 @@ base("restaurants")
   .eachPage((res) => {
     restaurant.value = res[0].fields;
 
-    loaded.value = true;
+    restaurantLoaded.value = true;
+    setTimeout(() => {
+      showSplashPlaceholder.value = false
+    }, (Math.floor(Math.random() * 1000 + 500)))
 
     base(`menu-${restaurant.value.slug}`)
       .select({
@@ -323,7 +327,7 @@ base("restaurants")
         });
       });
       setTimeout(() => {
-        loaded2.value = true
-      }, (Math.floor(Math.random() * 1500 + 500)))
+        menuLoaded.value = true
+      }, (Math.floor(Math.random() * 1500 + 1000)))
   });
 </script>

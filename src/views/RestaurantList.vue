@@ -4,14 +4,16 @@
       <h2 class="text-3xl text-gray-800 font-semibold">Restauranter</h2>
       <FilterCircle @click="showFilter = !showFilter" class="hidden md:block w-8 h-auto cursor-pointer transform hover:scale-110 duration-200"/>
     </div>
-    <div v-if="loaded && filteredRestaurants.length === 0" class="mt-2">
+    <div v-if="restaurantLoaded && filteredRestaurants.length === 0" class="mt-2">
       <p>Der kunne ikke findes nogen restauranter for '{{ filterStore.activeSearch }}'.</p>
     </div>
-    <div v-if="loaded" class="grid gap-6 pt-4 md:grid-cols-2 lg:grid-cols-3">
-      <RestaurantCard v-for="rest in filteredRestaurants" :key="rest.slug" :restaurant="rest"/>
+    <div v-if="restaurantLoaded" class="grid gap-6 pt-4 md:grid-cols-2 lg:grid-cols-3">
+      <RestaurantCard v-for="rest in filteredRestaurants" :key="rest.slug" :restaurant="rest" :showRestaurantCardPlaceholder="showRestaurantCardPlaceholder"/>
     </div>
-    <div v-if="!loaded" class="grid gap-6 pt-4 md:grid-cols-2 lg:grid-cols-3">
-      <RestaurantCardPlaceholder v-for="n in 9" :key="n"/>
+    <div v-if="!restaurantLoaded" class="grid gap-6 pt-4 md:grid-cols-2 lg:grid-cols-3">
+      <div v-for="n in 8" :key="n" class="relative h-[15.0625rem] sm:h-[13.5625rem]">
+        <RestaurantCardPlaceholder/>
+      </div>
     </div>
     <FilterModal :showFilter="showFilter" @closeFilter="showFilter = false"/>
   </main>
@@ -33,7 +35,8 @@ const activeSorting = computed(() => {
 
 const showFilter = ref(false)
 
-const loaded = ref(false)
+const showRestaurantCardPlaceholder = ref(true)
+const restaurantLoaded = ref(false)
 const restaurants = ref([])
 
 const filteredRestaurants = computed(() => {
@@ -59,8 +62,10 @@ var base = Airtable.base('appRiP6vD6l7EmCYB')
 base('restaurants').select({}).eachPage(res => {
   res.forEach(rest => restaurants.value.push(rest.fields))
 
+  restaurantLoaded.value = true
+
   setTimeout(() => {
-    loaded.value = true
-  }, (Math.floor(Math.random() * 1500 + 500)))
+    showRestaurantCardPlaceholder.value = false
+  }, 1750)
 })
 </script>

@@ -14,10 +14,15 @@ module.exports = {
     extend: {
       animation: {
         dash: "dash 1s ease-in-out infinite",
+        splash: "splash 3s ease-in-out infinite",
         twirl: "twirl 6s cubic-bezier(.5,-0.8,.34,1.56) 2s infinite",
       },
       keyframes: {
         dash: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
+        },
+        splash: {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(100%)" },
         },

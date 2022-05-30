@@ -10,7 +10,7 @@
             </form>
           </div>
           <div v-if="!isMobile" class="flex flex-row gap-4 items-center">
-            <RouterLink to="/restaurants" class="hover:opacity-75">Restauranter</RouterLink>
+            <RouterLink to="/restaurants" class="duration-200 hover:opacity-75">Restauranter</RouterLink>
             <RouterLink to="/" class="px-2 py-1 border border-white rounded duration-200 hover:bg-white hover:text-black">Log ind</RouterLink>
            
           </div>

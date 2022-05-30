@@ -2,12 +2,12 @@
   <main :class="textColor">
     <div
       v-if="!loaded"
-      class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover bg-fixed"
+      class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover"
     ></div>
     <div v-if="loaded" :style="`background-color: ${restaurant.colorPrimary}`" class="pb-10">
       <div
         :style="`background-image: url(${restaurant.splash[0].url})`"
-        class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover bg-fixed"
+        class="h-80 sm:h-[50vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover"
       ></div>
       <div class="relative flex flex-col sm:flex-row items-center sm:ml-10">
         <div
