@@ -1,5 +1,5 @@
 <template>
-  <div class="relative rounded-xl shadow-card overflow-hidden">
+  <div class="absolute z-10 w-full h-full bg-white rounded-xl shadow-card overflow-hidden">
     <div>
       <div class="relative flex flex-col w-full h-40 rounded-t-xl">
         <div class="absolute flex h-full w-full rounded-t-xl overflow-hidden">
@@ -15,7 +15,7 @@
         <span class="block h-4 w-20 bg-gray-200 ml-20" />
         <hr class="my-2">
         <div class="flex flex-wrap gap-2 text-sm">
-          <span v-for="n in 4" :key="n" class="block h-4 w-12 bg-gray-200" />
+          <span v-for="n in 4" :key="n" class="block h-3 w-12 bg-gray-200" />
         </div>
       </div>
     </div>
