@@ -1,15 +1,15 @@
 <template>
   <article class="relative">
     <RestaurantCardPlaceholder v-if="showRestaurantCardPlaceholder" />
-    <RouterLink :to="`/restaurant/${restaurant.slug}`" :class="[ showRestaurantCardPlaceholder ? 'pointer-events-none' : 'pointer-events-auto']" class="bg-white block cursor-pointer rounded-xl shadow-card group transform hover:scale-[103%] duration-200">
+    <RouterLink :to="`/restaurant/${restaurant.slug}`" :aria-label="`Til restaurant ${restaurant.name}`" :class="[ showRestaurantCardPlaceholder ? 'pointer-events-none' : 'pointer-events-auto']" class="bg-white block cursor-pointer rounded-xl shadow-card group transform hover:scale-[103%] duration-200">
       <div class="relative flex flex-col w-full h-40 rounded-t-xl">
         <div class="absolute flex h-full w-full rounded-t-xl overflow-hidden">
-          <img class="absolute w-full h-auto place-self-center object-cover -z-10 transform scale-110 group-hover:scale-100 duration-200" :src="restaurant.splash[0].url">
+          <img class="absolute w-full h-auto place-self-center object-cover -z-10 transform scale-110 group-hover:scale-100 duration-200" :src="restaurant.splash[0].url" :alt="`${restaurant.name} splash image`">
           <div class="h-[120%] w-full bg-gradient-to-t from-black via-transparent" />
         </div>
         <div class="flex flex-row mt-auto px-2 transform translate-y-6">
           <div class="grid w-20 aspect-square bg-white border border-emerald-500 rounded-full overflow-hidden">
-            <img class="w-full min-w-full place-self-center p-2" :src="restaurant.logo[0].url">
+            <img class="w-full min-w-full place-self-center p-2" :src="restaurant.logo[0].url" :alt="`logo of ${restaurant.slogan} - ${restaurant.slogan}`">
           </div>
           <p class="text-2xl font-semibold text-white whitespace-nowrap px-2 pb-2 self-center">{{ restaurant.name }}</p>
         </div>

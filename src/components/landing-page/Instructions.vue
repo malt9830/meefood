@@ -5,7 +5,10 @@
         <template #slides>
           <Slide v-for="inst in instructions" :key="inst.number">
             <div class="px-12 sm:px-2">
-              <img class="place-self-center px-12 py-4" :src="`./instructions/instructions-${inst.number}.svg`">
+              <img
+                class="place-self-center px-12 py-4"
+                :src="`./instructions/instructions-${inst.number}.svg`"
+                :alt="`instruction infographic part ${inst.number}: ${inst.text}`">
               <p class="text-xl lg:text-2xl text-center text-gray-800">{{ inst.text }}</p>
             </div>
           </Slide>

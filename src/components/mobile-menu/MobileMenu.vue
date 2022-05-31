@@ -1,13 +1,13 @@
 <template>
   <Teleport to="body" v-if="showMobileMenu">
     <div :class="[ (showFilter || showBasket || showLocation || showSearchRest) ? 'shadow-topline' : 'shadow-top' ]" class="fixed z-50 bottom-0 w-full bg-white h-16 grid grid-cols-4 items-center duration-300">
-      <RouterLink to="/restaurants" v-if="routeName === 'home' || routeName === 'checkout'" @click="hideModals" class="w-full h-full grid cursor-pointer">
+      <RouterLink v-if="routeName === 'home' || routeName === 'checkout'" to="/restaurants" aria-label="Til forsiden" @click="hideModals" class="w-full h-full grid cursor-pointer">
         <Restaurant class="h-8 w-auto m-auto fill-gray-500"/>
       </RouterLink>
-      <button v-if="routeName === 'restaurants'" @click="hideModals('filter'); showFilter = !showFilter" class="w-full h-full grid cursor-pointer">
+      <button v-if="routeName === 'restaurants'" aria-label="Til restaurant-listen" @click="hideModals('filter'); showFilter = !showFilter" class="w-full h-full grid cursor-pointer">
         <Filter :class="[ showFilter ? 'fill-emerald-500' : 'fill-gray-500']" class="h-6 w-auto m-auto duration-200"/>
       </button>
-      <button v-if="routeName === 'restaurant'" @click="hideModals('basket'); showBasket = !showBasket" class="grid place-content-center w-full h-full cursor-pointer">
+      <button v-if="routeName === 'restaurant'" aria-label="Åbn kurven" @click="hideModals('basket'); showBasket = !showBasket" class="grid place-content-center w-full h-full cursor-pointer">
         <div class="grid grid-rows-1 grid-cols-1 place-content-center">
           <Bag2 :class="[ showBasket ? 'fill-emerald-500' : 'fill-gray-500']" class="h-12 w-auto m-auto p-2.5 col-span-full row-span-full duration-200"/>
           <span v-if="basketStore.basket.length > 0" :class="[ showBasket ? 'bg-gray-500' : 'bg-emerald-500']" class="grid place-content-center h-5 w-5 ml-auto mt-auto col-span-full row-span-full rounded-full duration-200">
@@ -17,16 +17,16 @@
           </span>
         </div>
       </button>
-      <button @click="hideModals('location'); showLocation = !showLocation" class="w-full h-full grid cursor-pointer">
+      <button aria-label="Åbn indtastning af lokation" @click="hideModals('location'); showLocation = !showLocation" class="w-full h-full grid cursor-pointer">
         <Pin :class="[ showLocation ? 'fill-emerald-500' : 'fill-gray-500']" class="h-8 w-auto m-auto duration-200"/>
       </button>
-      <button v-if="routeName === 'restaurant'" @click="hideModals('search-dish'); showSearchDish = !showSearchDish" class="w-full h-full grid cursor-pointer">
+      <button v-if="routeName === 'restaurant'" aria-label="Åbn søgning af retter" @click="hideModals('search-dish'); showSearchDish = !showSearchDish" class="w-full h-full grid cursor-pointer">
         <Search :class="[ showSearchDish ? 'fill-emerald-500' : 'fill-gray-500']" class="h-8 w-auto m-auto duration-200"/>
       </button>
-      <button v-if="routeName !== 'restaurant'" @click="hideModals('search-rest'); showSearchRest = !showSearchRest" class="w-full h-full grid cursor-pointer">
+      <button v-if="routeName !== 'restaurant'" aria-label="Åbn søgning af restauranter" @click="hideModals('search-rest'); showSearchRest = !showSearchRest" class="w-full h-full grid cursor-pointer">
         <Search :class="[ showSearchRest ? 'fill-emerald-500' : 'fill-gray-500']" class="h-8 w-auto m-auto duration-200"/>
       </button>
-      <button @click="hideModals('user'); showUser = !showUser" class="w-full h-full grid cursor-pointer">
+      <button aria-label="Åbn bruger-panelet" @click="hideModals('user'); showUser = !showUser" class="w-full h-full grid cursor-pointer">
         <User :class="[ showUser ? 'fill-emerald-500' : 'fill-gray-500']" class="h-8 w-auto m-auto duration-200"/>
       </button>
     </div>

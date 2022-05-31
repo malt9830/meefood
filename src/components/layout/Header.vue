@@ -2,7 +2,7 @@
   <header class="absolute z-20 text-white w-full">
     <div :class="{'pr-4' : showAddressMenu, 'bg-emerald-500' : routeName !== 'restaurant', 'bg-black/50' : routeName === 'restaurant' || routeName === 'checkout'}">
         <nav class="z-20 max-w-7xl mx-auto flex flex-row justify-between items-center px-4 py-3">
-          <RouterLink to="/"><Logo class="h-8 w-auto"/></RouterLink>  
+          <RouterLink to="/" aria-label="Til forsiden"><Logo class="h-8 w-auto"/></RouterLink>  
           <div v-if="routeName !== 'home' && !isMobile" @click="showAddressMenu = !showAddressMenu; address = ''" class="mx-2 max-w-sm bg-white/70 text-black grow place-self-center rounded-xl cursor-pointer">
             <form class="grow flex flex-row gap-2">
               <Pin class="py-2 ml-2 fill-gray-500 cursor-pointer" />
@@ -12,7 +12,6 @@
           <div v-if="!isMobile" class="flex flex-row gap-4 items-center">
             <RouterLink to="/restaurants" class="duration-200 hover:opacity-75">Restauranter</RouterLink>
             <RouterLink to="/" class="px-2 py-1 border border-white rounded duration-200 hover:bg-white hover:text-black">Log ind</RouterLink>
-           
           </div>
         </nav>
     </div>
