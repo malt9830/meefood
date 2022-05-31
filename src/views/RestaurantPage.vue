@@ -108,9 +108,9 @@
           </div>
         </div>
       </div>
-      <div class="sm:grid sm:grid-cols-6 mt-5 max-w-7xl mx-auto">
+      <div class="flex mt-5 max-w-7xl mx-auto">
         <div v-if="!tablet"
-          class="flex flex-col pt-5 gap-y-5"
+          class="flex flex-col pt-5 gap-y-5 max-w-[12rem]"
           :style="`border-top: solid 1px ${restaurant.colorSecondary}; border-right: solid 1px ${restaurant.colorSecondary}`"
         >
           <div class="sticky top-0 pt-5">
@@ -135,7 +135,7 @@
         </div>
         <div
           :style="`border-top: solid 1px ${restaurant.colorSecondary}; border-right-color: ${restaurant.colorSecondary}`"
-          class="col-span-6 md:col-span-4 border-r-0 md:border-r"
+          class="grow border-r-0 md:border-r"
         >
 
           <div v-if="mobile || tablet" :style="`background-color:${restaurant.colorPrimary}`" class="sticky -top-1 w-full flex p-4 pt-3 pb-2 overflow-auto whitespace-nowrap text-white">
@@ -179,7 +179,7 @@
           </div>
         </div>
         <div v-if="!tablet"
-          class="flex flex-col"
+          class="flex flex-col w-full max-w-[15rem]"
           :style="`border-top: solid 1px ${restaurant.colorSecondary}`"
         >
           <Basket :restaurant="restaurant" :restaurantLoaded="restaurantLoaded" />
