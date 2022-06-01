@@ -1,9 +1,9 @@
 <template>
     <div class="cursor-pointer">
       <div class="relative h-full w-full">
-        <SingleItemPlaceholder v-if="!menuLoaded" :primaryColor="primaryColor" :textColor="textColor" />
+        <DishPlaceholder v-if="!menuLoaded" :primaryColor="primaryColor" :textColor="textColor" />
       </div>
-      <div @click="popUp = true"
+      <div @click="showDishModal = true"
             :class="[ menuLoaded ? 'opacity-100' : 'opacity-0 pointer-events-none']"
             class="flex justify-between"
       >
@@ -28,11 +28,11 @@
         
         <Teleport to="body">
           <Transition name="slide" :duration="300">
-            <ItemPopUp
-              v-if="popUp"
+            <DishModal
+              v-if="showDishModal"
               :dish="dish"
               :restaurant="restaurant"
-              @closePopUp="popUp = false"
+              @closeDishModal="showDishModal = false"
             />
           </Transition>
         </Teleport>
@@ -51,10 +51,10 @@ const props = defineProps({
   textColor: String
 })
 
-const popUp = ref(false);
+const showDishModal = ref(false);
 
 // Prevent scrolling body when a modal is open
-watch(popUp, (modal) => {
+watch(showDishModal, (modal) => {
   document.querySelector("body").style.overflow = (modal ? 'hidden' : 'auto')
   document.querySelector("main > div").style.paddingRight = (modal ? '1rem' : '0')
   document.querySelector("main > div > div:first-of-type").style.width = (modal ? 'calc(100% + 1rem)' : '100%')

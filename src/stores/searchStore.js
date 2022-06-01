@@ -8,7 +8,7 @@ export const useSearchStore = defineStore({
   getters: {},
   actions: {
     startSearch(input) {
-      this.$patch((state) => (state.dish = input));
+      this.dish = input;
     },
   },
 });

@@ -2,14 +2,14 @@
   <div
     class="fixed z-[60] w-screen h-screen top-0 left-0 grid"
   >
-    <div @click="$emit('closePopUp')" class="absolute bg-black/50 top-0 left-0 h-full w-full"/>
+    <div @click="$emit('closeDishModal')" class="absolute bg-black/50 top-0 left-0 h-full w-full"/>
     <aside
       class="fixed place-self-center w-screen sm:w-3/4 lg:w-1/2 max-w-2xl h-full sm:h-3/4 bg-white overflow-hidden rounded flex flex-col p-4 pt-12 sm:py-0 sm:px-0"
     >
       <div scrollable @scroll="dishScrolled" class="w-full grow overflow-auto pb-16">
         <div class="w-full h-60 sm:w-full sm:h-3/5 flex justify-end rounded bg-center bg-cover" :style="`background-image: url(${dish.image[0].url})`">
           <Close
-            @click="$emit('closePopUp')"
+            @click="$emit('closeDishModal')"
             class="h-10 absolute sm:sticky top-0 right-0 cursor-pointer"
             :style="`fill: ${restaurant.colorSecondary}`"
           />
@@ -67,7 +67,7 @@
             <button @click="counter++" class="text-2xl py-1.5">+</button>
           </div>
           <button
-            @click="basketStore.addToBasket(dish, counter, picked);$emit('closePopUp');"
+            @click="basketStore.addToBasket(dish, counter, picked);$emit('closeDishModal');"
             class="p-1.5 rounded w-40 text-white duration-200 hover:opacity-75"
             :class="[ scrolledBottom ? 'shadow-card' : 'shadow-button']"
             :style="`background: ${restaurant.colorSecondary}`"
@@ -89,7 +89,7 @@ const props = defineProps({
   dish: Object,
   restaurant: Object,
 });
-const emits = defineEmits(["closePopUp"]);
+const emits = defineEmits(["closeDishModal"]);
 
 const counter = ref(1);
 const picked = ref('')

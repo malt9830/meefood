@@ -29,7 +29,7 @@
       <div class="col-span-6 md:col-span-4 border-t border-r-gray-300 border-r-0 md:border-r">
         <div class="relative flex flex-col gap-y-5">
           <div class="h-28 w-full" v-for="n in 5" :key="n">
-            <SingleItemPlaceholder class="p-4" primaryColor="white" textColor="black" />
+            <DishPlaceholder class="p-4" primaryColor="white" textColor="black" />
           </div>
         </div>
       </div>

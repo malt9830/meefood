@@ -155,26 +155,16 @@
             </div>
           </div>
 
-          <div v-if="search === ''">
+          <div>
             <Category
               v-for="category in categories"
               :key="category"
               :category="category"
               :restaurant="restaurant"
-              :menu="menu"
-              :search="search"
-              :searchResult="searchResult"
+              :filteredMenu="filteredMenu"
               :menuLoaded="menuLoaded"
               :textColor="textColor"
               :primaryColor="restaurant.colorPrimary"
-            />
-          </div>
-          <div v-if="search !== ''">
-            <SearchResult
-              :restaurant="restaurant"
-              :menuLoaded="menuLoaded"
-              :search="search"
-              :searchResult="searchResult"
             />
           </div>
         </div>
@@ -186,7 +176,7 @@
         </div>
         <Teleport to="body">
           <Transition name="slide" :duration="300">
-              <Info
+              <InfoModal
                 v-if="showInfo"
                 :restaurant="restaurant"
                 @closeInfo="showInfo = false"
@@ -230,19 +220,19 @@ const closingTime = computed(() => {
   return restaurant.value[days[date.getDay()]].slice(8)
 })
 
-const categories = computed(() => {
-  const restaurantCategories = [];
-
-  menu.value.forEach((dish) => {
-    if (!restaurantCategories.includes(dish.category)) {
-      restaurantCategories.push(dish.category);
-    }
-  });
-  return restaurantCategories;
+const filteredMenu = computed(() => {
+  return menu.value.filter((dish) => dish.name.toLowerCase().includes(search.value.toLowerCase()));
 });
 
-const searchResult = computed(() => {
-  return menu.value.filter((dish) => dish.name.toLowerCase().includes(search.value));
+const categories = computed(() => {
+  const categories = [];
+
+  filteredMenu.value.forEach((dish) => {
+    if (!categories.includes(dish.category)) {
+      categories.push(dish.category);
+    }
+  });
+  return categories;
 });
 
 const textColor = computed(() => {
