@@ -135,7 +135,7 @@
         </div>
         <div
           :style="`border-top: solid 1px ${restaurant.colorSecondary}; border-right-color: ${restaurant.colorSecondary}`"
-          class="grow border-r-0 md:border-r"
+          class="grow w-full border-r-0 md:border-r"
         >
 
           <div v-if="mobile || tablet" :style="`background-color:${restaurant.colorPrimary}`" class="sticky -top-1 w-full flex p-4 pt-3 pb-2 overflow-auto whitespace-nowrap text-white">

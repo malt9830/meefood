@@ -5,7 +5,7 @@
         <aside class="w-full z-10 bg-white flex flex-col p-4 rounded-t-2xl shadow-top">
           <p class="text-2xl text-gray-500 font-semibold">Søg efter steder</p>
           <fieldset class="mt-4 border-2 border-gray-500 rounded-xl">
-            <input v-model="restaurantSearch" placeholder="Indtast restaurantnavn" class="bg-transparent px-4 py-2 rounded-xl focus:outline-none">
+            <input v-model="restaurantSearch" placeholder="Indtast restaurantnavn" class="bg-transparent w-full px-4 py-2 rounded-xl focus:outline-none">
           </fieldset>
           <button @click="resetSearch" class="w-full bg-emerald-200 text-emerald-900 font-semibold rounded-xl mt-4 py-4 transform duration-200 hover:bg-emerald-100 active:scale-95">Ryd søgning</button>
           <button @click="startSearch" class="w-full bg-emerald-500 text-white font-semibold rounded-xl mt-4 py-4 transform duration-200 hover:bg-emerald-600 active:scale-95">Find restauranter</button>
