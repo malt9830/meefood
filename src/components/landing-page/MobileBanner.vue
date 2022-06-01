@@ -9,7 +9,7 @@
 				<div>
 					<p class="text-3xl font-semibold">Download vores app</p>
 					<p class="mt-2">Få det hele er lige ved hånden - de restauranter og den mad, du elsker. Find det mad der passer til dit humør, og få den første bid til at vare ved. Download os.</p>
-					<div class="flex gap-2 mt-4">
+					<div class="flex flex-wrap gap-2 mt-4">
 						<img class="h-10" src="/src/assets/download-app/app-store-badge.svg" alt="download app icon for Apple App Store"/>
 						<img class="h-10" src="/src/assets/download-app/google-play-badge.svg" alt="download app icon for Google Play Store"/>
 					</div>

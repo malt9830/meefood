@@ -11,7 +11,7 @@
           <div class="grid w-20 aspect-square bg-white border border-emerald-500 rounded-full overflow-hidden">
             <img class="w-full min-w-full place-self-center p-2" :src="restaurant.logo[0].url" :alt="`logo of ${restaurant.slogan} - ${restaurant.slogan}`">
           </div>
-          <p class="text-2xl font-semibold text-white whitespace-nowrap px-2 pb-2 self-center">{{ restaurant.name }}</p>
+          <p class="text-2xl font-semibold text-white px-2 pb-2 self-center">{{ restaurant.name }}</p>
         </div>
       </div>
       <div class="px-4 pb-2 pt-1">

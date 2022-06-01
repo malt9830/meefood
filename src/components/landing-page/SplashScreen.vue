@@ -5,7 +5,7 @@
 				<AnimatedSlogan />
 				<fieldset class="flex gap-2 max-w-xl rounded bg-white border-2 border-white group">
 					<Pin @click="locationStore.getLocation" class="fill-gray-500 py-2 ml-2 h-10 group-focus-within:animate-twirl cursor-pointer" />
-					<input v-model="address" class="grow py-2 text-gray-700 rounded-xl focus:outline-none" placeholder="Indtast din adresse" />
+					<input v-model="address" class="grow w-full py-2 text-gray-700 rounded-xl focus:outline-none" placeholder="Indtast din adresse" />
 					<button @click="findRestaurants" class="inline-block text-center bg-emerald-500 text-white hover:bg-emerald-600 py-1 m-0.5 px-3 rounded duration-200">Søg</button>
 				</fieldset>
 			</div>
