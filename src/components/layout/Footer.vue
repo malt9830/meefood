@@ -7,12 +7,12 @@
         	<RouterLink to="/" aria-label="Til forsiden"><Logo class="w-40 mx-auto"/></RouterLink>
 				</div>
 				<div class="flex space-x-4 justify-center pb-12">
-					<p>
+					<a href="https://www.facebook.com/meeshop.dk" target="_blank" rel="noreferrer noopener nofollow" aria-label="Til Meeshops Facebook">
 						<svg class="h-10 w-auto" xmlns="http://www.w3.org/2000/svg" width="56.382" height="56.382" viewBox="0 0 56.382 56.382">
 							<path id="Icon_awesome-facebook-square" data-name="Icon awesome-facebook-square" d="M50.341,2.25H6.041A6.041,6.041,0,0,0,0,8.291v44.3a6.041,6.041,0,0,0,6.041,6.041H23.314V39.463H15.385V30.441h7.929V23.564c0-7.822,4.657-12.142,11.789-12.142a48.033,48.033,0,0,1,6.987.609v7.677H38.154c-3.877,0-5.087,2.406-5.087,4.874v5.858h8.656l-1.384,9.022H33.068V58.632H50.341a6.041,6.041,0,0,0,6.041-6.041V8.291A6.041,6.041,0,0,0,50.341,2.25Z" transform="translate(0 -2.25)" fill="#fff" />
 						</svg>
-					</p>
-					<p>
+					</a>
+					<a href="https://www.instagram.com/meeshop.dk/?hl=en" target="_blank" rel="noreferrer noopener nofollow" aria-label="Til Meeshops Instagram">
 						<svg class="h-10 w-auto" xmlns="http://www.w3.org/2000/svg" width="56.394" height="56.381" viewBox="0 0 56.394 56.381">
 							<path
 								id="Icon_awesome-instagram"
@@ -22,24 +22,22 @@
 								fill="#fff"
 							/>
 						</svg>
-					</p>
-					<p>
+					</a>
+					<a href="https://www.linkedin.com/company/meeshop/" target="_blank" rel="noreferrer noopener nofollow" aria-label="Til Meeshops LinkedIn">
 						<svg class="h-10 w-auto" xmlns="http://www.w3.org/2000/svg" width="56.382" height="56.382" viewBox="0 0 56.382 56.382">
 							<path id="Icon_awesome-linkedin" data-name="Icon awesome-linkedin" d="M52.354,2.25H4.015A4.045,4.045,0,0,0,0,6.315V54.567a4.045,4.045,0,0,0,4.015,4.065h48.34a4.055,4.055,0,0,0,4.027-4.065V6.315A4.055,4.055,0,0,0,52.354,2.25ZM17.04,50.577H8.684V23.67h8.369V50.577ZM12.862,20a4.845,4.845,0,1,1,4.845-4.845A4.847,4.847,0,0,1,12.862,20Zm35.5,30.582H40.008V37.489c0-3.121-.063-7.136-4.342-7.136-4.354,0-5.021,3.4-5.021,6.909V50.577H22.288V23.67h8.017v3.675h.113A8.8,8.8,0,0,1,38.334,23c8.457,0,10.03,5.575,10.03,12.824Z" transform="translate(0 -2.25)" fill="#fff" />
 						</svg>
-					</p>
+					</a>
 				</div>
 			</div>
-
 				<div class="text-white">
 					<div class="pb-6">
 						<p class="font-bold">Telefon</p>
-						<p>71 99 19 01</p>
+						<a href="tel:+4571991901" class="underline underline-offset-2">71 99 19 01</a>
 						<p>Man - fredag 09:00 - 16:00</p>
 					</div>
-
 					<p class="font-bold">Email</p>
-					<p class="pb-6">Kontakt@meeshop.dk</p>
+					<a href="mailto:kontakt@meeshop.dk" class="pb-6 underline underline-offset-2">kontakt@meeshop.dk</a>
 				</div>
 				<div class="text-white">
 					<div class="pb-6">
