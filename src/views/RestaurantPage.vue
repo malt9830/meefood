@@ -145,14 +145,14 @@
           </div>
 
           <div class="flex gap-x-5 m-4">
-            <div class="flex items-center">
+            <fieldset class="flex items-center">
               <Vegetarian :fill="`${restaurant.colorSecondary}`" height="40" />
               <p>vegetar</p>
-            </div>
-            <div class="flex items-center">
+            </fieldset>
+            <fieldset class="flex items-center">
               <Vegan :fill="`${restaurant.colorSecondary}`" height="40" />
               <p>vegansk</p>
-            </div>
+            </fieldset>
           </div>
 
           <div>
