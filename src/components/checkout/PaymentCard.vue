@@ -6,7 +6,7 @@
       @click="$emit('closePayment')"
       class="w-10 hover:opacity-75 m-4 cursor-pointer"
     />
-    <div class="w-full sm:grid sm:place-content-center">
+    <div class="w-full grow sm:grid sm:place-content-center">
       <div
         class="w-full max-w-xl mx-auto bg-emerald-100 sm:h-fit sm:bg-gradient-to-b sm:from-emerald-500 sm:to-emerald-300 sm:rounded-2xl sm:py-4"
       >
