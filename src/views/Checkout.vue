@@ -208,8 +208,8 @@
         </div>
 
         <div class="md:ml-20 flex flex-wrap justify-center gap-4 px-2">
-          <button @click="router.back()" :style="`color: ${restaurant.colorSecondary}; border: 1px solid ${restaurant.colorSecondary}`" class="rounded py-2 px-4 bg-white hover:opacity-75 self-center duration-200">Tilbage til menuen</button>
-          <button @click="validateForm" :style="`background-color: ${restaurant.colorSecondary}`" class="rounded py-2 px-4 text-white hover:opacity-75 self-center duration-200">Fortsæt til betaling</button>
+          <button @click="router.back()" :style="`color: ${restaurant.colorSecondary}; border: 1px solid ${restaurant.colorSecondary}`" class="w-full max-w-sm sm:w-auto rounded py-2 px-4 bg-white hover:opacity-75 self-center duration-200">Tilbage til menuen</button>
+          <button @click="validateForm" :style="`background-color: ${restaurant.colorSecondary}`" class="w-full max-w-sm sm:w-auto rounded py-2 px-4 text-white hover:opacity-75 self-center duration-200">Fortsæt til betaling</button>
         </div>
     </div>
     
