@@ -11,7 +11,7 @@ export const useLocationStore = defineStore("location", {
     getLocation() {
       // Adjust securement in Google API before building
       // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      const key = "AIzaSyDkTlYsFLGYBZLggJBXm2ioiiinqj3Odt4";
+      const key = "";
       // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
       // Get coordinates of current location
