@@ -16,8 +16,8 @@
               <!-- <p v-if="!dish.comment && !dish.options" class="text-emerald-500 underline underline-offset-1">Tilføj note</p> -->
               <p class="text-xs" v-if="dish.options">{{dish.picked}}</p>
               <div class="flex items-center ml-auto">
-                <Minus @click="store.subtractAmount(dish)" class="h-6 fill-emerald-500"/>
-                <Plus @click="store.addAmount(dish)" class="h-6 fill-emerald-500"/>
+                <Minus @click="store.subtractAmount(dish)" class="h-6 fill-emerald-500 cursor-pointer"/>
+                <Plus @click="store.addAmount(dish)" class="h-6 fill-emerald-500 cursor-pointer"/>
               </div>
             </div>
           </div>

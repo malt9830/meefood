@@ -41,14 +41,15 @@
             <label for="cardNumber" class="text-black sm:text-white">Kortnummer</label>
             <input
               v-model="cardNumber"
-              @keydown="formatNumber($event)"
               id="number"
               :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-200' : formSubmitted }"
               class="peer p-1.5 border-2 rounded focus:outline-none text-gray-600"
               type="text"
+              inputmode="numeric"
               number="cardNumber"
               placeholder="XXXX XXXX XXXX XXXX"
               pattern="([0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4})"
+              maxlength="19"
               required
             />
           </div>
@@ -59,14 +60,15 @@
                 <label for="expiryMonth" class="text-black sm:text-white">Udløbdato</label>
                 <input
                   v-model="expiryMonth"
-                  @keydown="formatMonth"
                   id="month"
                   :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-200' : formSubmitted }"
                   class="peer p-1.5 border-2 rounded focus:outline-none text-gray-600"
-                  type="number"
+                  type="text"
+                  inputmode="numeric"
                   name="expiryMonth"
                   placeholder="MM"
-                  pattern="[0-9]{2}"
+                  pattern="(0[1-9]|1[0-2])"
+                  maxlength="2"
                   required
                 />
               </div>
@@ -74,14 +76,14 @@
                 <label for="expiryYear" class="invisible"> . </label>
                 <input
                   v-model="expiryYear"
-                  @keydown="formatYear"
                   id="year"
                   :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-200' : formSubmitted }"
                   class="peer p-1.5 border-2 rounded focus:outline-none text-gray-600"
-                  type="number"
+                  type="text"
+                  inputmode="numeric"
                   name="expiryYear"
                   placeholder="YY"
-                  pattern="[0-9]{2}"
+                  pattern="(2[2-7])"
                   maxlength="2"
                   required
                 />
@@ -95,7 +97,8 @@
                 id="code"
                 :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-200' : formSubmitted }"
                 class="peer p-1.5 border-2 rounded focus:outline-none text-gray-600"
-                type="number"
+                type="text"
+                inputmode="numeric"
                 name="securityCode"
                 placeholder="XXX"
                 pattern="[0-9]{3}"
@@ -129,6 +132,7 @@ const emits = defineEmits(['closePayment'])
 
 const formSubmitted = ref(false)
 const paymentValid = ref(false);
+
 const nameOnCard = ref("");
 const cardNumber = ref("");
 const expiryMonth = ref("");
@@ -142,27 +146,23 @@ function validateForm () {
   if (paymentValid.value) localStorage.setItem(`basket-${props.restaurant.slug}`, '[]')
 }
 
-function formatNumber(e) {
-  e.target.value = e.target.value
-    .replace(/[^\dA-Z]/g, "")
-    .replace(/(.{4})/g, "$1 ")
-    .trim();
-}
+// Reformat card number
+watch(cardNumber, (value) => {
+  cardNumber.value = value.replace(/[^\dA-Z]/g, "").replace(/(.{4})/g, "$1 ").trim();
+  if (cardNumber.value.length === 19) document.querySelector('#month').focus()
+})
 
-function formatMonth() {
-  if (expiryMonth.value > 1 && expiryMonth.value.length == 1) {
-    expiryMonth.value = `0${expiryMonth.value}`;
-    document.querySelector("#year").focus();
-  } else if (expiryMonth.value.length == 2 && expiryMonth.value[1] <= 2) {
-    document.querySelector("#year").focus();
-  } 
-}
+// Reformat expiry month
+watch(expiryMonth, (value) => {
+  expiryMonth.value = value.replace(/[^\dA-Z]/g, "").trim();
+  if (expiryMonth.value.length === 2) document.querySelector('#year').focus()
+})
 
-function formatYear() {
-  if (expiryYear.value.length == 2) {
-    document.querySelector("#code").focus();
-  }
-}
+// Reformat expiry year
+watch(expiryYear, (value) => {
+  expiryYear.value = value.replace(/[^\dA-Z]/g, "").trim();
+  if (expiryYear.value.length === 2) document.querySelector('#code').focus()
+})
 
 onMounted(() => window.scrollTo({top: 0}))
 </script>
@@ -174,5 +174,11 @@ input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none; 
+}
+
+input {
+    -webkit-appearance: number;
+    -moz-appearance: number;
+    appearance: number; 
 }
 </style>

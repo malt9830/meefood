@@ -121,7 +121,7 @@
               <input
                 v-model="search"
                 class="w-5/6 h-8 outline-none focus:outline-none p-1 text-gray-500 text-xs md:text-sm"
-                placeholder="Søg en ret"
+                placeholder="Find en ret"
               />
             </div>
             <div

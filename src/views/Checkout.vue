@@ -147,7 +147,6 @@
                       required
                       
                       maxlength="11"
-                      @keydown="formatPhoneNumber($event)"
                     />
                   </div>
 
@@ -254,15 +253,10 @@ const deliveryHours = computed(() => {
   let hour = date.getHours()
   let min = (date.getMinutes() + (15 - ( date.getMinutes() % 15)))
 
-  // If prior to opening hours set to opening hour
-  if (hour < parseInt(openingHours.value.slice(0, 2))) {
+  // If prior to opening hours or tomorrow delivery set to opening hour
+  if (hour < parseInt(openingHours.value.slice(0, 2)) || deliveryDay.value === 'I morgen') {
     hour = parseInt(openingHours.value.slice(0, 2))
     min = parseInt(openingHours.value.slice(3, 5))
-  }
-
-    if (deliveryDay.value === 'I morgen') {
-      console.log("test")
-    hour = parseInt(openingHours.value.slice(0, 2));
   }
 
   while (hour < parseInt(openingHours.value.slice(8, 10))) {
@@ -277,7 +271,9 @@ const deliveryHours = computed(() => {
       min = 0
 
       // Add time
-      if (hour === parseInt(openingHours.value.slice(8, 10)) && min === parseInt(openingHours.value.slice(11, 13))) {delHours.push(`${hour}`.padStart(2, '0') + ':' + `${min}`.padEnd(2, '0'))}
+      if (hour === parseInt(openingHours.value.slice(8, 10)) && min === parseInt(openingHours.value.slice(11, 13))) {
+        delHours.push(`${hour}`.padStart(2, '0') + ':' + `${min}`.padEnd(2, '0'))
+      }
     }
   }
   return delHours
@@ -292,12 +288,6 @@ const zip = ref("")
 const email = ref("")
 const phone = ref("")
 
-function formatPhoneNumber(e) {
-  e.target.value = e.target.value
-    .replace(/[^\dA-Z]/g, "")
-    .replace(/(.{2})/g, "$1 ")
-    .trim();
-}
 
 function validateForm () {
   if (deliveryMethod.value === "levering") {
@@ -307,6 +297,11 @@ function validateForm () {
     formValid.value = true
   }
 }
+
+// Reformat phone number value
+watch(phone, (value) => {
+  phone.value = value.replace(/[^\dA-Z]/g, "").replace(/(.{2})/g, "$1 ").trim();
+})
 
 // Prevent scrolling body when a modal is open
 watch(formValid, (modal) => {

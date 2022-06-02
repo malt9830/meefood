@@ -4,9 +4,9 @@
   >
     <div @click="$emit('closeDishModal')" class="absolute bg-black/50 top-0 left-0 h-full w-full"/>
     <aside
-      class="fixed place-self-center w-screen sm:w-3/4 lg:w-1/2 max-w-2xl h-full sm:h-3/4 bg-white overflow-hidden rounded flex flex-col p-4 pt-12 sm:py-0 sm:px-0"
+      class="fixed place-self-center w-screen sm:w-3/4 lg:w-1/2 max-w-2xl h-full sm:h-3/5 bg-white overflow-hidden rounded flex flex-col p-4 pt-12 sm:py-0 sm:px-0"
     >
-      <div scrollable @scroll="dishScrolled" class="w-full grow overflow-auto pb-16">
+      <div scrollable @scroll="dishScrolled" class="w-full grow overflow-auto pb-20">
         <div class="w-full h-60 sm:w-full sm:h-3/5 flex justify-end rounded bg-center bg-cover" :style="`background-image: url(${dish.image[0].url})`">
           <Close
             @click="$emit('closeDishModal')"

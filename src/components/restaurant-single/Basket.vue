@@ -47,12 +47,14 @@
       <p>{{ store.totalPrice + restaurant.deliveryCost }} kr</p>
     </div>
     <div class="flex justify-center mt-5">
-    <RouterLink :class="{'pointer-events-none opacity-50' : !store.reachedMinimumPrice}"  :to="`/checkout/${restaurant.slug}`"><button
-      :style="`background-color: ${restaurant.colorSecondary}`"
-      class="p-1.5 px-4 rounded text-white duration-200 hover:opacity-75"
-    >
-      Gå til kassen
-    </button></RouterLink>
+      <button
+        @click="goToCheckout"
+        :style="`background-color: ${restaurant.colorSecondary}`"
+        :class="{'pointer-events-none opacity-50' : !store.reachedMinimumPrice}"
+        class="p-1.5 px-4 rounded text-white duration-200 hover:opacity-75"
+      >
+        Gå til kassen
+      </button>
   </div>
   <p v-if="!store.reachedMinimumPrice" class="text-xs text-center mt-5">Minimumspris: {{restaurant.minimumPrice}} kr.</p>
   </div>
@@ -63,14 +65,15 @@
 <script setup>
 import { useBasketStore } from "/src/stores/basketStore";
 
-const store = useBasketStore();
-
-
-
-
+const router = useRouter()
+const store = useBasketStore()
 const props = defineProps({
   restaurant: Object,
   counter: Number,
   picked: String,
 });
+
+function goToCheckout () {
+  if (store.reachedMinimumPrice) router.push({path: `/checkout/${props.restaurant.slug}`})
+}
 </script>
