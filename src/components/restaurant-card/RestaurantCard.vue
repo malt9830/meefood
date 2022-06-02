@@ -1,7 +1,7 @@
 <template>
   <article class="relative">
     <RestaurantCardPlaceholder v-if="showRestaurantCardPlaceholder" />
-    <RouterLink :to="`/restaurant/${restaurant.slug}`" :aria-label="`Til restaurant ${restaurant.name}`" :class="[ showRestaurantCardPlaceholder ? 'pointer-events-none' : 'pointer-events-auto']" class="bg-white h-full block cursor-pointer rounded-xl shadow-card group transform hover:scale-[103%] duration-200">
+    <RouterLink :to="`/restaurant/${restaurant.slug}`" :aria-label="`Til restaurant ${restaurant.name}`" :class="[ showRestaurantCardPlaceholder ? 'pointer-events-none opacity-0' : 'pointer-events-auto opacity-100']" class="bg-white h-full block cursor-pointer rounded-xl shadow-card group transform hover:scale-[103%] duration-200">
       <div class="relative flex flex-col w-full h-40 rounded-t-xl">
         <div class="absolute flex h-full w-full rounded-t-xl overflow-hidden">
           <img class="absolute w-full h-auto place-self-center object-cover -z-10 transform scale-110 group-hover:scale-100 duration-200" :src="restaurant.splash[0].url" :alt="`${restaurant.name} splash image`">

@@ -49,6 +49,8 @@ const isMobile = ref(false)
 
 const address = ref('')
 
+watch(routeName, () => {showAddressMenu.value = false})
+
 // Prevent scrolling body when a modal is open
 watch(showAddressMenu, (modal) => {document.querySelector("body").style = (modal ? 'overflow: hidden; padding-right: 1rem' : 'overflow: auto')})
 

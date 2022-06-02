@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute z-10 w-full h-full bg-white rounded-xl shadow-card overflow-hidden">
+  <div class="absolute w-full h-full bg-white rounded-xl shadow-card overflow-hidden">
     <div>
       <div class="relative flex flex-col w-full h-40 rounded-t-xl">
         <div class="absolute flex h-full w-full rounded-t-xl overflow-hidden">
