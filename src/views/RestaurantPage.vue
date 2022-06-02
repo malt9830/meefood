@@ -274,7 +274,7 @@ basketStore.$subscribe((mutation, state) => {
 })  
 
 // Update search value when changed in mobile menu
-searchStore.$subscribe(() => search.value = searchStore.dish)
+searchStore.$subscribe(() => search.value = searchStore.searchValue)
 
 onMounted(() => {
   // Clear search on mounted

@@ -33,6 +33,7 @@
     <Transition name="fade" :duration="300">
       <div v-if="showingModal" @mousedown="hideModals" class="fixed top-0 left-0 z-30 h-screen w-screen cursor-pointer bg-black opacity-50"/>
     </Transition>
+    <MobileUserModal :showUser="showUser" @closeUser="showUser = false"/>
     <MobileFilterModal :showFilter="showFilter" @closeFilter="showFilter = false"/>
     <MobileBasketModal :showBasket="showBasket" @closeBasket="showBasket = false"/>
     <MobileLocationModal :showLocation="showLocation" @closeLocation="showLocation = false"/>

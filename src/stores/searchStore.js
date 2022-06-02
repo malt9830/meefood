@@ -3,12 +3,12 @@ import { defineStore } from "pinia";
 export const useSearchStore = defineStore({
   id: "search",
   state: () => ({
-    dish: "",
+    searchValue: "",
   }),
   getters: {},
   actions: {
     startSearch(input) {
-      this.dish = input;
+      this.searchValue = input;
     },
   },
 });
