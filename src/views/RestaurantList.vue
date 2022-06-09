@@ -2,7 +2,10 @@
   <main class="max-w-7xl mx-auto pt-24 pb-8 px-4">
     <div class="flex flex-row justify-between">
       <h2 class="text-3xl text-gray-800 font-semibold">Restauranter</h2>
-      <FilterCircle @click="showFilter = !showFilter" class="hidden md:block w-8 h-auto cursor-pointer transform hover:scale-110 duration-200"/>
+      <div @click="showFilter = !showFilter" class="hidden sm:flex p-1 gap-3 items-center rounded-full cursor-pointer group">
+        <p class="text-md text-gray-500 pl-2 leading-none">Viser: <span class="font-semibold text-gray-800">{{ filterStore.activeSorting }}</span></p>
+        <FilterCircle class="w-8 h-auto transform group-hover:scale-110 duration-200"/>
+      </div>
     </div>
     <div v-if="restaurantLoaded && filteredRestaurants.length === 0" class="mt-2">
       <p>Der kunne ikke findes nogen restauranter for '{{ filterStore.activeSearch }}'.</p>

@@ -6,7 +6,7 @@
           <div v-if="routeName !== 'home' && !isMobile" @click="showAddressMenu = !showAddressMenu; address = ''" class="mx-2 max-w-sm bg-white/70 text-black grow place-self-center rounded-xl cursor-pointer">
             <form class="grow flex flex-row gap-2">
               <Pin class="py-2 ml-2 fill-gray-500 cursor-pointer" />
-              <p class="grow bg-transparent p-1 flex items-center whitespace-nowrap">{{ locationStore.address }}<span v-if="locationStore.address === ''" class="text-gray-500">Hvor skal maden leveres?</span></p>
+              <p class="grow bg-transparent p-1 flex items-center leading-none whitespace-nowrap">{{ locationStore.address }}<span v-if="locationStore.address === ''" class="text-gray-500">Hvor skal maden leveres?</span></p>
             </form>
           </div>
           <div v-if="!isMobile" class="flex flex-row gap-4 items-center">
