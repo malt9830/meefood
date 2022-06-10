@@ -11,7 +11,7 @@
           </div>
           <div v-if="!isMobile" class="flex flex-row gap-4 items-center">
             <RouterLink to="/restaurants" class="font-[500] tracking-wide duration-200 hover:opacity-75">Restauranter</RouterLink>
-            <RouterLink to="/" class="font-semibold tracking-wide px-2 py-1 border border-white rounded duration-200 hover:bg-white hover:text-black">Log ind</RouterLink>
+            <div @click="logIn = true" class="font-semibold tracking-wide px-2 py-1 border border-white rounded duration-200 hover:bg-white hover:text-black">Log ind</div>
           </div>
         </nav>
     </div>
@@ -28,6 +28,9 @@
     </Transition>
     <Teleport to="body">
       <div v-if="showAddressMenu" @click="showAddressMenu = false" class="fixed top-0 left-0 h-screen w-screen bg-black/50" />
+    </Teleport>
+    <Teleport to="body">
+      <LogIn v-if="logIn === true"/>
     </Teleport>
   </header>
 </template>
@@ -48,6 +51,8 @@ const showAddressMenu = ref(false)
 const isMobile = ref(false)
 
 const address = ref('')
+
+const logIn = ref(false);
 
 watch(routeName, () => {showAddressMenu.value = false})
 
