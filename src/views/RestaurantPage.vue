@@ -172,7 +172,7 @@
           class="flex flex-col w-full max-w-[15rem]"
           :style="`border-top: solid 1px ${restaurant.colorSecondary}`"
         >
-          <Basket :restaurant="restaurant" :restaurantLoaded="restaurantLoaded" />
+          <Basket :restaurant="restaurant" :textColor="textColor"/>
         </div>
         <Teleport to="body">
           <Transition name="slide" :duration="300">
@@ -260,10 +260,6 @@ watch(restaurantLoaded, () => {
   // Load basket when restaurant is restaurantLoaded
   basketStore.$patch((state) => {
     state.basket = (JSON.parse(localStorage.getItem(`basket-${restaurant.value.slug}`)) || [])
-  })
-
-  // Set minimum price
-  basketStore.$patch((state) => {
     state.minimumPrice = restaurant.value.minimumPrice
   })
 })

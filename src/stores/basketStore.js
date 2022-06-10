@@ -4,6 +4,7 @@ export const useBasketStore = defineStore({
   id: "basket",
   state: () => ({
     basket: [],
+    comment: "",
     minimumPrice: 0,
   }),
   getters: {

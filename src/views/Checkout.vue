@@ -2,7 +2,7 @@
   <main :class="textColor">
     <div
       v-if="!loaded"
-      class="h-[70vh] w-full bg-[url('./assets/splash-image.png')] bg-center bg-cover"
+      class="h-[70vh] w-full bg-[url('./assets/splash-image/splash-image.png')] bg-center bg-cover"
     ></div>
     <div v-if="loaded" :style="`background-color: ${restaurant.colorPrimary}`" class="pb-10">
       <div
@@ -17,10 +17,7 @@
         <div
           class="sm:ml-48 flex w-full flex-col items-center sm:items-start pt-24 sm:pt-0"
         >
-          <h1
-            v-if="loaded"
-            class="text-2xl sm:text-3xl font-semibold p-3 sm:p-5"
-          >
+          <h1 v-if="loaded" class="text-2xl sm:text-3xl font-semibold p-3 sm:p-5">
             {{ restaurant.name }}
           </h1>
         </div>
@@ -188,6 +185,11 @@
                   <p class="text-xs" v-if="dish.comment">"{{ dish.comment }}"</p>
                 </div>
               </div>
+              <hr :style="`border-color: ${restaurant.colorSecondary}`" />
+              <p>
+                <span class="font-semibold">Note: </span>
+                <span class="italic">{{ basketStore.comment }}</span>
+              </p>
               <hr :style="`border-color: ${restaurant.colorSecondary}`" />
               <div class="flex flex-col gap-y-4">
                 <div class="flex justify-between">
