@@ -10,8 +10,9 @@
             </form>
           </div>
           <div v-if="!isMobile" class="flex flex-row gap-4 items-center">
-            <RouterLink to="/restaurants" class="font-[500] tracking-wide duration-200 hover:opacity-75">Restauranter</RouterLink>
-            <div @click="logIn = true" class="font-semibold tracking-wide px-2 py-1 border border-white rounded duration-200 hover:bg-white hover:text-black">Log ind</div>
+            <RouterLink to="/restaurants" class="font-[500] tracking-wide duration-200 hover:opacity-75 cursor-pointer">Restauranter</RouterLink>
+             <button @click="signUp = true" class="font-medium tracking-wide px-2 py-1 rounded duration-200 hover:opacity-75">Opret konto</button>
+              <button @click="logIn = true" class="font-semibold tracking-wide px-2 py-1 border border-white rounded duration-200 hover:bg-white hover:text-black">Log ind</button>
           </div>
         </nav>
     </div>
@@ -30,7 +31,10 @@
       <div v-if="showAddressMenu" @click="showAddressMenu = false" class="fixed top-0 left-0 h-screen w-screen bg-black/50" />
     </Teleport>
     <Teleport to="body">
-      <LogIn v-if="logIn === true"/>
+      <LogIn v-if="logIn === true && isMobile === false" @closeLogIn="logIn = false"/>
+    </Teleport>
+     <Teleport to="body">
+      <SignUp v-if="signUp === true && isMobile === false" @closeSignUp="signUp = false"/>
     </Teleport>
   </header>
 </template>
@@ -52,7 +56,9 @@ const isMobile = ref(false)
 
 const address = ref('')
 
-const logIn = ref(false);
+const logIn = ref(false)
+
+const signUp = ref(false)
 
 watch(routeName, () => {showAddressMenu.value = false})
 

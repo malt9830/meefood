@@ -11,7 +11,7 @@
         class="relative h-16 bg-emerald-500 flex justify-center items-center"
       >
         <h1 class="text-white font-semibold text-xl">Log ind</h1>
-        <Close class="absolute right-0 w-10" fill="white" />
+        <Close  @click="$emit('closeLogIn')" class="absolute right-0 w-10 cursor-pointer" fill="white" />
       </div>
       <div class="flex flex-col my-5 gap-y-5 h-full justify-between">
         <div class="space-y-5">
@@ -23,7 +23,7 @@
               alt="google"
               class="h-8 absolute left-2"
             />
-            <p class="">Fortsæt med Google</p>
+            <p class="text-gray-800">Fortsæt med Google</p>
           </div>
           <div
             class="bg-blue-700 border border-gray-500 rounded max-w-2xl h-10 mx-5 p-2 flex relative items-center justify-center"
@@ -44,12 +44,12 @@
         </div>
         <form class="flex flex-col space-y-4">
           <fieldset class="flex flex-col mx-5">
-            <label for="email">E-mail adresse</label>
-            <input type="email" name="email" class="border p-1 rounded" />
+            <label class="text-gray-800" for="email">E-mail adresse</label>
+            <input type="email" name="email" class="border p-1.5 rounded text-gray-500 focus:outline-none" />
           </fieldset>
           <fieldset class="flex flex-col mx-5">
             <label for="password">Adgangskode</label>
-            <input type="password" name="password" class="border p-1 rounded" />
+            <input type="password" name="password" class="border p-1.5 rounded text-gray-500 focus:outline-none" />
             <p
               class="text-xs text-emerald-500 underline hover:text-emerald-700 duration-200 mt-2"
             >
