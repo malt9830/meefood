@@ -13,7 +13,7 @@
         <h1 class="text-white font-semibold text-xl">Opret konto</h1>
         <Close
           @click="$emit('closeSignUp')"
-          class="absolute right-0 w-10 cursor-pointer"
+          class="absolute right-2 w-10 cursor-pointer"
           fill="white"
         />
       </div>
@@ -48,15 +48,18 @@
             </p>
             <hr class="w-1/4" />
           </div>
-          <form class="flex flex-col space-y-4">
+          <form signup-form class="flex flex-col space-y-4">
             <fieldset class="flex flex-col mx-5">
-              <label class="text-gray-800" for="email">E-mail adresse</label>
+              <label class="text-gray-800" for="email">E-mail</label>
               <input
                 id="email"
                 v-model="email"
                 type="email"
                 name="email"
-                class="border p-1.5 rounded text-gray-500 focus:outline-none"
+                required
+                placeholder="Indtast e-mail"
+                :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-100' : formSubmitted }"
+                class="border p-1.5 rounded text-gray-800 focus:outline-none"
               />
             </fieldset>
             <fieldset class="flex flex-col mx-5">
@@ -66,7 +69,10 @@
                 v-model="password"
                 type="password"
                 name="password"
-                class="border p-1.5 rounded text-gray-500 focus:outline-none"
+                required
+                 placeholder="Indtast adgangskode"
+                :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-100' : formSubmitted }"
+                class="border p-1.5 rounded text-gray-800 focus:outline-none"
               />
             </fieldset>
             <button type="button"
@@ -79,16 +85,15 @@
         </div>
       </div>
     </aside>
-    <aside v-if="signedUp === true" class="fixed place-self-center w-screen sm:w-3/4 lg:w-1/2 max-w-2xl h-full sm:h-4/5 bg-white overflow-hidden rounded flex flex-col p-4 pt-12 sm:py-0 sm:px-0">
-      <div class="flex flex-col justify-center items-center my-10 mx-10 gap-y-10">
-        <h1 class="font-semibold text-2xl">Konto oprettet!</h1>
-         <img
-              src="/src/assets/login/mail.png"
-              alt="mail icon"
-              class=""
-            />
-        <p class="text-center">Bekræft din konto ved at klikke på linket, vi har sendt dig til {{email}}. </p>
-      </div>
+    <aside v-if="signedUp === true" class="fixed place-self-center w-screen sm:w-3/4 lg:w-1/2 max-w-2xl h-full sm:h-4/5 bg-white overflow-hidden rounded flex flex-col justify-between items-center gap-y-10 p-4 py-12 sm:px-0">
+        <h1 class="font-semibold text-2xl text-gray-800">Konto oprettet!</h1>
+          <Close
+          @click="$emit('closeSignUp')"
+          class="absolute top-2 right-2 w-10 cursor-pointer"
+          fill="#1F2937"
+        />
+         <Mail class="w-52"/>
+        <p class="px-10 text-center text-gray-800">Bekræft din konto ved at klikke på linket, vi har sendt dig til {{email}}. </p>
     </aside>
   </div>
 </template>
@@ -96,13 +101,13 @@
 <script setup>
 
 const signedUp = ref(false);
-const email = ref('');
-const password = ref('');
+const email = ref("");
+const password = ref("");
+const formSubmitted = ref(false);
 
 function checkInfo() {
-if (email.value !== '' && password.value !== '') {
-  signedUp.value = true
-}
+ signedUp.value = document.querySelector("[signup-form]").checkValidity();
+ formSubmitted.value = true;
 }
 
 </script>

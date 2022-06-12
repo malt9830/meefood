@@ -11,7 +11,11 @@
         class="relative h-16 bg-emerald-500 flex justify-center items-center"
       >
         <h1 class="text-white font-semibold text-xl">Log ind</h1>
-        <Close  @click="$emit('closeLogIn')" class="absolute right-0 w-10 cursor-pointer" fill="white" />
+        <Close
+          @click="$emit('closeLogIn')"
+          class="absolute right-0 w-10 cursor-pointer"
+          fill="white"
+        />
       </div>
       <div class="flex flex-col my-5 gap-y-5 h-full justify-between">
         <div class="space-y-5">
@@ -19,7 +23,7 @@
             class="bg-white border border-gray-500 rounded max-w-2xl h-10 mx-5 p-2 flex relative items-center justify-center"
           >
             <img
-              src="/src/assets/login-logos/google.png"
+              src="/src/assets/login/google.png"
               alt="google"
               class="h-8 absolute left-2"
             />
@@ -29,7 +33,7 @@
             class="bg-blue-700 border border-gray-500 rounded max-w-2xl h-10 mx-5 p-2 flex relative items-center justify-center"
           >
             <img
-              src="/src/assets/login-logos/facebook.png"
+              src="/src/assets/login/facebook.png"
               alt="facebook"
               class="h-8 absolute left-2"
             />
@@ -37,33 +41,72 @@
           </div>
         </div>
         <div>
-        <div class="flex justify-center items-center mb-7">
-          <hr class="w-1/4" />
-          <p class="px-4 text-sm text-gray-500">eller log ind med e-mail</p>
-          <hr class="w-1/4" />
-        </div>
-        <form class="flex flex-col space-y-4">
-          <fieldset class="flex flex-col mx-5">
-            <label class="text-gray-800" for="email">E-mail adresse</label>
-            <input type="email" name="email" class="border p-1.5 rounded text-gray-500 focus:outline-none" />
-          </fieldset>
-          <fieldset class="flex flex-col mx-5">
-            <label for="password">Adgangskode</label>
-            <input type="password" name="password" class="border p-1.5 rounded text-gray-500 focus:outline-none" />
-            <p
-              class="text-xs text-emerald-500 underline hover:text-emerald-700 duration-200 mt-2"
+          <div class="flex justify-center items-center mb-7">
+            <hr class="w-1/4" />
+            <p class="px-4 text-sm text-gray-500">eller log ind med e-mail</p>
+            <hr class="w-1/4" />
+          </div>
+          <form login-form class="flex flex-col space-y-4">
+            <fieldset class="flex flex-col mx-5">
+              <label class="text-gray-800" for="email">E-mail adresse</label>
+              <input
+                id="email"
+                v-model="email"
+                type="email"
+                name="email"
+                required
+                placeholder="Indtast e-mail"
+                :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-100' : formSubmitted }"
+                class="border p-1.5 rounded text-gray-800 focus:outline-none"
+              />
+            </fieldset>
+            <fieldset class="flex flex-col mx-5">
+              <label for="password">Adgangskode</label>
+              <input
+                id="password"
+                v-model="password"
+                type="password"
+                name="password"
+                required
+                placeholder="Indtast adgangskode"
+                :class="{ 'invalid:border-red-500 invalid:bg-red-100 valid:border-green-500 valid:bg-green-100' : formSubmitted }"
+                class="border p-1.5 rounded text-gray-800 focus:outline-none"
+              />
+              <p
+                class="text-xs text-emerald-500 underline hover:text-emerald-700 duration-200 mt-2"
+              >
+                Glemt adgangskode?
+              </p>
+            </fieldset>
+            <button
+              type="button"
+              @click="checkInfo"
+              class="w-fit self-center bg-emerald-500 p-1.5 rounded text-white px-5 font-semibold"
             >
-              Glemt adgangskode?
-            </p>
-          </fieldset>
-          <button
-            class="w-fit self-center bg-emerald-500 p-1.5 rounded text-white px-5 font-semibold"
-          >
-            Log ind
-          </button>
-        </form>
-      </div>
+              Log ind
+            </button>
+          </form>
+        </div>
       </div>
     </aside>
   </div>
 </template>
+
+<script setup>
+import { useUserStore } from "/src/stores/userStore";
+const userStore = useUserStore();
+
+const email = ref("");
+const password = ref("");
+const formSubmitted = ref(false);
+
+const emits = defineEmits(['closeLogIn'])
+
+function checkInfo() {
+  formSubmitted.value = true;
+  userStore.loggedIn = document.querySelector("[login-form]").checkValidity();
+  if (userStore.loggedIn === true) {
+  emits('closeLogIn')
+  }
+}
+</script>
